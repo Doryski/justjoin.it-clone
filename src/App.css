@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+::-webkit-scrollbar {
+    width: 10px;
+    margin: 10px 0;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.MuiDrawer-paperAnchorDockedRight {
+    border-left: 0px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+[type="file"] {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    overflow: hidden;
+    padding: 5px 10px;
+    position: absolute !important;
+    white-space: nowrap;
+    width: 1px;
+}
+
+[type="file"]+label {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(228, 232, 240);
+    border-radius: 4rem;
+    color: rgb(119, 119, 119);
+    cursor: pointer;
+    display: block;
+    padding: 5px 10px;
+    width: 150px;
+    margin: 5px 0;
+}
+
+[type="file"]:focus+label,
+[type="file"]+label:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+[type="file"]:focus+label {
+    background-color: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgb(228, 232, 240);
+}

@@ -1,0 +1,128 @@
+@keyframes marker_animation {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+#map {
+    height: 100%;
+}
+
+.marker {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    cursor: pointer;
+    background-size: contain;
+    z-index: 1;
+}
+
+.marker_span {
+    text-align: center;
+    background-color: rgb(255, 64, 129);
+    color: rgb(255, 255, 255);
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    margin-left: 23px;
+    margin-right: -13px;
+    margin-top: -1px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.active_marker {
+    z-index: 1300 !important;
+    animation: 0.8s ease-in-out 0s infinite normal none running marker_animation;
+}
+
+.zindex_high {
+    z-index: 1300 !important;
+}
+
+.tooltip_container {
+    display: inline;
+    text-align: center;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, .4);
+    border-radius: 12px;
+    width: 226px;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    left: -93px;
+    z-index: 999999;
+    transform: translateY(calc(-100% - 13px));
+}
+
+.tooltip_inner {
+    position: relative;
+}
+
+.tooltip_inner::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+}
+
+.tooltip_item_container {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    min-width: 180px;
+    padding: 10px 20px;
+    border-radius: 12px 12px;
+}
+
+.tooltip_item_container:hover {
+    background-color: rgb(238, 238, 238);
+    transition: background-color 300ms ease 0s;
+}
+
+.logo_wrapper {
+    margin-top: 10px;
+    width: 30%;
+    /* line-height: 1.4; */
+    box-sizing: border-box;
+}
+
+.logo {
+    max-height: 40px;
+    width: 40px;
+    position: relative;
+    padding: 5px;
+}
+
+.item_info_container {
+    max-width: 50%;
+    text-align: left;
+    min-width: 140px;
+    margin-left: 5px;
+    width: 70%;
+    padding: 6px;
+}
+
+.item_info_name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 125px;
+    display: block;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.item_info_salary {
+    color: rgb(76, 175, 80);
+    display: flex;
+}
