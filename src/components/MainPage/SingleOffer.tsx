@@ -18,6 +18,7 @@ import { initMapOptions } from '../../googleMapOptions'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { InitialStoreState } from '../../store/reducer'
 import _ from 'lodash'
+import { ActionYoutubeSearchedFor } from 'material-ui/svg-icons'
 
 export interface SingleOfferProps {
 	history: any
@@ -30,9 +31,7 @@ export interface SingleOfferProps {
 		params: any
 		loading: any
 		markers: any
-		allOffers: any
-		markerClass: any
-		offersList: any
+		allOffers: ActionYoutubeSearchedFor
 	}
 }
 
@@ -43,14 +42,7 @@ const SingleOffer = ({
 	setParams,
 	setGoogleMap,
 	setOffersList,
-	state: {
-		params,
-		loading,
-		markers,
-		allOffers,
-		markerClass,
-		offersList,
-	},
+	state: { params, loading, markers, allOffers },
 }: SingleOfferProps) => {
 	const { slug } = useParams()
 
@@ -91,7 +83,9 @@ const SingleOffer = ({
 			setMarkerClass(CustomMarker)
 			setOffersList(list)
 
-			if (offer) markers[offer.placeId].activeMarker()
+			if (offer) {
+				markers[offer.placeId].activeMarker()
+			}
 		}
 	}, [markers, loading])
 

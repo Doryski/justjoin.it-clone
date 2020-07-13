@@ -12,9 +12,13 @@ const Logo = ({ center }: { center?: any }) => {
 
 const Typography = styled.h2`
 	font-family: 'Roboto', sans-serif;
-	font-size: 30px;
+	font-size: 1.6rem;
 	color: ${({ theme }) => theme.colors.logo};
 	text-align: ${({ align }: { align: any }) => align && 'center'};
+	display: inline-block;
+	width: 120px;
+	float: left;
+	margin: auto 15px auto 25px;
 `
 
 export default Logo

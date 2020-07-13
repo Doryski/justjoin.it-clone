@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import CloseButton from './CloseButton'
 import Typography from '../../helpers/Typography'
 
-const Header = ({
+const DialogHeader = ({
 	children,
 	close,
 }: {
@@ -14,7 +14,6 @@ const Header = ({
 		<HeaderWrapper>
 			<Typography
 				color='text'
-				as='span'
 				fWeight='400'
 				fontSize='1.2rem'
 			>
@@ -30,11 +29,11 @@ const HeaderWrapper = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	padding: 20px;
-	border-bottom: 2px solid ${({ theme }) => theme.colors.secondary};
+	border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.s}) {
 		padding: 10px;
 	}
 `
 
-export default Header
+export default DialogHeader

@@ -2,47 +2,64 @@ import styled, { css } from 'styled-components'
 
 const Styled = styled.h4`
 	display: block;
-	${({ margin, align }: { margin: string; align: string }) => css`
+	${({
+		margin,
+		align,
+		padding,
+		minWidth,
+	}: {
+		margin: string
+		align: string
+		padding: string
+		minWidth: string
+	}) => css`
 		margin: ${margin || '0'};
 		text-align: ${align || 'center'};
+		padding: ${padding || '0'};
+		${minWidth && `min-width: ${minWidth}`};
 	`}
 `
 
-export default styled(Styled).attrs(({ as }: { as: string }) => ({
+const Typography = styled(Styled).attrs(({ as }: { as: string }) => ({
 	as: as ? as : 'span',
 }))`
 	${(props: any) => css`
 		font-weight: ${props.fWeight || '600'};
 		font-family: ${props.family || "'Open Sans', sans-serif"};
-		font-size: ${props.fontSize || '1rem'};
+		font-size: ${props.fontSize || '.875rem'};
 		${props.hide &&
 		`
         overflow: hidden;
-        text-overflow: ellipsis;
+		text-overflow: ellipsis;
 		`}
 	`}
-	${({ color, theme }: { color: string; theme: any }) => {
+	color: ${({ color, theme }: { color: string; theme: any }) => {
 		switch (color) {
 			case 'primary':
-				return 'color: ' + theme.colors.primary
+				return theme.colors.primary
 			case 'light':
-				return 'color: ' + theme.colors.light
+				return theme.colors.light
 			case 'textButton':
-				return 'color: ' + theme.colors.buttonText
+				return theme.colors.buttonText
 			case 'text':
-				return 'color: ' + theme.colors.text
+				return theme.colors.text
 			case 'pink':
-				return 'color: ' + theme.colors.pink
+				return theme.colors.pink
 			case 'title':
-				return 'color: ' + theme.colors.title
+				return theme.colors.title
 			case 'salary':
-				return 'color: ' + theme.colors.salary
+				return theme.colors.salary
 			case 'span':
-				return 'color: ' + theme.colors.span
+				return theme.colors.span
 			case 'white':
-				return 'color: ' + theme.colors.white
+				return theme.colors.white
 			case 'logo':
-				return 'color: ' + theme.colors.logo
+				return theme.colors.logo
 		}
 	}};
+	&:hover {
+		color: ${({ hoverColor }: { hoverColor: string }) => hoverColor};
+	}
 `
+
+export default Typography

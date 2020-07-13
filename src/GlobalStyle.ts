@@ -33,8 +33,12 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     line-height: 1.25;
   }
-  button{
+  button {
     cursor: pointer;
+  }
+
+  ul {
+    list-style: none;
   }
 `
 export default GlobalStyle

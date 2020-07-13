@@ -6,7 +6,7 @@ import CustomButton from './CustomButton'
 import { connect } from 'react-redux'
 import StyledLink from '../../helpers/StyledLink'
 import url from '../../helpers/urlFunc'
-import { techArray } from '../../helpers/Options'
+import { techArray } from '../../helpers/options'
 import { InitialStoreState } from '../../store/reducer'
 
 const getWidth = () =>
@@ -42,7 +42,7 @@ const TechFilters = ({ params }) => {
 				</AllIconContainer>
 			</StyledLink>
 			{techArray.map(tech => (
-				<TechIcon tech={tech} onclick={onClose} />
+				<TechIcon key={tech} tech={tech} onclick={onClose} />
 			))}
 		</Container>
 	)
@@ -51,7 +51,9 @@ const TechFilters = ({ params }) => {
 		<>
 			<ButtonWrapper>
 				<CustomButton
-					onclick={() => setDialogOpen(true)}
+					onclick={() => {
+						setDialogOpen(true)
+					}}
 					active={params.tech}
 					icon
 				>

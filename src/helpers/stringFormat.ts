@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
-export default (str: string) =>
-	_.camelCase(str)
+export default (string: string) =>
+	_.camelCase(string)
 		.toLocaleLowerCase()
 		.normalize('NFD')
 		.replace(/[\u0300-\u036f]/g, '')

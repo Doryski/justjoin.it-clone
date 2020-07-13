@@ -3,10 +3,11 @@ import styled from 'styled-components'
 import WbSunnyIcon from '@material-ui/icons/WbSunny'
 import NightsStayIcon from '@material-ui/icons/NightsStay'
 import Switch from '@material-ui/core/Switch'
-import { changeViewMode } from '../../store/actions'
+import { changeViewMode } from '../../../store/actions'
 import { connect } from 'react-redux'
-import Logo from '../shared/Logo'
-import { InitialStoreState } from '../../store/reducer'
+import Logo from '../Logo'
+import { InitialStoreState } from '../../../store/reducer'
+import SidebarList from './SidebarList'
 
 const SideBar = ({
 	darkMode,
@@ -20,9 +21,9 @@ const SideBar = ({
 			<LogoWrapper>
 				<Logo center />
 			</LogoWrapper>
-
+			<SidebarList />
 			<ToggleWrapper>
-				<MyWbSunnyIcon color='error' />
+				<MyWbSunnyIcon />
 				<Switch
 					checked={darkMode}
 					onChange={changeViewMode}
@@ -54,13 +55,12 @@ const LogoWrapper = styled.div`
 const ToggleWrapper = styled.div`
 	display: flex;
 	align-items: center;
-	margin: 15px 0;
 `
-const MyWbSunnyIcon = styled(WbSunnyIcon)({
-	color: 'rgb(158, 158, 158)',
-})
+const MyWbSunnyIcon = styled(WbSunnyIcon)`
+	color: rgba(0, 0, 0, 0.54);
+`
 const MyNightsStayIcon = styled(NightsStayIcon)`
-	color: rgb(158, 158, 158);
+	color: rgba(0, 0, 0, 0.54);
 `
 const mapStateToProps = ({ darkMode }: InitialStoreState) => ({
 	darkMode,

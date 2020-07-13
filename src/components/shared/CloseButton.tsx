@@ -13,9 +13,9 @@ const Container = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 30px;
-	height: 30px;
-	border: 1px solid ${({ theme }) => theme.colors.text};
+	width: 40px;
+	height: 40px;
+	border: 1px solid ${({ theme }) => theme.colors.buttonText};
 	border-radius: 50%;
 	cursor: pointer;
 	transition: all 0.3s;
@@ -25,6 +25,6 @@ const Container = styled.div`
 	}
 `
 const MyCloseIcon = styled(CloseIcon)`
-	color: ${({ theme }) => theme.colors.text};
+	color: ${({ theme }) => theme.colors.buttonText};
 `
 export default CloseButton

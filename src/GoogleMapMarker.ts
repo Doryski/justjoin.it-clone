@@ -1,16 +1,13 @@
 import techIcon from './helpers/techIconSwitch'
 import stringFormat from './helpers/stringFormat'
-import { latlngOptions } from './helpers/Options'
+import { latlngOptions } from './helpers/options'
 import './googleMap.css'
 import { baseURL } from './axios'
 
 const createHTMLMapMarker = (history: any) => {
 	function CustomMarker(item: any, map: any, initParams: any) {
-		this.latlng = new global.google.maps.LatLng(
-			item.lat,
-			item.lng
-		)
-		this.offers = item.offerts
+		this.latlng = new global.google.maps.LatLng(item.lat, item.lng)
+		this.offers = item.offers
 		this.setMap(map)
 		this.initParams = initParams
 		this.placeId = item.placeId
@@ -23,8 +20,9 @@ const createHTMLMapMarker = (history: any) => {
 	}
 
 	CustomMarker.prototype.activeMarker = (tech: any) => {
-		if (!this.pointer) this.withActiveMarker = true
-		else {
+		if (!this.pointer) {
+			this.withActiveMarker = true
+		} else {
 			this.pointer.classList.add('active_marker')
 			this.pointer.style.backgroundImage = `url(${techIcon(
 				tech
@@ -49,15 +47,16 @@ const createHTMLMapMarker = (history: any) => {
 		let vertical = 0
 		let horizontal = 0
 
-		if (mapRect.left + space - tooltipRect.left > 0)
+		if (mapRect.left + space - tooltipRect.left > 0) {
 			horizontal = mapRect.left + space - tooltipRect.left
+		}
 
-		if (mapRect.right - space - tooltipRect.right < 0)
+		if (mapRect.right - space - tooltipRect.right < 0) {
 			horizontal = mapRect.right - space - tooltipRect.right
-
-		if (mapRect.top + space - tooltipRect.top > 0)
+		}
+		if (mapRect.top + space - tooltipRect.top > 0) {
 			vertical = mapRect.top + space - tooltipRect.top
-
+		}
 		if (vertical + horizontal) {
 			let point = new global.google.maps.LatLng(
 				this.map.getCenter().lat(),
@@ -183,8 +182,9 @@ const createHTMLMapMarker = (history: any) => {
 			pointer.className = 'marker'
 			pointer.id = this.placeId
 
-			if (this.withActiveMarker)
+			if (this.withActiveMarker) {
 				pointer.classList.add('active_marker')
+			}
 
 			//tooltip
 			tooltip = this.tooltip = document.createElement('div')
@@ -239,8 +239,9 @@ const createHTMLMapMarker = (history: any) => {
 							true
 						)
 
-					if (!pointer.contains(e.target))
+					if (!pointer.contains(e.target)) {
 						tooltip.style.display = 'none'
+					}
 				}
 			}
 
@@ -250,9 +251,9 @@ const createHTMLMapMarker = (history: any) => {
 				'click',
 				(event: any) => {
 					if (this.currentLength > 1) {
-						if (tooltip.style.display === 'block')
+						if (tooltip.style.display === 'block') {
 							tooltip.style.display = 'none'
-						else {
+						} else {
 							tooltip.style.display = 'block'
 							this.onLabelActiveMapRemove()
 						}
@@ -264,8 +265,9 @@ const createHTMLMapMarker = (history: any) => {
 								clickHandler,
 								true
 							)
-					} else if (this.currentLength === 1)
+					} else if (this.currentLength === 1) {
 						this.urlPush(this.singleOfferSlug)
+					}
 
 					global.google.maps.event.trigger(self, 'click')
 				}
@@ -281,10 +283,7 @@ const createHTMLMapMarker = (history: any) => {
 						tooltip.classList.add('zindex_high')
 						pointer.classList.add('zindex_high')
 					}
-					global.google.maps.event.trigger(
-						self,
-						'mouseover'
-					)
+					global.google.maps.event.trigger(self, 'mouseover')
 				}
 			)
 

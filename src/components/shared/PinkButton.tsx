@@ -24,7 +24,7 @@ const Button = styled.button`
 	padding: 8px 18px;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 600;
-	font-size: 1rem;
+	font-size: 0.875rem;
 	margin: ${({ margin }: { margin: string }) => margin || '0 10px'};
 	transition: all 0.4s;
 	&:hover {

@@ -1,15 +1,22 @@
 import React, { useState } from 'react'
-import PinkButton from './PinkButton'
-import AddOfferModal from './AddOfferModal'
+import CustomButton from './CustomButton'
+import AddOfferModal from './AddOfferModal/DialogComponent'
 
 const AddOffer = () => {
 	const [dialogOpen, setDialogOpen] = useState(false)
 
 	return (
 		<>
-			<PinkButton onclick={() => setDialogOpen(true)}>
-				Add offer
-			</PinkButton>
+			<CustomButton
+				fWeight='400'
+				onclick={() => {
+					setDialogOpen(true)
+				}}
+				margin='0 12px 0 6px'
+				padding='8px 16px'
+			>
+				Post a job
+			</CustomButton>
 			<AddOfferModal
 				dialogOpen={dialogOpen}
 				setDialogOpen={setDialogOpen}

@@ -18,7 +18,9 @@ const SortFilter = ({ params }) => {
 		<>
 			<ButtonWrapper>
 				<CustomButton
-					onclick={() => setDialogOpen(true)}
+					onclick={() => {
+						setDialogOpen(true)
+					}}
 					active={params.sort}
 					icon
 				>

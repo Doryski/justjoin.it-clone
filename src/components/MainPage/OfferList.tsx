@@ -18,7 +18,7 @@ import {
 	expLvlArray,
 	techArray,
 	sortArray,
-} from '../../helpers/Options'
+} from '../../helpers/options'
 import { initMapOptions } from '../../googleMapOptions'
 import _ from 'lodash'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -82,7 +82,7 @@ const OfferList = ({
 			let list: any[] = []
 
 			allOffers.forEach((item: any) => {
-				list = list.concat(item.offerts)
+				list = list.concat(item.offers)
 				markers[item.placeId] = new CustomMarker(
 					item,
 					map,
@@ -111,7 +111,7 @@ const OfferList = ({
 		<Container>
 			<FiltersWrapper>
 				<SalaryFiltersWrapper>
-					<Label active>All offerts</Label>
+					<Label active>All offers</Label>
 				</SalaryFiltersWrapper>
 				<SortFiltersWrapper>
 					<SortFilter />
