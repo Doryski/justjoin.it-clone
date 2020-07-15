@@ -1,11 +1,11 @@
 import React from 'react'
-import StyledLink from '../../helpers/StyledLink'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
-const Logo = ({ center }: { center?: any }) => {
+const Logo = ({ center }: { center?: boolean }) => {
 	return (
-		<Typography align={center}>
-			<StyledLink to='/'>justjoin.it</StyledLink>
+		<Typography center={center}>
+			<Link to='/'>justjoin.it</Link>
 		</Typography>
 	)
 }
@@ -13,8 +13,9 @@ const Logo = ({ center }: { center?: any }) => {
 const Typography = styled.h2`
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.6rem;
-	color: ${({ theme }) => theme.colors.logo};
-	text-align: ${({ align }: { align: any }) => align && 'center'};
+	color: ${({ theme }) => theme.colors.title};
+	text-align: ${({ center }: { center: boolean }) =>
+		center && 'center'};
 	display: inline-block;
 	width: 120px;
 	float: left;

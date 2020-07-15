@@ -18,7 +18,7 @@ const AddOfferModal = ({
 	dialogOpen,
 	setDialogOpen,
 }: {
-	dialogOpen: any
+	dialogOpen: boolean
 	setDialogOpen: any
 }) => {
 	const {
@@ -98,7 +98,7 @@ const AddOfferModal = ({
 
 		let formData = new FormData()
 
-		_.forEach(finalData, (value: any, key: any) => {
+		_.forEach(finalData, (value: string, key: string) => {
 			formData.append(key, value)
 		})
 

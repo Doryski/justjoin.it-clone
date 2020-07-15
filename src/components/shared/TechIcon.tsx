@@ -3,42 +3,51 @@ import styled from 'styled-components'
 import TechSvg from '../../helpers/TechSvg'
 import { connect } from 'react-redux'
 import url from '../../helpers/urlFunc'
-import StyledLink from '../../helpers/StyledLink'
 import { InitialStoreState } from '../../store/reducer'
+import { Link } from 'react-router-dom'
 
 const TechIcon = ({
 	tech,
 	params,
 	onclick,
 }: {
-	tech: any
+	tech: string
 	params: any
-	onclick: any
+	onclick: VoidFunction
 }) => {
 	return (
-		<StyledLink
+		<Link
 			to={url({
 				...params,
 				tech: params.tech === tech ? null : tech,
 			})}
 		>
 			<Container
+				// @ts-ignore
 				tech={tech}
 				focus={params.tech === tech || !params.tech}
 				onClick={onclick}
 			>
 				<TechSvg tech={tech} />
 			</Container>
-		</StyledLink>
+		</Link>
 	)
 }
 const Container = styled.div`
 	position: relative;
-	margin: 3px 7px;
-	width: 35px;
-	height: 35px;
+	margin: 0px 3px;
+	// width: 35px;
+	// height: 35px;
 	border-radius: 50px;
-	background: ${({ theme, tech, focus }) =>
+	background: ${({
+		theme,
+		tech,
+		focus,
+	}: {
+		theme: any
+		tech: string
+		focus: boolean
+	}) =>
 		focus ? theme.techColors[tech] : theme.techColors.disabled};
 	overflow: hidden;
 	display: flex;

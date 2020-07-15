@@ -3,11 +3,12 @@ import styled from 'styled-components'
 import Typography from '../../helpers/Typography'
 import BusinessIcon from '@material-ui/icons/Business'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
+import { ICON_SIZE } from './InfoLabel'
 
-export const BusinessLabel = ({ label }: { label: any }) => {
+export const BusinessLabel = ({ label }: { label: string }) => {
 	return (
 		<Wrapper>
-			<MyBusinessIcon fontSize='small' />
+			<MyBusinessIcon fontSize={ICON_SIZE} />
 			<Typography
 				as='span'
 				color='text'
@@ -20,10 +21,10 @@ export const BusinessLabel = ({ label }: { label: any }) => {
 	)
 }
 
-export const LocationLabel = ({ label }: { label: any }) => {
+export const LocationLabel = ({ label }: { label: string }) => {
 	return (
 		<Wrapper>
-			<MyLocationOnIcon fontSize='small' />
+			<MyLocationOnIcon fontSize={ICON_SIZE} />
 			<Typography
 				as='span'
 				color='text'
@@ -41,9 +42,10 @@ const Label = ({
 	active,
 }: {
 	children: any
-	active: any
+	active: boolean
 }) => {
 	return (
+		// @ts-ignore
 		<Container active={active}>
 			<Typography color='text' as='span'>
 				{children}
@@ -53,8 +55,13 @@ const Label = ({
 }
 const Container = styled.div`
 	padding: 10px 35px;
-	background: ${({ theme, active }: { theme: any; active: any }) =>
-		active ? theme.colors.secondary : theme.colors.primary};
+	background: ${({
+		theme,
+		active,
+	}: {
+		theme: any
+		active: boolean
+	}) => (active ? theme.colors.secondary : theme.colors.primary)};
 	position: relative;
 	border-radius: 20px 20px 0 0;
 `

@@ -1,22 +1,18 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import {
-	techOptions,
 	expLvlOptions,
 	empTypeOptions,
+	techArray,
 } from '../../../helpers/options'
-import {
-	InputComponent,
-	SelectComponent,
-	InputWrapper,
-	Label,
-	StyledTextField,
-} from '../CustomInputs'
+import InputComponent from '../CustomInput'
+import SelectComponent from '../CustomSelect'
 import {
 	Wrapper,
 	ErrorMessage,
 	InputsContainer,
 } from './StyledComponents'
+import { InputWrapper, Label, StyledTextField } from '../StyledInputs'
 
 const InfoSection = () => {
 	const { register, errors } = useForm()
@@ -29,7 +25,7 @@ const InfoSection = () => {
 				register={register}
 				required
 				errors={errors}
-				options={techOptions}
+				options={techArray}
 			/>
 
 			<InputComponent

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import CustomButton from './CustomButton'
-import AddOfferModal from './AddOfferModal/DialogComponent'
+import CustomButton from '../CustomButton'
+import AddOfferModal from '.'
 
 const AddOffer = () => {
 	const [dialogOpen, setDialogOpen] = useState(false)

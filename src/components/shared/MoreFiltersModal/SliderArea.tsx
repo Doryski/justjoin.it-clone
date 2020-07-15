@@ -8,13 +8,19 @@ import _ from 'lodash'
 import formatThous from '../../../helpers/formatThous'
 import MAX_SLIDER_VALUE from '../../../helpers/maxSliderValue'
 
-const SliderArea = ({ handleChange, value, expLvl, setExpLvl }) => {
+type SliderAreaPropsTypes = {
+	handleChange: VoidFunction 
+	value: [number, number]
+	expLvl: string
+	setExpLvl: React.Dispatch<React.SetStateAction<string>>
+}
+
+const SliderArea = ({ handleChange, value, expLvl, setExpLvl }:SliderAreaPropsTypes) => {
 	return (
 		<MainWrapper>
 			<Typography
-				color='textButton'
+				color='text'
 				fWeight='700'
-				// fontSize='0.8rem'
 				align='flex-start'
 				margin='0 0 16px 0'
 			>
@@ -33,7 +39,7 @@ const SliderArea = ({ handleChange, value, expLvl, setExpLvl }) => {
 				<AmountContainer>
 					<AmountWrapper>
 						<Typography
-							color='textButton'
+							color='text'
 							fWeight='600'
 							fontSize='0.75rem'
 							align='flex-start'
@@ -42,7 +48,7 @@ const SliderArea = ({ handleChange, value, expLvl, setExpLvl }) => {
 						</Typography>
 
 						<Typography
-							color='textButton'
+							color='text'
 							fWeight='400'
 							align='flex-start'
 						>
@@ -51,14 +57,14 @@ const SliderArea = ({ handleChange, value, expLvl, setExpLvl }) => {
 					</AmountWrapper>
 					<Typography
 						as='div'
-						color='textButton'
+						color='text'
 						padding='0 6px'
 					>
 						—
 					</Typography>
 					<AmountWrapper>
 						<Typography
-							color='textButton'
+							color='text'
 							fWeight='600'
 							fontSize='0.75rem'
 							align='flex-start'
@@ -67,7 +73,7 @@ const SliderArea = ({ handleChange, value, expLvl, setExpLvl }) => {
 						</Typography>
 
 						<Typography
-							color='textButton'
+							color='text'
 							fWeight='400'
 							align='flex-start'
 						>
@@ -85,7 +91,7 @@ const SliderArea = ({ handleChange, value, expLvl, setExpLvl }) => {
 
 			<Typography
 				align='flex-start'
-				color='textButton'
+				color='text'
 				fWeight='700'
 				margin='0 0 16px 0'
 			>
@@ -127,7 +133,7 @@ const Wrapper = styled.div`
 	align-items: center;
 	justify-content: flex-start;
 	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.s}) {
+			theme.breakpoints.sm}) {
 		padding: 10px;
 	}
 `
@@ -136,7 +142,7 @@ const SliderWrapper = styled.div`
 	padding: 0 6px;
 	width: 100%;
 	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.s}) {
+			theme.breakpoints.sm}) {
 		padding: 10px;
 	}
 `
@@ -158,7 +164,7 @@ const AmountWrapper = styled.div`
 	border-style: solid;
 	border-color: rgb(228, 232, 240);
 	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.s}) {
+			theme.breakpoints.sm}) {
 		padding: 5px 10px;
 	}
 `

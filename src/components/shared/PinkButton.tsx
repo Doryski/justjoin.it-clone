@@ -7,10 +7,11 @@ const PinkButton = ({
 	onclick,
 }: {
 	children: any
-	margin?: any
-	onclick?: any
+	margin?: string
+	onclick?: Function
 }) => {
 	return (
+		// @ts-ignore
 		<Button margin={margin} onClick={onclick}>
 			{children}
 		</Button>
@@ -31,7 +32,7 @@ const Button = styled.button`
 		background: ${({ theme }) => theme.colors.opacityPink};
 	}
 	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.s}) {
+			theme.breakpoints.sm}) {
 		padding: 8px 8px;
 	}
 `

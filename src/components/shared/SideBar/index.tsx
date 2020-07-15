@@ -9,13 +9,7 @@ import Logo from '../Logo'
 import { InitialStoreState } from '../../../store/reducer'
 import SidebarList from './SidebarList'
 
-const SideBar = ({
-	darkMode,
-	changeViewMode,
-}: {
-	darkMode: any
-	changeViewMode: any
-}) => {
+const SideBar = ({ darkMode }: { darkMode: boolean }) => {
 	return (
 		<Container>
 			<LogoWrapper>

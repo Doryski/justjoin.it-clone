@@ -21,133 +21,44 @@ export const locationArray = [
 ]
 
 export const techArray = [
-	'js',
-	'html',
-	'php',
-	'ruby',
-	'java',
-	'python',
-	'c',
-	'scala',
-	'net',
-	'mobile',
-	'devops',
-	'data',
-	'other',
+	'JS',
+	'HTML',
+	'PHP',
+	'Ruby',
+	'Python',
+	'Java',
+	'.Net',
+	'Scala',
+	'C',
+	'Mobile',
+	'Testing',
+	'DevOps',
+	'UX/UI',
+	'PM',
+	'Game',
+	'Analytics',
+	'Security',
+	'Data',
+	'Go',
+	'SAP',
+	'Support',
+	'Other',
 ]
 
-export const expLvlArray = ['junior', 'mid', 'senior']
+export const expLvlArray = ['Junior', 'Mid', 'Senior']
 
 export const sortArray = ['sal-down', 'sal-up']
 
 export const techLvlOptions = [
-	{
-		label: 'Nice to have',
-		id: 1,
-	},
-	{
-		label: 'Junior',
-		id: 2,
-	},
-	{
-		label: 'Regular',
-		id: 3,
-	},
-	{
-		label: 'Master',
-		id: 4,
-	},
-	{
-		label: 'Expert',
-		id: 5,
-	},
+	'Nice to have',
+	'Junior',
+	'Regular',
+	'Master',
+	'Expert',
 ]
-export const expLvlOptions = [
-	{
-		label: 'Junior',
-		id: 'junior',
-	},
-	{
-		label: 'Mid',
-		id: 'mid',
-	},
-	{
-		label: 'Senior',
-		id: 'senior',
-	},
-]
-export const empTypeOptions = [
-	{
-		label: 'B2B',
-		id: 'b2b',
-	},
-	{
-		label: 'UoP',
-		id: 'uop',
-	},
-	{
-		label: 'UZ',
-		id: 'uz',
-	},
-	{
-		label: 'UoD',
-		id: 'uod',
-	},
-]
-export const techOptions = [
-	{
-		label: 'JavaScript',
-		id: 'js',
-	},
-	{
-		label: 'HTML',
-		id: 'html',
-	},
-	{
-		label: 'PHP',
-		id: 'php',
-	},
-	{
-		label: 'Ruby',
-		id: 'ruby',
-	},
-	{
-		label: 'Python',
-		id: 'python',
-	},
-	{
-		label: 'Java',
-		id: 'java',
-	},
-	{
-		label: '.Net',
-		id: 'net',
-	},
-	{
-		label: 'Scala',
-		id: 'scala',
-	},
-	{
-		label: 'C++',
-		id: 'c',
-	},
-	{
-		label: 'Mobile',
-		id: 'mobile',
-	},
-	{
-		label: 'DevOps',
-		id: 'devops',
-	},
-	{
-		label: 'Data',
-		id: 'data',
-	},
-	{
-		label: 'Other',
-		id: 'other',
-	},
-]
+export const expLvlOptions = ['Junior', 'Mid', 'Senior']
+export const empTypeOptions = ['B2B', 'UoP', 'UZ', 'UoD']
+
 export const latlngOptions = {
 	warszawa: ['52.2296756', '21.0122287'],
 	poznan: ['52.406374', '16.9251681'],

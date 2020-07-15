@@ -39,8 +39,6 @@ const Typography = styled(Styled).attrs(({ as }: { as: string }) => ({
 				return theme.colors.primary
 			case 'light':
 				return theme.colors.light
-			case 'textButton':
-				return theme.colors.buttonText
 			case 'text':
 				return theme.colors.text
 			case 'pink':
@@ -53,8 +51,8 @@ const Typography = styled(Styled).attrs(({ as }: { as: string }) => ({
 				return theme.colors.span
 			case 'white':
 				return theme.colors.white
-			case 'logo':
-				return theme.colors.logo
+			default:
+				return theme.colors.title
 		}
 	}};
 	&:hover {

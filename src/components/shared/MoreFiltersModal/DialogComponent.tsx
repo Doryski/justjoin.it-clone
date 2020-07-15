@@ -5,15 +5,16 @@ import DialogHeader from '../DialogHeader'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import SliderArea from './SliderArea'
 import DialogFooter from '../DialogFooter'
+import { ParamsType } from '../../../store/reducer'
 
 const DialogComponent = ({
 	params,
 	setDialogOpen,
 	dialogOpen,
 }: {
-	params: any
-	setDialogOpen: any
-	dialogOpen: any
+	params: ParamsType
+	setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
+	dialogOpen: boolean
 }) => {
 	const [value, setValue] = useState([
 		params.from || 0,
@@ -21,7 +22,7 @@ const DialogComponent = ({
 	])
 	const fullScreen = useMediaQuery('(max-width:800px)')
 
-	const handleChange = (event: any, newValue: any) => {
+	const handleChange = (event: any, newValue: number[]) => {
 		setValue(newValue)
 	}
 
@@ -67,7 +68,7 @@ const Container = styled.div`
 	width: 100%;
 	background: ${({ theme }) => theme.colors.primary};
 	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.s}) {
+			theme.breakpoints.sm}) {
 		padding: 5px;
 	}
 `

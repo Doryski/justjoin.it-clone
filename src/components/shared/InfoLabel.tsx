@@ -1,42 +1,51 @@
 import React from 'react'
 import styled from 'styled-components'
 import Typography from '../../helpers/Typography'
-import BusinessIcon from '@material-ui/icons/Business'
-import PeopleIcon from '@material-ui/icons/People'
-import NoteIcon from '@material-ui/icons/Note'
-import ShowChartIcon from '@material-ui/icons/ShowChart'
-import TimelapseIcon from '@material-ui/icons/Timelapse'
+import {
+	Business,
+	People,
+	Note,
+	ShowChart,
+	Timelapse,
+} from '@material-ui/icons'
 
-const MyBusinessIcon = styled(BusinessIcon)`
+const MyBusinessIcon = styled(Business)`
 	color: rgb(255, 82, 82);
 `
-const MyShowChartIcon = styled(ShowChartIcon)`
+const MyShowChartIcon = styled(ShowChart)`
 	color: rgb(102, 187, 106);
 `
-const MyPeopleIcon = styled(PeopleIcon)`
+const MyPeopleIcon = styled(People)`
 	color: rgb(251, 140, 0);
 `
-const MyNoteIcon = styled(NoteIcon)`
+const MyNoteIcon = styled(Note)`
 	color: rgb(171, 71, 188);
 	transform: rotate(-90deg);
 `
-const MyTimelapseIcon = styled(TimelapseIcon)`
+const MyTimelapseIcon = styled(Timelapse)`
 	color: rgb(68, 138, 255);
 `
 
-const InfoLabel = ({ icon, title }: { icon: any; title: any }) => {
+export const ICON_SIZE = 'small'
+const InfoLabel = ({
+	icon,
+	title,
+}: {
+	icon: number
+	title: string
+}) => {
 	const iconSwitch = () => {
 		switch (icon) {
 			case 1:
-				return <MyBusinessIcon fontSize='small' />
+				return <MyBusinessIcon fontSize={ICON_SIZE} />
 			case 2:
-				return <MyPeopleIcon fontSize='small' />
+				return <MyPeopleIcon fontSize={ICON_SIZE} />
 			case 3:
-				return <MyNoteIcon fontSize='small' />
+				return <MyNoteIcon fontSize={ICON_SIZE} />
 			case 4:
-				return <MyShowChartIcon fontSize='small' />
+				return <MyShowChartIcon fontSize={ICON_SIZE} />
 			case 5:
-				return <MyTimelapseIcon fontSize='small' />
+				return <MyTimelapseIcon fontSize={ICON_SIZE} />
 		}
 	}
 	const descrSwitch = () => {
@@ -56,11 +65,11 @@ const InfoLabel = ({ icon, title }: { icon: any; title: any }) => {
 	return (
 		<Container>
 			<IconWrapper>{iconSwitch()}</IconWrapper>
-			<Typography color='logo' fontSize='0.8rem' fWeight='400'>
+			<Typography color='title' fontSize='0.8rem' fWeight='400'>
 				{title}
 			</Typography>
 			<Typography
-				color='logo'
+				color='title'
 				fontSize='0.7rem'
 				fWeight='400'
 				margin='3px 0'

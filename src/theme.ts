@@ -3,7 +3,7 @@ const theme = {
 		disabled:
 			'linear-gradient(-90deg, rgb(145, 147, 170), rgb(125, 130, 168))',
 		all:
-			'linear-gradient(to right, rgb(186, 104, 200), rgb(156, 39, 176))',
+			'linear-gradient(-90deg, rgb(186, 104, 200), rgb(156, 39, 176))',
 		js:
 			'linear-gradient(-90deg, rgb(255, 199, 6), rgb(255, 175, 0))',
 		html:
@@ -17,7 +17,7 @@ const theme = {
 		java:
 			'linear-gradient(-90deg, rgb(250, 101, 107), rgb(249, 89, 122))',
 		net:
-			'linear-gradient(-90deg, rgb(63, 197, 230), rgb(79, 164, 253))',
+			'linear-gradient(-90deg, rgb(103, 37, 114), rgb(150, 70, 163))',
 		scala:
 			'linear-gradient(-90deg, rgb(248, 100, 104), rgb(241, 70, 76))',
 		c:
@@ -25,7 +25,7 @@ const theme = {
 		mobile:
 			'linear-gradient(-90deg, rgb(224, 79, 134), rgb(186, 74, 141))',
 		testing:
-			'linear-gradient(-90deg, rgb(137, 219, 84), rgb(101, 175, 53))',
+			'linear-gradient(-90deg, rgb(0, 150, 136), rgb(0, 121, 107))',
 		devops:
 			'linear-gradient(-90deg, rgb(82, 102, 225), rgb(129, 102, 224))',
 		ux:
@@ -34,16 +34,18 @@ const theme = {
 			'linear-gradient(-90deg, rgb(128, 203, 196), rgb(77, 182, 172))',
 		game:
 			'linear-gradient(-90deg, rgb(255, 64, 129), rgb(236, 64, 122))',
-		blockchain:
-			'linear-gradient(-90deg, rgb(171, 71, 188), rgb(106, 27, 154))',
+		analytics:
+			'linear-gradient(-90deg, rgb(59, 89, 152), rgb(112, 140, 199))',
 		security:
 			'linear-gradient(-90deg, rgb(83, 109, 254), rgb(13, 71, 161))',
 		data:
-			'linear-gradient(-90deg, rgb(0, 150, 136), rgb(0, 121, 107))',
+			'linear-gradient(-90deg, rgb(137, 219, 84), rgb(101, 175, 53))',
 		go:
 			'linear-gradient(-90deg, rgb(106, 215, 229), rgb(106, 139, 229))',
 		sap:
 			'linear-gradient(-90deg, rgb(2, 175, 235), rgb(27, 104, 194))',
+		support:
+			'linear-gradient(-90deg, rgb(212, 104, 222), rgb(82, 77, 225))',
 		other:
 			'linear-gradient(-90deg, rgb(236, 76, 182), rgb(212, 75, 213))',
 	},
@@ -55,7 +57,7 @@ const theme = {
 	},
 	breakpoints: {
 		xs: '360px',
-		s: '500px',
+		sm: '500px',
 		md: '800px',
 	},
 }
@@ -66,18 +68,15 @@ const lightModeTheme = {
 		primary: 'rgb(255, 255, 255)',
 		secondary: 'rgb(243, 246, 248)',
 		divider: 'rgb(229, 234, 243)',
-		logo: 'rgb(55, 71, 79)',
 		pink: 'rgb(255, 64, 129)',
 		opacityPink: 'rgb(204, 0, 102)',
 		buttonBackground: 'rgb(255, 255, 255)',
 		buttonBackgroundHover: 'rgb(245, 245, 245)',
 		buttonBackgroundActive: 'rgba(255, 64, 129, 0.08)',
 		buttonBorder: 'rgb(228, 232, 240)',
-		buttonText: 'rgb(119, 119, 119)',
 		salary: 'rgb(30, 198, 108)',
 		span: 'rgb(153, 161, 171)',
 		white: 'rgb(255,255,255)',
-		sideBarText: 'rgb(55, 71, 79)',
 		shadow:
 			'rgba(0, 0, 0, 0.05) 0px 2px 2px 0px, rgba(0, 0, 0, 0.04) 0px 1px 5px 0px',
 	},
@@ -90,18 +89,15 @@ const darkModeTheme = {
 		primary: 'rgb(44, 44, 44)',
 		secondary: 'rgb(33, 33, 33)',
 		divider: 'rgba(0, 0, 0, 0.12)',
-		logo: 'rgba(255, 255, 255, 0.8)',
 		pink: 'rgb(255, 103, 156)',
 		opacityPink: 'rgba(240, 98, 146, 0.05)',
 		buttonBackground: 'rgb(57, 57, 57)',
 		buttonBackgroundHover: 'rgba(0, 0, 0, 0.04)',
 		buttonBackgroundActive: 'rgba(240, 98, 146, 0.05)',
 		buttonBorder: 'rgb(57, 57, 57)',
-		buttonText: 'rgba(255, 255, 255, 0.8)',
 		salary: 'rgb(30, 198, 108)',
 		span: 'rgb(153, 161, 171)',
 		white: 'rgb(255,255,255)',
-		sideBarText: 'rgba(255,255,255, 0.8)',
 		shadow: 'rgba(10, 10, 10, 0.1) 0px 2px 18px 10px',
 	},
 }

@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
       font-size: 80.5%;
     }
     @media only screen and (max-width: ${({ theme }) =>
-		theme.breakpoints.s}) {
+		theme.breakpoints.sm}) {
       font-size: 66.5%;
     }
     @media only screen and (max-width: ${({ theme }) =>
@@ -39,6 +39,11 @@ const GlobalStyle = createGlobalStyle`
 
   ul {
     list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.title}
   }
 `
 export default GlobalStyle

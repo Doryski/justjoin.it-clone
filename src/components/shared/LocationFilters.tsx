@@ -4,17 +4,14 @@ import styled from 'styled-components'
 import { Dialog } from '@material-ui/core'
 import DialogHeader from './DialogHeader'
 import stringFormat from '../../helpers/stringFormat'
-import PinkButton from './PinkButton'
 import { connect } from 'react-redux'
-import StyledLink from '../../helpers/StyledLink'
-import url from '../../helpers/urlFunc'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { InitialStoreState } from '../../store/reducer'
+import { InitialStoreState, ParamsType } from '../../store/reducer'
 import { locationArray } from '../../helpers/options'
 import DialogFooter from './DialogFooter'
 import Typography from '../../helpers/Typography'
 
-const LocationFilters = ({ params }: { params: any }) => {
+const LocationFilters = ({ params }: { params: ParamsType }) => {
 	const [dialogOpen, setDialogOpen] = useState(false)
 	const [location, setLocation] = useState(null)
 	const fullScreen = useMediaQuery('(max-width:800px)')
@@ -26,17 +23,17 @@ const LocationFilters = ({ params }: { params: any }) => {
 
 	return (
 		<>
-			<ButtonWrapper>
-				<CustomButton
-					onclick={() => {
-						setDialogOpen(true)
-					}}
-					active={params.location}
-					icon
-				>
-					Location
-				</CustomButton>
-			</ButtonWrapper>
+			<CustomButton
+				onclick={() => {
+					setDialogOpen(true)
+				}}
+				margin='6px 16px 0 5px'
+				active={Boolean(params.location)}
+				icon
+				minWidth='148px'
+			>
+				Location
+			</CustomButton>
 
 			<Dialog
 				maxWidth='sm'
@@ -122,9 +119,6 @@ const LocationFilters = ({ params }: { params: any }) => {
 		</>
 	)
 }
-const ButtonWrapper = styled.div`
-	margin: 0 25px 0 5px;
-`
 const ItemWrapper = styled.div`
 	margin: 5px;
 `

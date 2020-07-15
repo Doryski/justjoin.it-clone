@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Label from '../shared/Label'
 import SortFilter from '../shared/SortFilter'
-import OffertCard from '../shared/OfferCard'
-import { useParams, useLocation, Link } from 'react-router-dom'
+import OfferCard from '../shared/OfferCard'
+import { useParams, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
 	setMarkers,
@@ -24,20 +24,14 @@ import _ from 'lodash'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { InitialStoreState } from '../../store/reducer'
 
-interface OfferListProps {
+type OfferListProps = {
 	history: any
-	setMarkers: any
-	setMarkerClass: any
-	setParams: any
-	setGoogleMap: any
-	setOffersList: any
-	state: {
-		loading: any
-		markers: any
-		allOffers: any
-		markerClass: any
-		offersList: any
-	}
+	setMarkers: Function
+	setMarkerClass: Function
+	setParams: Function
+	setGoogleMap: Function
+	setOffersList: Function
+	state: InitialStoreState
 }
 
 const OfferList = ({
@@ -127,9 +121,9 @@ const OfferList = ({
 					{offersList &&
 						markerClass.prototype
 							.filterOffers(offersList, params)
-							.map((item: any, index: any) => {
+							.map((item: any, index: string) => {
 								return (
-									<OffertCard
+									<OfferCard
 										key={item.slug}
 										slug={item.slug}
 										tech={item.tech}
@@ -193,7 +187,7 @@ const ListContainer = styled.div`
 `
 const InfoSpan = styled.span`
 	display: block;
-	color: ${({ theme }) => theme.colors.logo};
+	color: ${({ theme }) => theme.colors.title};
 	font-size: 1.2rem;
 `
 const ProgressWrapper = styled.div`

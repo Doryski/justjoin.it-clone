@@ -34,7 +34,7 @@ const ListItem = styled.li`
 	height: 56px;
 	width: 100%;
 	cursor: pointer;
-	color: ${({ theme }) => theme.colors.sideBarText};
+	color: ${({ theme }) => theme.colors.title};
 	&:hover {
 		background: ${({ theme }) =>
 			theme.colors.buttonBackgroundHover};

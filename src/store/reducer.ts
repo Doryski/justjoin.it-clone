@@ -8,22 +8,24 @@ import {
 	SET_PARAMS,
 } from './types'
 
-export interface InitialStoreState {
-	darkMode: boolean
+export type ParamsType = {
+	location?: string
+	tech?: string
+	expLvl?: string
+	from?: number
+	to?: number
+	sort?: string
+}
+
+export type InitialStoreState = {
+	darkMode?: boolean
 	markerClass: any
-	markers: any
+	markers: any[]
 	loading: boolean
-	allOffers: any
-	offersList: any
-	map: any
-	params: {
-		location: any
-		tech: any
-		expLvl: any
-		from: any
-		to: any
-		sort: any
-	}
+	allOffers: any[]
+	offersList: any[]
+	map?: string
+	params?: ParamsType
 }
 
 const initialState: InitialStoreState = {

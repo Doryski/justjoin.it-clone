@@ -1,24 +1,24 @@
 import React from 'react'
 import Typography from '../../helpers/Typography'
-import StyledLink from '../../helpers/StyledLink'
 import styled from 'styled-components'
 import SmallLabel from './SmallLabel'
 import { BusinessLabel, LocationLabel } from './Label'
 import dateConvert from '../../helpers/dateConvert'
 import { baseURL } from '../../axios'
+import { Link } from 'react-router-dom'
 
-interface OfferCardProps {
-	slug: any
-	tech: any
-	title: any
-	companyName: any
-	city: any
-	image: any
-	technology: any
-	from: any
-	to: any
-	placeId: any
-	dateAdd: any
+type OfferCardProps = {
+	slug: string
+	tech: string
+	title: string
+	companyName: string
+	city: string
+	image: string
+	technology: any[]
+	from: string
+	to: string
+	placeId: string
+	dateAdd: string
 }
 
 const OfferCard = ({
@@ -35,7 +35,7 @@ const OfferCard = ({
 	dateAdd,
 }: OfferCardProps) => {
 	return (
-		<StyledLink to={`/offer/${slug}`}>
+		<Link to={`/offer/${slug}`}>
 			<Container
 				onMouseOver={() => {
 					document
@@ -48,6 +48,7 @@ const OfferCard = ({
 						.classList.remove('active_marker')
 				}}
 			>
+				{/* @ts-ignore */}
 				<TechColor tech={tech} />
 				<ImgWrapper>
 					<Img src={`${baseURL}${image}`} />
@@ -98,7 +99,7 @@ const OfferCard = ({
 					</BottomWrapper>
 				</InfoContainer>
 			</Container>
-		</StyledLink>
+		</Link>
 	)
 }
 const Container = styled.div`
@@ -115,7 +116,7 @@ const Container = styled.div`
 	}
 `
 const TechColor = styled.div`
-	background: ${({ theme, tech }: { theme: any; tech: any }) =>
+	background: ${({ theme, tech }: { theme: any; tech: string }) =>
 		theme.techColors[tech]};
 	width: 5px;
 `
@@ -145,14 +146,14 @@ const BottomWrapper = styled.div`
 	padding: 2px 0 10px 0;
 
 	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.s}) {
+			theme.breakpoints.sm}) {
 		display: none;
 	}
 `
 const TitleWrapper = styled.div`
 	flex: 1;
 	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.s}) {
+			theme.breakpoints.sm}) {
 		padding: 5px 10px 5px 0;
 	}
 `
@@ -162,7 +163,7 @@ const SalaryWrapper = styled.div`
 	justify-content: space-between;
 	padding: 0 10px 0 0;
 	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.s}) {
+			theme.breakpoints.sm}) {
 		padding: 5px 10px 5px 0;
 	}
 `

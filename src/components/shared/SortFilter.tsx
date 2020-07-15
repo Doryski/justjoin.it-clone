@@ -3,9 +3,9 @@ import CustomButton from './CustomButton'
 import styled from 'styled-components'
 import { Dialog } from '@material-ui/core'
 import { connect } from 'react-redux'
-import StyledLink from '../../helpers/StyledLink'
 import url from '../../helpers/urlFunc'
-import { InitialStoreState } from '../../store/reducer'
+import { InitialStoreState, ParamsType } from '../../store/reducer'
+import { Link } from 'react-router-dom'
 
 const SortFilter = ({ params }) => {
 	const [dialogOpen, setDialogOpen] = useState(false)
@@ -39,7 +39,7 @@ const SortFilter = ({ params }) => {
 				fullWidth={true}
 			>
 				<Container>
-					<StyledLink
+					<Link
 						to={url({ ...params, sort: null })}
 						onClick={onClose}
 					>
@@ -49,9 +49,9 @@ const SortFilter = ({ params }) => {
 						>
 							latest
 						</CustomButton>
-					</StyledLink>
+					</Link>
 
-					<StyledLink
+					<Link
 						to={url({ ...params, sort: 'sal-up' })}
 						onClick={onClose}
 					>
@@ -61,9 +61,9 @@ const SortFilter = ({ params }) => {
 						>
 							highest salary
 						</CustomButton>
-					</StyledLink>
+					</Link>
 
-					<StyledLink
+					<Link
 						to={url({ ...params, sort: 'sal-down' })}
 						onClick={onClose}
 					>
@@ -73,7 +73,7 @@ const SortFilter = ({ params }) => {
 						>
 							lowest salary
 						</CustomButton>
-					</StyledLink>
+					</Link>
 				</Container>
 			</Dialog>
 		</>

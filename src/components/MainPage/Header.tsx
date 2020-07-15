@@ -4,7 +4,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { IconButton } from '@material-ui/core'
 import Drawer from '@material-ui/core/Drawer'
 import SideBar from '../shared/SideBar'
-import AddOffer from '../shared/AddOffer'
+import AddOffer from '../shared/AddOfferModal/AddOffer'
 import Logo from '../shared/Logo'
 import Typography from '../../helpers/Typography'
 import CustomButton from '../shared/CustomButton'
@@ -37,14 +37,15 @@ const Header = () => {
 	return (
 		<Container>
 			<Logo />
+			{/* @ts-ignore */}
 			<Typography color='span' fWeight='400'>
 				#1 Job Board for IT industry in Poland
 			</Typography>
 			<NavList>
 				{navList.map(item => (
-					<NavItem>
+					<NavItem key={item.title}>
 						<Typography
-							key={item.title}
+						//@ts-ignore
 							fWeight='600'
 							color={item.active ? 'pink' : 'span'}
 							margin='0 6px'
@@ -67,9 +68,7 @@ const Header = () => {
 				>
 					Sign in
 				</CustomButton>
-				<IconButton
-					onClick={openDrawerHandler}
-				>
+				<IconButton onClick={openDrawerHandler}>
 					<MyMenuIcon />
 				</IconButton>
 			</Wrapper>

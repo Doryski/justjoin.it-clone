@@ -18,21 +18,15 @@ import { initMapOptions } from '../../googleMapOptions'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { InitialStoreState } from '../../store/reducer'
 import _ from 'lodash'
-import { ActionYoutubeSearchedFor } from 'material-ui/svg-icons'
 
-export interface SingleOfferProps {
+export type SingleOfferProps = {
 	history: any
-	setMarkers: any
-	setMarkerClass: any
-	setParams: any
-	setGoogleMap: any
-	setOffersList: any
-	state: {
-		params: any
-		loading: any
-		markers: any
-		allOffers: ActionYoutubeSearchedFor
-	}
+	setMarkers: Function
+	setMarkerClass: Function
+	setParams: Function
+	setGoogleMap: Function
+	setOffersList: Function
+	state: InitialStoreState
 }
 
 const SingleOffer = ({
@@ -137,6 +131,7 @@ const SingleOffer = ({
 					) : (
 						<>
 							<HeaderContainer>
+								{/* @ts-ignore */}
 								<HeaderInner tech={offer.tech}>
 									<HeadreWrapper>
 										<ImgBackground>
@@ -216,9 +211,7 @@ const SingleOffer = ({
 									{offer.technology.map(
 										(tech: any) => (
 											<TechRange
-												range={Number(
-													tech.techLvl
-												)}
+												range={+tech.techLvl}
 												tech={tech.tech}
 											/>
 										)
@@ -369,7 +362,7 @@ const DescriptionContainer = styled.div`
 `
 const DescriptionContent = styled.div`
 	padding: 0 15px;
-	color: ${({ theme }) => theme.colors.logo};
+	color: ${({ theme }) => theme.colors.title};
 `
 const ProgressWrapper = styled.div`
 	display: flex;

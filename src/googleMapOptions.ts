@@ -88,10 +88,7 @@ export const mapStyle = [
 ]
 
 export const initMapOptions = () => {
-	const myLatlng = new global.google.maps.LatLng(
-		`52.07361700`,
-		'19.200'
-	)
+	const myLatlng = new global.google.maps.LatLng(52.073, 19.2)
 	const mapOptions = {
 		zoom: 6,
 		center: myLatlng,

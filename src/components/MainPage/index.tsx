@@ -13,7 +13,7 @@ import { setMarkers, setAllOffers } from '../../store/actions'
 import { connect } from 'react-redux'
 import { InitialStoreState } from '../../store/reducer'
 
-const MainPage = ({ setAllOffers }: { setAllOffers: any }) => {
+const MainPage = () => {
 	const loadScriptPromise = () => {
 		return new Promise((resolve, reject) => {
 			const googleMapScript = document.createElement('script')

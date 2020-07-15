@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Typography from '../../helpers/Typography'
 
-const TechRange = ({ range, tech }: { range: any; tech: any }) => {
+const TechRange = ({ range, tech }: { range: number; tech: any }) => {
 	const rangeSwitch = () => {
 		switch (range) {
 			case 1:
@@ -25,6 +25,7 @@ const TechRange = ({ range, tech }: { range: any; tech: any }) => {
 					<RangePoint />
 				))}
 				{[...Array(5 - range)].map(() => (
+					// @ts-ignore
 					<RangePoint disabled />
 				))}
 			</RangeContainer>
@@ -39,7 +40,7 @@ const TechRange = ({ range, tech }: { range: any; tech: any }) => {
 				{tech}
 			</Typography>
 			<Typography
-				color='logo'
+				color='title'
 				fontSize='0.8rem'
 				fWeight='400'
 				align='flex-start'
@@ -67,8 +68,13 @@ const RangeContainer = styled.div`
 	display: flex;
 `
 const RangePoint = styled.span`
-	background-color: ${({ disabled, theme }) =>
-		disabled ? 'rgb(191, 197, 210)' : theme.colors.pink};
+	background-color: ${({
+		disabled,
+		theme,
+	}: {
+		disabled: boolean
+		theme: any
+	}) => (disabled ? 'rgb(191, 197, 210)' : theme.colors.pink)};
 	display: block;
 	width: 10px;
 	height: 10px;

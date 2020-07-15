@@ -1,6 +1,7 @@
 import React from 'react'
 import { techLvlOptions } from '../../../helpers/options'
-import { InputComponent, SelectComponent } from '../CustomInputs'
+import SelectComponent from '../CustomSelect'
+import InputComponent from '../CustomInput'
 import styled from 'styled-components'
 import { Wrapper, InputsContainer } from './StyledComponents'
 import { useForm } from 'react-hook-form'
@@ -10,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add'
 const TechnologySection = ({ techSize, setTechSize }) => {
 	const { register, errors } = useForm()
 
-	const techSizeHandler = (action: any = '') => {
+	const techSizeHandler = (action: string = '') => {
 		setTechSize(action === 'add' ? techSize + 1 : techSize - 1)
 	}
 

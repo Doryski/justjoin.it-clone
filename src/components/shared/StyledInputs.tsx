@@ -1,80 +1,4 @@
-import React from 'react'
 import styled from 'styled-components'
-
-interface InputComponentProps {
-	id: any
-	label: any
-	register: any
-	required: any
-	errors: any
-	type: any
-	max?: string
-}
-
-export const InputComponent = ({
-	id,
-	label,
-	register,
-	required,
-	errors,
-	type,
-	max = '120',
-}: InputComponentProps) => {
-	return (
-		<InputWrapper>
-			<Label>{label}</Label>
-			<StyledTextField
-				maxLength={+max}
-				type={type}
-				name={id}
-				ref={register({
-					required: required
-						? 'This field is required.'
-						: false,
-				})}
-			/>
-			{errors[id] && <Info>{errors[id].message}</Info>}
-		</InputWrapper>
-	)
-}
-
-interface SelectComponentProps {
-	id: any
-	label: any
-	register: any
-	required: any
-	options: any
-	errors: any
-}
-
-export const SelectComponent = ({
-	id,
-	label,
-	register,
-	required,
-	options,
-	errors,
-}) => {
-	return (
-		<InputWrapper>
-			<Label>{label}</Label>
-			<StyledSelect name={id} ref={register({ required })}>
-				<option value={null}></option>
-				{options.map((option: any) => (
-					<option value={option.id}>{option.label}</option>
-				))}
-			</StyledSelect>
-			{errors[id] && <Info>This field is required.</Info>}
-		</InputWrapper>
-	)
-}
-
-const Info = styled.span`
-	color: ${({ theme, span }: { theme: any; span: any }) =>
-		span ? theme.colors.span : theme.colors.pink};
-	font-size: 0.7rem;
-	margin-left: 10px;
-`
 
 export const StyledTextField = styled.input`
 	border: 1px solid ${({ theme }) => theme.colors.buttonBorder};
@@ -96,7 +20,7 @@ export const StyledTextField = styled.input`
 		border: 1px solid ${({ theme }) => theme.colors.text};
 	}
 	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.s}) {
+			theme.breakpoints.sm}) {
 		height: 25px;
 	}
 `
@@ -120,7 +44,7 @@ export const StyledSelect = styled.select`
 		border: 1px solid ${({ theme }) => theme.colors.text};
 	}
 	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.s}) {
+			theme.breakpoints.sm}) {
 		height: 25px;
 	}
 `
@@ -130,4 +54,10 @@ export const InputWrapper = styled.div`
 export const Label = styled.label`
 	margin-left: 10px;
 	color: ${({ theme }) => theme.colors.text};
+`
+export const Info = styled.span`
+	color: ${({ theme, span }: { theme: any; span: boolean }) =>
+		span ? theme.colors.span : theme.colors.pink};
+	font-size: 0.7rem;
+	margin-left: 10px;
 `

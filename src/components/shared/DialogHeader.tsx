@@ -8,15 +8,11 @@ const DialogHeader = ({
 	close,
 }: {
 	children: any
-	close?: any
+	close?: VoidFunction
 }) => {
 	return (
 		<HeaderWrapper>
-			<Typography
-				color='text'
-				fWeight='400'
-				fontSize='1.2rem'
-			>
+			<Typography color='text' fWeight='400' fontSize='1.2rem'>
 				{children}
 			</Typography>
 			{close && <CloseButton onclick={close} />}
@@ -31,7 +27,7 @@ const HeaderWrapper = styled.div`
 	padding: 20px;
 	border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
 	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.s}) {
+			theme.breakpoints.sm}) {
 		padding: 10px;
 	}
 `

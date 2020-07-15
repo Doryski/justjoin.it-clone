@@ -2,16 +2,17 @@ import React from 'react'
 import CustomButton from './CustomButton'
 import styled from 'styled-components'
 import PinkButton from './PinkButton'
-import StyledLink from '../../helpers/StyledLink'
 import url from '../../helpers/urlFunc'
 import MAX_SLIDER_VALUE from '../../helpers/maxSliderValue'
+import { ParamsType } from '../../store/reducer'
+import { Link } from 'react-router-dom'
 
-interface DialogFooterProps {
-	params: any
-	onClose: any
+type DialogFooterProps = {
+	params: ParamsType
+	onClose: VoidFunction
 	expLvl?: string
 	location?: string
-	value?: any
+	value?: number[]
 	filterType: string
 }
 
@@ -47,21 +48,21 @@ const DialogFooter = ({
 
 	return (
 		<BottomWrapper>
-			<StyledLink
+			<Link
 				to={generateLinks().clearFilters}
 				onClick={onClose}
 			>
 				<CustomButton padding='8px 30px'>
 					Clear filters
 				</CustomButton>
-			</StyledLink>
+			</Link>
 
-			<StyledLink
+			<Link
 				to={generateLinks().showOffers}
 				onClick={onClose}
 			>
 				<PinkButton>Show offers</PinkButton>
-			</StyledLink>
+			</Link>
 		</BottomWrapper>
 	)
 }

@@ -1,12 +1,16 @@
-import techIcon from './helpers/techIconSwitch'
 import stringFormat from './helpers/stringFormat'
 import { latlngOptions } from './helpers/options'
 import './googleMap.css'
 import { baseURL } from './axios'
+import { ParamsType } from './store/reducer'
+import TechSvg from './helpers/TechSvg'
 
 const createHTMLMapMarker = (history: any) => {
 	function CustomMarker(item: any, map: any, initParams: any) {
-		this.latlng = new global.google.maps.LatLng(item.lat, item.lng)
+		this.latlng = new global.google.maps.LatLng(
+			item.lat,
+			item.lng
+		)
 		this.offers = item.offers
 		this.setMap(map)
 		this.initParams = initParams
@@ -19,14 +23,12 @@ const createHTMLMapMarker = (history: any) => {
 		history.push(`/offer/${slug}`)
 	}
 
-	CustomMarker.prototype.activeMarker = (tech: any) => {
+	CustomMarker.prototype.activeMarker = (tech: string) => {
 		if (!this.pointer) {
 			this.withActiveMarker = true
 		} else {
 			this.pointer.classList.add('active_marker')
-			this.pointer.style.backgroundImage = `url(${techIcon(
-				tech
-			)})`
+			this.pointer.style.backgroundImage = TechSvg(tech)
 		}
 		this.map.setCenter(this.latlng)
 		this.map.setZoom(12)
@@ -73,8 +75,8 @@ const createHTMLMapMarker = (history: any) => {
 	}
 
 	CustomMarker.prototype.filterOffers = (
-		list: any,
-		params: any
+		list: any[],
+		params: ParamsType
 	) => {
 		const { location, tech, expLvl, from, to, sort } = params
 
@@ -113,13 +115,13 @@ const createHTMLMapMarker = (history: any) => {
 			})
 	}
 
-	CustomMarker.prototype.update = (params: any) => {
+	CustomMarker.prototype.update = (params: ParamsType) => {
 		let arrayLength = 0
 
 		this.tooltip_inner.innerHTML = ''
 
 		this.filterOffers(this.offers, params).forEach(
-			(item: any, index: any) => {
+			(item: any, index: number) => {
 				if (!item[index + 1]) {
 					this.pointer.style.backgroundImage = `url(${techIcon(
 						item.tech
@@ -145,8 +147,8 @@ const createHTMLMapMarker = (history: any) => {
 		} else {
 			this.map.setCenter(
 				new global.google.maps.LatLng(
-					latlngOptions.poland[0],
-					latlngOptions.poland[1]
+					+latlngOptions.poland[0],
+					+latlngOptions.poland[1]
 				)
 			)
 			this.map.setZoom(6)
@@ -283,7 +285,10 @@ const createHTMLMapMarker = (history: any) => {
 						tooltip.classList.add('zindex_high')
 						pointer.classList.add('zindex_high')
 					}
-					global.google.maps.event.trigger(self, 'mouseover')
+					global.google.maps.event.trigger(
+						self,
+						'mouseover'
+					)
 				}
 			)
 
