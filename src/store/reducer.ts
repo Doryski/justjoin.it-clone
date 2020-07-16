@@ -7,25 +7,26 @@ import {
 	SET_OFFERS_LIST,
 	SET_PARAMS,
 } from './types'
+import { OfferCard } from '../components/shared/OfferCard'
 
 export type ParamsType = {
-	location?: string
-	tech?: string
-	expLvl?: string
-	from?: number
-	to?: number
-	sort?: string
+	location?: string | null
+	tech?: string | null
+	expLvl?: string | null
+	from?: number | null
+	to?: number | null
+	sort?: string | null
 }
 
 export type InitialStoreState = {
 	darkMode?: boolean
 	markerClass: any
-	markers: any[]
+	markers: any[] | null
 	loading: boolean
-	allOffers: any[]
-	offersList: any[]
-	map?: string
-	params?: ParamsType
+	allOffers: OfferCard[] | null
+	offersList: OfferCard[] | null
+	map?: string | null
+	params: ParamsType
 }
 
 const initialState: InitialStoreState = {

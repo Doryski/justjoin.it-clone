@@ -8,7 +8,7 @@ import './App.css'
 import { BrowserRouter } from 'react-router-dom'
 import { InitialStoreState } from './store/reducer'
 
-const App = ({ state }) => {
+const App = ({ state }: { state: InitialStoreState }) => {
 	return (
 		<ThemeProvider theme={state.darkMode ? darkMode : lightMode}>
 			<BrowserRouter>

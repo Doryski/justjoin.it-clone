@@ -22,13 +22,13 @@ const Container = styled.div`
 	background: ${({ theme }) => theme.colors.primary};
 	display: flex;
 	align-items: center;
-	padding: 14px 15px 10px 19px;
+	padding: 0.875em 0.9375em 0.625em 1.1875em;
 `
 
 const Wrapper = styled.div`
 	display: flex;
 	width: 100%;
-	padding-left: 4px;
+	padding-left: 0.25em;
 	justify-content: space-between;
 	align-items: flex-start;
 	flex: 1 1 0%;

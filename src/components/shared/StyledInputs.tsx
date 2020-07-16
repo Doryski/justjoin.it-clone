@@ -4,7 +4,7 @@ export const StyledTextField = styled.input`
 	border: 1px solid ${({ theme }) => theme.colors.buttonBorder};
 	border-radius: 18px;
 
-	padding: ${(props: any) => props.padding || '2px 15px'};
+	padding: ${(props: any) => props.padding || '0.125em 0.9375em'};
 	background: ${({ theme }) => theme.colors.buttonBackground};
 	color: ${({ theme }) => theme.colors.text};
 	width: 100%;
@@ -28,7 +28,7 @@ export const StyledSelect = styled.select`
 	border: 1px solid ${({ theme }) => theme.colors.buttonBorder};
 	border-radius: 18px;
 
-	padding: ${(props: any) => props.padding || '2px 15px'};
+	padding: ${(props: any) => props.padding || '0.125em 0.9375em'};
 	background: ${({ theme }) => theme.colors.buttonBackground};
 	color: ${({ theme }) => theme.colors.text};
 	width: 100%;
@@ -49,15 +49,16 @@ export const StyledSelect = styled.select`
 	}
 `
 export const InputWrapper = styled.div`
-	margin: 0 3px 10px 3px;
+	margin: 0 0.1875em 0.625em 0.1875em;
 `
 export const Label = styled.label`
-	margin-left: 10px;
+	margin-left: 0.625em;
 	color: ${({ theme }) => theme.colors.text};
 `
 export const Info = styled.span`
+	// @ts-ignore
 	color: ${({ theme, span }: { theme: any; span: boolean }) =>
 		span ? theme.colors.span : theme.colors.pink};
 	font-size: 0.7rem;
-	margin-left: 10px;
+	margin-left: 0.625em;
 `

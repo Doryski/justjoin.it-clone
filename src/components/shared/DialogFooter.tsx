@@ -1,7 +1,6 @@
 import React from 'react'
 import CustomButton from './CustomButton'
 import styled from 'styled-components'
-import PinkButton from './PinkButton'
 import url from '../../helpers/urlFunc'
 import MAX_SLIDER_VALUE from '../../helpers/maxSliderValue'
 import { ParamsType } from '../../store/reducer'
@@ -10,10 +9,10 @@ import { Link } from 'react-router-dom'
 type DialogFooterProps = {
 	params: ParamsType
 	onClose: VoidFunction
-	expLvl?: string
-	location?: string
-	value?: number[]
-	filterType: string
+	expLvl?: ParamsType['expLvl']
+	location?: ParamsType['location']
+	value?: number[] | number
+	filterType: 'expLvl' | 'location'
 }
 
 const DialogFooter = ({
@@ -27,13 +26,15 @@ const DialogFooter = ({
 	function generateLinks() {
 		let clearFilters: string = url({ ...params })
 		let showOffers: string = url({ ...params })
+		const val0 = value instanceof Array ? value[0] : value
+		const val1 = value instanceof Array ? value[1] : value
 		if (filterType === 'expLvl') {
 			clearFilters = url({ ...params, expLvl: null })
 			showOffers = url({
 				...params,
 				expLvl,
-				from: value[0],
-				to: value[1] === MAX_SLIDER_VALUE ? null : value[1],
+				from: val0,
+				to: val1 === MAX_SLIDER_VALUE ? null : val1,
 			})
 		} else if (filterType === 'location') {
 			clearFilters = url({ ...params, location: null })
@@ -48,27 +49,28 @@ const DialogFooter = ({
 
 	return (
 		<BottomWrapper>
-			<Link
-				to={generateLinks().clearFilters}
-				onClick={onClose}
-			>
-				<CustomButton padding='8px 30px'>
+			<Link to={generateLinks().clearFilters} onClick={onClose}>
+				<CustomButton padding='0.5em 1.875em'>
 					Clear filters
 				</CustomButton>
 			</Link>
 
-			<Link
-				to={generateLinks().showOffers}
-				onClick={onClose}
-			>
-				<PinkButton>Show offers</PinkButton>
+			<Link to={generateLinks().showOffers} onClick={onClose}>
+				<CustomButton
+					padding='0.5em 1.125em'
+					pink
+					fWeight='600'
+					margin='0 0.625em'
+				>
+					Show offers
+				</CustomButton>
 			</Link>
 		</BottomWrapper>
 	)
 }
 
 const BottomWrapper = styled.div`
-	padding: 15px 20px;
+	padding: 0.9375em 1.25em;
 	display: flex;
 	justify-content: space-between;
 	border-top: 1px solid ${({ theme }) => theme.colors.divider};

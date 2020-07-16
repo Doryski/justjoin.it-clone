@@ -5,14 +5,15 @@ import {
 	StyledSelect,
 	Info,
 } from './StyledInputs'
+import { NestDataObject, FieldError } from 'react-hook-form'
 
 type SelectComponentProps = {
 	id: string
 	label: string
 	register: any
-	required: string
+	required: boolean
 	options: any[]
-	errors: string
+	errors: NestDataObject<Record<string, any>, FieldError>
 }
 
 const SelectComponent = ({
@@ -27,13 +28,14 @@ const SelectComponent = ({
 		<InputWrapper>
 			<Label>{label}</Label>
 			<StyledSelect name={id} ref={register({ required })}>
-				<option value={null}></option>
+				<option value={undefined}></option>
 				{options.map((option: string) => (
 					<option key={option} value={option}>
 						{option}
 					</option>
 				))}
 			</StyledSelect>
+			{/* @ts-ignore */}
 			{errors[id] && <Info>This field is required.</Info>}
 		</InputWrapper>
 	)

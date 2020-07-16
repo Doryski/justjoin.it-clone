@@ -30,8 +30,8 @@ const SmallLabel = ({
 	)
 }
 const Container = styled.div`
-	padding: 3px 7px;
-	margin: ${({ margin }: ContainerProps) => margin || '0 2px'};
+	padding: 0.1875em 0.4375em;
+	margin: ${({ margin }: ContainerProps) => margin || '0 0.125em'};
 	border: 1px solid
 		${({ theme, isNew }: ContainerProps) =>
 			isNew ? theme.colors.pink : theme.colors.span};
@@ -41,7 +41,7 @@ const Container = styled.div`
 	justify-content: center;
 `
 const Typography = styled.span`
-	font-size: 10px;
+	font-size: 0.625rem;
 	color: ${({ theme, span, isNew }: ContainerProps) =>
 		isNew
 			? theme.colors.pink

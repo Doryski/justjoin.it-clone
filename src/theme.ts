@@ -76,7 +76,7 @@ const lightModeTheme = {
 		buttonBorder: 'rgb(228, 232, 240)',
 		salary: 'rgb(30, 198, 108)',
 		span: 'rgb(153, 161, 171)',
-		white: 'rgb(255,255,255)',
+		white: 'rgb(255, 255, 255)',
 		shadow:
 			'rgba(0, 0, 0, 0.05) 0px 2px 2px 0px, rgba(0, 0, 0, 0.04) 0px 1px 5px 0px',
 	},
@@ -97,7 +97,7 @@ const darkModeTheme = {
 		buttonBorder: 'rgb(57, 57, 57)',
 		salary: 'rgb(30, 198, 108)',
 		span: 'rgb(153, 161, 171)',
-		white: 'rgb(255,255,255)',
+		white: 'rgb(255, 255, 255)',
 		shadow: 'rgba(10, 10, 10, 0.1) 0px 2px 18px 10px',
 	},
 }

@@ -12,6 +12,7 @@ const DialogHeader = ({
 }) => {
 	return (
 		<HeaderWrapper>
+			{/* @ts-ignore */}
 			<Typography color='text' fWeight='400' fontSize='1.2rem'>
 				{children}
 			</Typography>
@@ -24,11 +25,11 @@ const HeaderWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 20px;
+	padding: 1.25em;
 	border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.sm}) {
-		padding: 10px;
+		padding: 0.625em;
 	}
 `
 

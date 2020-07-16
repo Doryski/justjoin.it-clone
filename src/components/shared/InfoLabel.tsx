@@ -34,47 +34,51 @@ const InfoLabel = ({
 	icon: number
 	title: string
 }) => {
-	const iconSwitch = () => {
+	function switchIcons() {
 		switch (icon) {
 			case 1:
-				return <MyBusinessIcon fontSize={ICON_SIZE} />
+				return {
+					icon: <MyBusinessIcon fontSize={ICON_SIZE} />,
+					title: 'Company name',
+				}
 			case 2:
-				return <MyPeopleIcon fontSize={ICON_SIZE} />
+				return {
+					icon: <MyPeopleIcon fontSize={ICON_SIZE} />,
+					title: 'Company size',
+				}
 			case 3:
-				return <MyNoteIcon fontSize={ICON_SIZE} />
+				return {
+					icon: <MyNoteIcon fontSize={ICON_SIZE} />,
+					title: 'EMP. type',
+				}
 			case 4:
-				return <MyShowChartIcon fontSize={ICON_SIZE} />
+				return {
+					icon: <MyShowChartIcon fontSize={ICON_SIZE} />,
+					title: 'EXP. lvl',
+				}
 			case 5:
-				return <MyTimelapseIcon fontSize={ICON_SIZE} />
+				return {
+					icon: <MyTimelapseIcon fontSize={ICON_SIZE} />,
+					title: 'Added',
+				}
 		}
 	}
-	const descrSwitch = () => {
-		switch (icon) {
-			case 1:
-				return 'Company name'
-			case 2:
-				return 'Company size'
-			case 3:
-				return 'EMP. type'
-			case 4:
-				return 'EXP. lvl'
-			case 5:
-				return 'Added'
-		}
-	}
+
 	return (
 		<Container>
-			<IconWrapper>{iconSwitch()}</IconWrapper>
+			<IconWrapper>{switchIcons()?.icon}</IconWrapper>
+			{/* @ts-ignore */}
 			<Typography color='title' fontSize='0.8rem' fWeight='400'>
 				{title}
 			</Typography>
 			<Typography
 				color='title'
+				// @ts-ignore
 				fontSize='0.7rem'
 				fWeight='400'
-				margin='3px 0'
+				margin='0.1875em 0'
 			>
-				{descrSwitch()}
+				{switchIcons()?.title}
 			</Typography>
 		</Container>
 	)
@@ -90,13 +94,13 @@ const Container = styled.div`
 	position: relative;
 	border-radius: 4px;
 	flex: 1 1 0%;
-	margin: 0px 5px;
-	padding: 20px 5px;
+	margin: 0 0.3125em;
+	padding: 1.25em 0.3125em;
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.md}) {
 		box-shadow: none;
 		flex: 1 0 calc(50% - 2px);
-		margin: 1px;
+		margin: 0.0625em;
 	}
 `
 const IconWrapper = styled.div`
@@ -110,6 +114,6 @@ const IconWrapper = styled.div`
 	transform: translate(-50%, -50%);
 	background: ${({ theme }) => theme.colors.primary};
 	border-radius: 50%;
-	padding: 8px;
+	padding: 0.5em;
 `
 export default InfoLabel

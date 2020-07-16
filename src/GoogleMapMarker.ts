@@ -1,9 +1,10 @@
 import stringFormat from './helpers/stringFormat'
 import { latlngOptions } from './helpers/options'
 import './googleMap.css'
-import { baseURL } from './axios'
-import { ParamsType } from './store/reducer'
+import { BASE_URL } from './axios'
+import { ParamsType, Offer } from './store/reducer'
 import TechSvg from './helpers/TechSvg'
+import { OfferCard } from './components/shared/OfferCard'
 
 const createHTMLMapMarker = (history: any) => {
 	function CustomMarker(item: any, map: any, initParams: any) {
@@ -75,14 +76,14 @@ const createHTMLMapMarker = (history: any) => {
 	}
 
 	CustomMarker.prototype.filterOffers = (
-		list: any[],
+		list: OfferCard[],
 		params: ParamsType
 	) => {
 		const { location, tech, expLvl, from, to, sort } = params
 
 		return list
 			.filter(
-				(item: any) =>
+				(item: OfferCard) =>
 					(location
 						? stringFormat(item.city) === location
 						: true) &&
@@ -91,7 +92,7 @@ const createHTMLMapMarker = (history: any) => {
 					(from ? item.salaryFrom >= from : true) &&
 					(to ? item.salaryTo <= to : true)
 			)
-			.sort((a: any, b: any) => {
+			.sort((a: OfferCard, b: OfferCard) => {
 				switch (sort) {
 					case 'sal-down':
 						return a.salaryFrom > b.salaryFrom
@@ -209,7 +210,7 @@ const createHTMLMapMarker = (history: any) => {
 				}
 				htmlEl.innerHTML = `<div class='logo_wrapper'>
                                   <img class='logo' src=${
-										baseURL + item.image
+										BASE_URL + item.image
 									}/>
                                 </div>
                                 <div class='item_info_container'>

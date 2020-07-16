@@ -105,7 +105,7 @@ const Container = styled.div`
 	flex: 1;
 
 	@media (max-width: 1025px) {
-		padding: 30px;
+		padding: 1.875em;
 		align-items: center;
 		flex-wrap: wrap;
 		justify-content: center;
@@ -113,7 +113,7 @@ const Container = styled.div`
 `
 
 const ButtonWrapper = styled.div`
-	margin: 0 5px;
+	margin: 0 0.3125em;
 `
 
 const AllIconContainer = styled.div`
@@ -126,7 +126,7 @@ const AllIconContainer = styled.div`
 	min-width: 32px;
 	height: 32px;
 	line-height: 32px;
-	margin-top: 5px;
+	margin-top: 0.3125em;
 	color: ${({ theme }) => theme.colors.white};
 	border-radius: 50%;
 	background: ${({
@@ -161,7 +161,7 @@ const Link = styled(RouteLink)`
 	flex-direction: column;
 	justify-content: center;
 	align-items: stretch;
-	margin-right: 5px;
+	margin-right: 0.3125em;
 	height: 60px;
 	text-align: center;
 `

@@ -13,11 +13,12 @@ import {
 	setParams,
 } from '../../store/actions'
 import createHTMLMapMarker from '../../GoogleMapMarker'
-import axios, { baseURL } from '../../axios'
+import axios, { BASE_URL } from '../../axios'
 import { initMapOptions } from '../../googleMapOptions'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { InitialStoreState } from '../../store/reducer'
 import _ from 'lodash'
+import Map from '../Map'
 
 export type SingleOfferProps = {
 	history: any
@@ -48,8 +49,7 @@ const SingleOffer = ({
 
 	useEffect(() => {
 		if (!loading && _.isEmpty(markers)) {
-			const paramss =
-				JSON.parse(localStorage.getItem('params')) || params
+			const paramss = JSON.parse(localStorage.params) || params
 
 			const map = new global.google.maps.Map(
 				document.getElementById('map'),
@@ -136,7 +136,7 @@ const SingleOffer = ({
 									<HeadreWrapper>
 										<ImgBackground>
 											<Img
-												src={`${baseURL}${offer.image}`}
+												src={`${BASE_URL}${offer.image}`}
 											/>
 										</ImgBackground>
 										<MainInfoContainer>
@@ -144,8 +144,7 @@ const SingleOffer = ({
 												color='white'
 												align='flex-start'
 												fontSize='1rem'
-												as='span'
-												margin='4px 0'
+												margin='0.25em 0'
 												fWeight='400'
 											>
 												{offer.salaryFrom} -
@@ -155,8 +154,7 @@ const SingleOffer = ({
 												color='white'
 												align='flex-start'
 												fontSize='1.2rem'
-												as='span'
-												margin='4px 0'
+												margin='0.25em 0'
 											>
 												{offer.offerTitle}
 											</Typography>
@@ -164,8 +162,7 @@ const SingleOffer = ({
 												color='white'
 												align='flex-start'
 												fontSize='1rem'
-												as='span'
-												margin='4px 0'
+												margin='0.25em 0'
 												fWeight='400'
 											>
 												{offer.street},
@@ -203,7 +200,7 @@ const SingleOffer = ({
 									fWeight='400'
 									fontSize='1.2rem'
 									align='flex-start'
-									margin='10px 20px'
+									margin='0.625em 1.25em'
 								>
 									Tech stack
 								</Typography>
@@ -224,7 +221,7 @@ const SingleOffer = ({
 									fWeight='400'
 									fontSize='1.2rem'
 									align='flex-start'
-									margin='10px 20px'
+									margin='0.625em 1.25em'
 								>
 									Description
 								</Typography>
@@ -248,7 +245,7 @@ const Container = styled.div`
 	background: ${({ theme }) => theme.colors.secondary};
 	display: flex;
 	flex-direction: column;
-	padding: 0 20px;
+	padding: 0 1.25em;
 	position: relative;
 	flex: 1 1 0%;
 `
@@ -258,17 +255,17 @@ const ContainerScroll = styled.div`
 	right: 0px;
 	bottom: 0px;
 	left: 0px;
-	padding: 0 15px;
+	padding: 0 0.9375em;
 	overflow: auto;
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.md}) {
-		padding: 0 3px;
+		padding: 0 0.1875em;
 	}
 `
 const HeaderContainer = styled.div`
 	height: 235px;
 	position: relative;
-	margin: 0px 0px 50px 0px;
+	margin: 0 0 3.125em 0;
 `
 const HeaderInner = styled.div`
 	background: url(https://justjoin.it/static/media/header_background.0ef18c97.png)
@@ -277,7 +274,7 @@ const HeaderInner = styled.div`
 			theme.techColors[tech]};
 	height: 100%;
 	border-radius: 0px 0px 4px 4px;
-	padding: 40px 40px 0px;
+	padding: 2.5em 2.5em 2.5em;
 `
 const HeadreWrapper = styled.div`
 	display: flex;
@@ -318,7 +315,7 @@ const Img = styled.img`
 `
 const MainInfoContainer = styled.div`
 	flex: 1;
-	margin: 0 0 0 40px;
+	margin: 0 0 0 2.5em;
 `
 const InfoLabelsContainer = styled.div`
 	display: flex;
@@ -326,48 +323,48 @@ const InfoLabelsContainer = styled.div`
 	justify-content: space-between;
 	transform: translateY(-50%);
 	width: 100%;
-	padding: 0px 15px;
+	padding: 0 0.9375em;
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.md}) {
 		transform: translateY(-25%);
 	}
 `
 const TechStackContainer = styled.div`
-	padding: 5px 0;
+	padding: 0.3125em 0;
 	box-shadow: ${({ theme }) => theme.colors.shadow};
-	margin-top: 40px;
+	margin-top: 2.5em;
 	background: ${({ theme }) => theme.colors.primary};
 	border-radius: 5px;
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.md}) {
-		margin-top: 170px;
+		margin-top: 10.625em;
 	}
 `
 const Wrapper = styled.div`
-	padding: 24px;
+	padding: 1.5em;
 	border-top: 2px solid ${({ theme }) => theme.colors.secondary};
 	display: flex;
 	flex-wrap: wrap;
 `
 const DescriptionContainer = styled.div`
-	margin: 30px 0;
-	padding: 5px 0;
+	margin: 1.875em 0;
+	padding: 0.3125em 0;
 	box-shadow: ${({ theme }) => theme.colors.shadow};
 	background: ${({ theme }) => theme.colors.primary};
 	border-radius: 5px;
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.md}) {
-		margin: 15px 0;
+		margin: 0.9375em 0;
 	}
 `
 const DescriptionContent = styled.div`
-	padding: 0 15px;
+	padding: 0 0.9375em;
 	color: ${({ theme }) => theme.colors.title};
 `
 const ProgressWrapper = styled.div`
 	display: flex;
 	justify-content: center;
-	padding-top: 40px;
+	padding-top: 2.5em;
 `
 
 const mapStateToProps = (state: InitialStoreState) => ({ state })

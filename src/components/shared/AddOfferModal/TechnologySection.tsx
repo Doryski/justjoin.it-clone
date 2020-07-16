@@ -8,7 +8,13 @@ import { useForm } from 'react-hook-form'
 import RemoveIcon from '@material-ui/icons/Remove'
 import AddIcon from '@material-ui/icons/Add'
 
-const TechnologySection = ({ techSize, setTechSize }) => {
+const TechnologySection = ({
+	techSize,
+	setTechSize,
+}: {
+	techSize: number
+	setTechSize: React.Dispatch<React.SetStateAction<number>>
+}) => {
 	const { register, errors } = useForm()
 
 	const techSizeHandler = (action: string = '') => {
@@ -20,7 +26,7 @@ const TechnologySection = ({ techSize, setTechSize }) => {
 			{[...Array(techSize)].map((v, index) => (
 				<Wrapper key={index}>
 					<InputComponent
-						max='35'
+						max={35}
 						type='text'
 						id={`tech_${index}`}
 						label='Technology'
@@ -59,7 +65,7 @@ const TechnologySection = ({ techSize, setTechSize }) => {
 	)
 }
 const IconsWrapper = styled.div`
-	padding: 5px 10px;
+	padding: 0.3125em 0.625em;
 	border: 1px solid ${({ theme }) => theme.colors.buttonBorder};
 	border-radius: 18px;
 	display: flex;
@@ -69,13 +75,13 @@ const IconsWrapper = styled.div`
 	margin: auto;
 `
 const IconWrapper = styled.div`
-	padding: 5px 10px;
+	padding: 0.3125em 0.625em;
 	border: 1px solid ${({ theme }) => theme.colors.buttonBorder};
 	border-radius: 18px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: 0 3px;
+	margin: 0 0.1875em;
 	width: 50%;
 	cursor: pointer;
 	&:hover {

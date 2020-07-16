@@ -12,8 +12,8 @@ const AddOffer = () => {
 				onclick={() => {
 					setDialogOpen(true)
 				}}
-				margin='0 12px 0 6px'
-				padding='8px 16px'
+				margin='0 0.75em 0 0.375em'
+				padding='0.5em 1em'
 			>
 				Post a job
 			</CustomButton>

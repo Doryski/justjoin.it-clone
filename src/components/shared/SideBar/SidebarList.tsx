@@ -12,6 +12,7 @@ const SidebarList = () => {
 					<TitleWrapper>
 						<Typography
 							color='sideBarText'
+							// @ts-ignore
 							fWeight='400'
 						>
 							{item.title}
@@ -25,12 +26,12 @@ const SidebarList = () => {
 
 const List = styled.ul`
 	width: 100%;
-	padding-top: 10px;
+	padding-top: 0.625em;
 `
 
 const ListItem = styled.li`
 	display: flex;
-	padding: 8px 16px 8px 32px;
+	padding: 0.5em 1em 0.5em 2em;
 	height: 56px;
 	width: 100%;
 	cursor: pointer;
@@ -46,7 +47,7 @@ const IconWrapper = styled.div`
 	margin: auto 0;
 `
 const TitleWrapper = styled.div`
-	margin: auto 0 auto 32px;
+	margin: auto 0 auto 2em;
 `
 
 export default SidebarList

@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import CustomButton from '../CustomButton'
 import DialogComponent from './DialogComponent'
-import { InitialStoreState } from '../../../store/reducer'
+import { InitialStoreState, ParamsType } from '../../../store/reducer'
 import { connect } from 'react-redux'
 import { Tune } from '@material-ui/icons'
-import Typography from '../../../helpers/Typography'
 
-const MoreFilters = ({ params }) => {
+const MoreFilters = ({ params }: { params: ParamsType }) => {
 	const [dialogOpen, setDialogOpen] = useState(false)
 
 	return (
@@ -15,9 +14,13 @@ const MoreFilters = ({ params }) => {
 				onclick={() => {
 					setDialogOpen(true)
 				}}
-				active={params.expLvl || params.from || params.to}
+				active={
+					Boolean(params.expLvl) ||
+					Boolean(params.from) ||
+					Boolean(params.to)
+				}
 				icon
-				margin='5px 5px 5px 10px'
+				margin='0.3125em 0.3125em 0.3125em 0.625em'
 				minWidth='158px'
 			>
 				<Tune fontSize='small' />

@@ -16,7 +16,7 @@ const Button = styled.button`
 	display: flex;
 	align-items: center;
 	background: transparent;
-	padding: 3px;
+	padding: 0.1875em;
 	font-size: 1.125rem;
 	text-align: center;
 	border-radius: 50%;
@@ -30,16 +30,16 @@ const Button = styled.button`
 `
 const InputWrapper = styled.div`
 	background: rgb(243, 246, 248);
-	padding: 3px 10px;
+	padding: 0.1875em 0.625em;
 	border-radius: 20px;
 	flex-wrap: wrap;
 	min-width: 150px;
-	width: 100%;
-	max-width: 150px;
+	// width: 100%;
+	// max-width: 150px;
 	cursor: text;
 	display: inline-flex;
 	align-items: center;
-	margin: -12px 10px 0 0;
+	margin: -0.75em 0.625em 0 0;
 	position: relative;
 `
 const Input = styled.input`
@@ -52,7 +52,7 @@ const Input = styled.input`
 	font-weight: 400;
 	font-family: 'Open Sans', 'sans serif';
 	flex-grow: 1;
-	padding-left: 5px;
+	padding-left: 0.3125em;
 	background: none;
 	border: none;
 	&::placeholder {

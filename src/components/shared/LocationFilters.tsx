@@ -11,9 +11,9 @@ import { locationArray } from '../../helpers/options'
 import DialogFooter from './DialogFooter'
 import Typography from '../../helpers/Typography'
 
-const LocationFilters = ({ params }: { params: ParamsType }) => {
+const LocationFilters = ({ params }: any) => {
 	const [dialogOpen, setDialogOpen] = useState(false)
-	const [location, setLocation] = useState(null)
+	const [location, setLocation] = useState<string | null>(null)
 	const fullScreen = useMediaQuery('(max-width:800px)')
 
 	const onClose = () => {
@@ -27,7 +27,7 @@ const LocationFilters = ({ params }: { params: ParamsType }) => {
 				onclick={() => {
 					setDialogOpen(true)
 				}}
-				margin='6px 16px 0 5px'
+				margin='0.375em 1em 0 0.3125em'
 				active={Boolean(params.location)}
 				icon
 				minWidth='148px'
@@ -50,9 +50,10 @@ const LocationFilters = ({ params }: { params: ParamsType }) => {
 					<Typography
 						style={{ display: 'flex' }}
 						color='text'
+						// @ts-ignore
 						fWeight='700'
 						fontSize='1rem'
-						padding='20px 20px 0 20px'
+						padding='1.25em 1.25em 0 1.25em'
 					>
 						Top locations
 					</Typography>
@@ -70,7 +71,7 @@ const LocationFilters = ({ params }: { params: ParamsType }) => {
 											: stringFormat(loc) ===
 											  params.location
 									}
-									padding='8px 30px'
+									padding='0.5em 1.875em'
 								>
 									{loc}
 								</CustomButton>
@@ -80,9 +81,10 @@ const LocationFilters = ({ params }: { params: ParamsType }) => {
 					<Typography
 						style={{ display: 'flex' }}
 						color='text'
+						// @ts-ignore
 						fWeight='700'
 						fontSize='1rem'
-						padding='0 20px'
+						padding='0 1.25em'
 					>
 						Other locations
 					</Typography>
@@ -100,7 +102,7 @@ const LocationFilters = ({ params }: { params: ParamsType }) => {
 											: stringFormat(loc) ===
 											  params.location
 									}
-									padding='8px 30px'
+									padding='0.5em 1.875em'
 								>
 									{loc}
 								</CustomButton>
@@ -120,7 +122,7 @@ const LocationFilters = ({ params }: { params: ParamsType }) => {
 	)
 }
 const ItemWrapper = styled.div`
-	margin: 5px;
+	margin: 0.3125em;
 `
 const Container = styled.div`
 	height: 100%;
@@ -130,7 +132,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	padding: 15px;
+	padding: 0.9375em;
 `
 
 const mapStateToProps = ({ params }: InitialStoreState) => ({

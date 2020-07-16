@@ -2,21 +2,22 @@ import React from 'react'
 import Typography from '../../helpers/Typography'
 import styled from 'styled-components'
 import SmallLabel from './SmallLabel'
-import { BusinessLabel, LocationLabel } from './Label'
+import CustomLabel from './CustomLabel'
 import dateConvert from '../../helpers/dateConvert'
-import { baseURL } from '../../axios'
+import { BASE_URL } from '../../axios'
 import { Link } from 'react-router-dom'
 
-type OfferCardProps = {
+export type OfferCard = {
 	slug: string
 	tech: string
 	title: string
 	companyName: string
 	city: string
 	image: string
-	technology: any[]
-	from: string
-	to: string
+	technology: { tech: string }[]
+	salaryFrom: number
+	salaryTo: number
+	expLvl: string
 	placeId: string
 	dateAdd: string
 }
@@ -33,25 +34,29 @@ const OfferCard = ({
 	to,
 	placeId,
 	dateAdd,
-}: OfferCardProps) => {
+}: OfferCard) => {
+	const handleMouse = (
+		e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+		eventType: 'mouseOver' | 'mouseOut'
+	) => {
+		const element = document.getElementById(placeId)
+		if (eventType === 'mouseOver') {
+			element?.classList.add('active_marker')
+		} else if (eventType === 'mouseOut') {
+			element?.classList.remove('active_marker')
+		}
+	}
+
 	return (
 		<Link to={`/offer/${slug}`}>
 			<Container
-				onMouseOver={() => {
-					document
-						.getElementById(placeId)
-						.classList.add('active_marker')
-				}}
-				onMouseOut={() => {
-					document
-						.getElementById(placeId)
-						.classList.remove('active_marker')
-				}}
+				onMouseOver={e => handleMouse(e, 'mouseOver')}
+				onMouseOut={e => handleMouse(e, 'mouseOut')}
 			>
 				{/* @ts-ignore */}
 				<TechColor tech={tech} />
 				<ImgWrapper>
-					<Img src={`${baseURL}${image}`} />
+					<Img src={`${BASE_URL}${image}`} />
 				</ImgWrapper>
 				<InfoContainer>
 					<TopWrapper>
@@ -59,6 +64,7 @@ const OfferCard = ({
 							<Typography
 								color='title'
 								align='flex-start'
+								// @ts-ignore
 								fontSize='1.2rem'
 								hide
 							>
@@ -69,6 +75,7 @@ const OfferCard = ({
 							<Typography
 								color='salary'
 								align='flex-start'
+								// @ts-ignore
 								fWeight='400'
 								fontSize='1.1rem'
 							>
@@ -76,7 +83,7 @@ const OfferCard = ({
 							</Typography>
 							<SmallLabel
 								isNew={!dateConvert(dateAdd)}
-								margin='0 5px 0 10px'
+								margin='0 0.3125em 0 0.625em'
 							>
 								{dateConvert(dateAdd) > 0
 									? `${dateConvert(dateAdd)}d ago`
@@ -86,13 +93,19 @@ const OfferCard = ({
 					</TopWrapper>
 					<BottomWrapper>
 						<InfoWrapper>
-							<BusinessLabel label={companyName} />
-							<LocationLabel label={city} />
+							<CustomLabel
+								type='business'
+								label={companyName}
+							/>
+							<CustomLabel
+								type='location'
+								label={city}
+							/>
 						</InfoWrapper>
 						<RequirementsWrapper>
-							{technology.map(item => (
-								<SmallLabel span key={item.tech}>
-									{item.tech.toLowerCase()}
+							{technology.map(({ tech }) => (
+								<SmallLabel span key={tech}>
+									{tech.toLowerCase()}
 								</SmallLabel>
 							))}
 						</RequirementsWrapper>
@@ -103,7 +116,7 @@ const OfferCard = ({
 	)
 }
 const Container = styled.div`
-	margin: 5px 5px 10px 5px;
+	margin: 0.3125em 0.3125em 0.625em 0.3125em;
 	border-radius: 8px;
 	box-shadow: ${({ theme }) => theme.shadows.card};
 	background: ${({ theme }) => theme.colors.primary};
@@ -138,12 +151,12 @@ const InfoContainer = styled.div`
 `
 const TopWrapper = styled.div`
 	display: flex;
-	padding: 10px 0;
+	padding: 0.625em 0;
 	flex-wrap: wrap;
 `
 const BottomWrapper = styled.div`
 	display: flex;
-	padding: 2px 0 10px 0;
+	padding: 0.125em 0 0.625em 0;
 
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.sm}) {
@@ -154,17 +167,17 @@ const TitleWrapper = styled.div`
 	flex: 1;
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.sm}) {
-		padding: 5px 10px 5px 0;
+		padding: 0.3125em 0.625em 0.3125em 0;
 	}
 `
 const SalaryWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 10px 0 0;
+	padding: 0 0.625em 0 0;
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.sm}) {
-		padding: 5px 10px 5px 0;
+		padding: 0.3125em 0.625em 0.3125em 0;
 	}
 `
 const InfoWrapper = styled.div`
@@ -173,6 +186,6 @@ const InfoWrapper = styled.div`
 `
 const RequirementsWrapper = styled.div`
 	display: flex;
-	margin-right: 14px;
+	margin-right: 0.875em;
 `
 export default OfferCard

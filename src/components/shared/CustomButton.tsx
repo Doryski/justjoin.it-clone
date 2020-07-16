@@ -77,8 +77,8 @@ const Button = styled.button`
 				: theme.colors.buttonBorder};
 	border-radius: 18px;
 	padding: ${({ padding, icon }: StyledButtonProps) =>
-		icon ? padding || '2px 8px 2px 12px' : padding || '2px 12px'};
-	margin: ${({ margin }: StyledButtonProps) => margin || '0px'};
+		icon ? padding || '0.125em 0.5em 0.125em 0.75em' : padding || '0.125em 0.75em'};
+	margin: ${({ margin }: StyledButtonProps) => margin || '0'};
 	background: ${({ theme, active, pink }: StyledButtonProps) =>
 		active
 			? theme.colors.buttonBackgroundActive
@@ -104,7 +104,7 @@ const Button = styled.button`
 	}
 `
 const IconWrapper = styled.div`
-	margin-top: 3px;
+	margin-top: 0.1875em;
 	transition: all 0.4s;
 `
 const MyExpandMoreIcon = styled(({ active, pink, ...props }) => (

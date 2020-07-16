@@ -44,7 +44,7 @@ const SortFilter = ({ params }) => {
 						onClick={onClose}
 					>
 						<CustomButton
-							padding='8px 80px'
+							padding='0.5em 5em'
 							active={!params.sort}
 						>
 							latest
@@ -56,7 +56,7 @@ const SortFilter = ({ params }) => {
 						onClick={onClose}
 					>
 						<CustomButton
-							padding='8px 80px'
+							padding='0.5em 5em'
 							active={params.sort === 'sal-up'}
 						>
 							highest salary
@@ -68,7 +68,7 @@ const SortFilter = ({ params }) => {
 						onClick={onClose}
 					>
 						<CustomButton
-							padding='8px 80px'
+							padding='0.5em 5em'
 							active={params.sort === 'sal-down'}
 						>
 							lowest salary
@@ -80,7 +80,7 @@ const SortFilter = ({ params }) => {
 	)
 }
 const ButtonWrapper = styled.div`
-	margin: 0 5px;
+	margin: 0 0.3125em;
 `
 const Container = styled.div`
 	height: 220px;
@@ -90,7 +90,7 @@ const Container = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	padding: 40px 0;
+	padding: 2.5em 0;
 `
 
 const mapStateToProps = ({ params }: InitialStoreState) => ({

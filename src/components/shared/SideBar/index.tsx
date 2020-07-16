@@ -9,7 +9,7 @@ import Logo from '../Logo'
 import { InitialStoreState } from '../../../store/reducer'
 import SidebarList from './SidebarList'
 
-const SideBar = ({ darkMode }: { darkMode: boolean }) => {
+const SideBar = ({ darkMode }: { darkMode?: boolean }) => {
 	return (
 		<Container>
 			<LogoWrapper>
@@ -42,7 +42,7 @@ const Container = styled.div`
 const LogoWrapper = styled.div`
 	width: 240px;
 	margin: 0 auto;
-	padding: 15px 0;
+	padding: 0.9375em 0;
 	border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
 `
 

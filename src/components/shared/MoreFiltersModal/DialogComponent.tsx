@@ -16,14 +16,17 @@ const DialogComponent = ({
 	setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
 	dialogOpen: boolean
 }) => {
-	const [value, setValue] = useState([
+	const [value, setValue] = useState<number | number[]>([
 		params.from || 0,
 		params.to || 50000,
 	])
 	const fullScreen = useMediaQuery('(max-width:800px)')
 
-	const handleChange = (event: any, newValue: number[]) => {
-		setValue(newValue)
+	const handleChange = (
+		event: React.ChangeEvent<{}>,
+		newValue: number | number[]
+	) => {
+		setValue(newValue as number[])
 	}
 
 	const [expLvl, setExpLvl] = useState(params.expLvl)
@@ -69,7 +72,7 @@ const Container = styled.div`
 	background: ${({ theme }) => theme.colors.primary};
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.sm}) {
-		padding: 5px;
+		padding: 0.3125em;
 	}
 `
 

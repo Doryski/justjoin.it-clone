@@ -5,15 +5,16 @@ import {
 	StyledTextField,
 	Info,
 } from '../shared/StyledInputs'
+import { NestDataObject, FieldError } from 'react-hook-form'
 
 type InputComponentProps = {
 	id: string
 	label: string
 	register: any
-	required: string
-	errors: string
+	required: boolean
+	errors: NestDataObject<Record<string, any>, FieldError>
 	type: string
-	max?: string
+	max?: number
 }
 
 const InputComponent = ({
@@ -23,13 +24,13 @@ const InputComponent = ({
 	required,
 	errors,
 	type,
-	max = '120',
+	max = 120,
 }: InputComponentProps) => {
 	return (
 		<InputWrapper>
 			<Label>{label}</Label>
 			<StyledTextField
-				maxLength={+max}
+				maxLength={max}
 				type={type}
 				name={id}
 				ref={register({
@@ -38,6 +39,7 @@ const InputComponent = ({
 						: false,
 				})}
 			/>
+			{/* @ts-ignore */}
 			{errors[id] && <Info>{errors[id].message}</Info>}
 		</InputWrapper>
 	)

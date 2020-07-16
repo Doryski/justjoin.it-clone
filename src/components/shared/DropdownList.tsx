@@ -1,29 +1,37 @@
 import React from 'react'
 import TechIcon from './TechIcon'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import url from '../../helpers/urlFunc'
 import { techArray } from '../../helpers/options'
 import Typography from '../../helpers/Typography'
+import { ParamsType } from '../../store/reducer'
 
-const DropdownList = ({ selectItem, isOpen, params, cutArray }) => {
+type DropdownListPropsTypes = {
+	selectItem: VoidFunction
+	isOpen: boolean
+	params: ParamsType
+	cutArray: number
+}
+
+const DropdownList = ({
+	selectItem,
+	isOpen,
+	params,
+	cutArray,
+}: DropdownListPropsTypes) => {
 	return (
 		<StyledList isOpen={isOpen}>
 			{techArray.slice(cutArray).map(tech => (
-				<Link
-					key={tech}
-					to={url({
-						...params,
-						tech: params.tech === tech ? null : tech,
-					})}
-				>
-					<StyledItem>
-						<TechIcon tech={tech} onclick={selectItem} />
-						<Typography margin='0 0 0 10px'>
-							{tech}
-						</Typography>
-					</StyledItem>
-				</Link>
+				<StyledItem key={tech}>
+					<TechIcon
+						params={params}
+						tech={tech}
+						onclick={selectItem}
+					/>
+					{/* @ts-ignore */}
+					<Typography margin='0 0 0 0.625em'>
+						{tech}
+					</Typography>
+				</StyledItem>
 			))}
 		</StyledList>
 	)

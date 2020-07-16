@@ -5,20 +5,19 @@ import Filters from './Filters'
 import OfferList from './OfferList'
 import Map from './Map'
 import SingleOffer from './SingleOffer'
-import axios from '../../axios'
-// import createHTMLMapMarker from '../../GoogleMapMarker'
+import axios from '../axios'
 import _ from 'lodash'
-import { Switch, Route, useParams } from 'react-router-dom'
-import { setMarkers, setAllOffers } from '../../store/actions'
+import { Switch, Route } from 'react-router-dom'
+import { setAllOffers } from '../store/actions'
 import { connect } from 'react-redux'
-import { InitialStoreState } from '../../store/reducer'
+import { InitialStoreState } from '../store/reducer'
+import apiKey from '../apiKey'
 
 const MainPage = () => {
 	const loadScriptPromise = () => {
 		return new Promise((resolve, reject) => {
 			const googleMapScript = document.createElement('script')
-			googleMapScript.src =
-				'https://maps.googleapis.com/maps/api/js?key=AIzaSyCzuSdRVtpNzkDqnPd2NuF7x_4ZLR_92pc'
+			googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`
 			window.document.body.appendChild(googleMapScript)
 			googleMapScript.addEventListener('load', () => resolve())
 		})
@@ -83,6 +82,4 @@ const OfferContainerScroll = styled.div`
 
 const mapStateToProps = (state: InitialStoreState) => ({ state })
 
-export default connect(mapStateToProps, { setAllOffers, setMarkers })(
-	MainPage
-)
+export default connect(mapStateToProps, { setAllOffers })(MainPage)

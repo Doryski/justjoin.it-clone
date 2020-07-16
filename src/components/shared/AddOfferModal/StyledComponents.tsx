@@ -1,18 +1,18 @@
 import styled from 'styled-components'
 
 export const InputsContainer = styled.div`
-	padding: 20px;
-	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.sm}) {
-		padding: 5px;
-	}
-`
+			padding: 1.25em;
+			@media only screen and (max-width: ${({ theme }) =>
+					theme.breakpoints.sm}) {
+				padding: 0.3125em;
+			}
+		`
 
 export const ErrorMessage = styled.span`
-	color: ${({ span, theme }: { span: boolean; theme: any }) =>
+	color: ${({ span, theme }: { span?: boolean; theme: any }) =>
 		span ? theme.colors.span : theme.colors.pink};
 	font-size: 0.7rem;
-	margin-left: 10px;
+	margin-left: 0.625em;
 `
 export const Wrapper = styled.div`
 	display: flex;

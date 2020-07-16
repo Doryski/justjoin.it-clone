@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import TechSvg from '../../helpers/TechSvg'
 import { connect } from 'react-redux'
 import url from '../../helpers/urlFunc'
-import { InitialStoreState } from '../../store/reducer'
+import { InitialStoreState, ParamsType } from '../../store/reducer'
 import { Link } from 'react-router-dom'
 
 const TechIcon = ({
@@ -12,32 +12,30 @@ const TechIcon = ({
 	onclick,
 }: {
 	tech: string
-	params: any
+	params: ParamsType
 	onclick: VoidFunction
 }) => {
 	return (
-		<Link
-			to={url({
-				...params,
-				tech: params.tech === tech ? null : tech,
-			})}
+		<Container
+			// @ts-ignore
+			tech={tech}
+			focus={params.tech === tech || !params.tech}
+			onClick={onclick}
 		>
-			<Container
-				// @ts-ignore
-				tech={tech}
-				focus={params.tech === tech || !params.tech}
-				onClick={onclick}
+			<Link
+				to={url({
+					...params,
+					tech: params.tech === tech ? null : tech,
+				})}
 			>
 				<TechSvg tech={tech} />
-			</Container>
-		</Link>
+			</Link>
+		</Container>
 	)
 }
 const Container = styled.div`
 	position: relative;
-	margin: 0px 3px;
-	// width: 35px;
-	// height: 35px;
+	margin: 0 0.1875em;
 	border-radius: 50px;
 	background: ${({
 		theme,

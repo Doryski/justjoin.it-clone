@@ -30,7 +30,6 @@
         "@babel/preset-env": "^7.10.2",
         "@babel/preset-react": "^7.10.1",
         "@babel/preset-typescript": "^7.10.1",
-        "@types/ckeditor": "^4.9.10",
         "@types/google-map-react": "^1.1.8",
         "@types/lodash": "^4.14.155",
         "@types/markerclustererplus": "^2.1.33",

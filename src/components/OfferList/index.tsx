@@ -22,7 +22,7 @@ import {
 import { initMapOptions } from '../../googleMapOptions'
 import _ from 'lodash'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { InitialStoreState } from '../../store/reducer'
+import { InitialStoreState, Offer } from '../../store/reducer'
 
 type OfferListProps = {
 	history: any
@@ -43,14 +43,17 @@ const OfferList = ({
 	setOffersList,
 	state: { loading, markers, allOffers, markerClass, offersList },
 }: OfferListProps) => {
-	let sort = new URLSearchParams(useLocation().search).get('sort')
+	let sort =
+		new URLSearchParams(useLocation().search).get('sort') || null
 	let { location, tech, from, to, expLvl } = useParams()
 
 	const getNum = (string: string) => +string.split('k')[0]
 	const params = {
-		location: locationArray.includes(location) ? location : null,
-		tech: techArray.includes(tech) ? tech : null,
-		expLvl: expLvlArray.includes(expLvl) ? expLvl : null,
+		location: locationArray.includes(String(location))
+			? location
+			: null,
+		tech: techArray.includes(String(tech)) ? tech : null,
+		expLvl: expLvlArray.includes(String(expLvl)) ? expLvl : null,
 		from:
 			from && getNum(from) && getNum(from) > 0
 				? getNum(from) * 1000
@@ -59,7 +62,7 @@ const OfferList = ({
 			to && getNum(to) && getNum(to) > 0
 				? getNum(to) * 1000
 				: null,
-		sort: sortArray.includes(sort) ? sort : null,
+		sort: sortArray.includes(String(sort)) ? sort : null,
 	}
 
 	useEffect(() => {
@@ -121,7 +124,7 @@ const OfferList = ({
 					{offersList &&
 						markerClass.prototype
 							.filterOffers(offersList, params)
-							.map((item: any, index: string) => {
+							.map((item: OfferCard, index: string) => {
 								return (
 									<OfferCard
 										key={item.slug}
@@ -159,17 +162,17 @@ const ContainerScroll = styled.div`
 const FiltersWrapper = styled.div`
 	background: ${({ theme }) => theme.colors.primary};
 	display: flex;
-	margin-bottom: 5px;
+	margin-bottom: 0.3125em;
 `
 const SalaryFiltersWrapper = styled.div`
-	padding-left: 25px;
+	padding-left: 1.5625em;
 	display: flex;
 `
 const SortFiltersWrapper = styled.div`
 	flex: 1;
 	display: flex;
 	justify-content: flex-end;
-	padding: 3px;
+	padding: 0.1875em;
 `
 const ListContainer = styled.div`
 	position: absolute;
@@ -177,7 +180,7 @@ const ListContainer = styled.div`
 	right: 0px;
 	bottom: 0px;
 	left: 0px;
-	padding: 0 15px;
+	padding: 0 0.9375em;
 	overflow: auto;
 
 	@media only screen and (max-width: ${({ theme }) =>
@@ -193,7 +196,7 @@ const InfoSpan = styled.span`
 const ProgressWrapper = styled.div`
 	display: flex;
 	justify-content: center;
-	padding-top: 40px;
+	padding-top: 2.5em;
 `
 
 const mapStateToProps = (state: InitialStoreState) => ({ state })

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import PinkButton from '../PinkButton'
 import _ from 'lodash'
 import { Dialog } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
@@ -13,6 +12,7 @@ import TechnologySection from './TechnologySection'
 import EditorSection from './EditorSection'
 import styled from 'styled-components'
 import { Wrapper } from './StyledComponents'
+import CustomButton from '../CustomButton'
 
 const AddOfferModal = ({
 	dialogOpen,
@@ -21,20 +21,17 @@ const AddOfferModal = ({
 	dialogOpen: boolean
 	setDialogOpen: any
 }) => {
-	const {
-		handleSubmit,
-		getValues,
-		setError,
-	} = useForm()
+	const { handleSubmit, getValues, setError } = useForm()
 	const [techSize, setTechSize] = useState(1)
 	const [description, setDescription] = useState('')
 	const [descriptionError, setDescriptionError] = useState('')
 	const [loading, setLoading] = useState(false)
 	const fullScreen = useMediaQuery('(max-width:800px)')
 
-	const onSubmit = async (inputsData: any) => {
-		if (!description)
+	async function onSubmit(inputsData: any) {
+		if (!description) {
 			setDescriptionError('This field is required.')
+		}
 
 		setLoading(true)
 
@@ -120,7 +117,7 @@ const AddOfferModal = ({
 
 	const onClose = () => {
 		setDialogOpen(false)
-	}	
+	}
 
 	const onOpen = () => {
 		setDialogOpen(true)
@@ -154,7 +151,11 @@ const AddOfferModal = ({
 						descriptionError={descriptionError}
 					/>
 					<Wrapper>
-						<PinkButton onclick={onOpen}>
+						<CustomButton
+							padding='0.5em 1.125em'
+							pink
+							onclick={onOpen}
+						>
 							{loading ? (
 								<StyledCircularProgress
 									size='10px'
@@ -163,7 +164,7 @@ const AddOfferModal = ({
 							) : (
 								'Add offer'
 							)}
-						</PinkButton>
+						</CustomButton>
 					</Wrapper>
 				</Container>
 			</form>
@@ -175,10 +176,10 @@ const Container = styled.div`
 	height: 100%;
 	width: 100%;
 	background: ${({ theme }) => theme.colors.primary};
-	padding-bottom: 10px;
+	padding-bottom: 0.625em;
 `
 const StyledCircularProgress = styled(CircularProgress)`
-	margin: 0 25px;
+	margin: 0 1.5625em;
 `
 
 export default AddOfferModal

@@ -19,7 +19,7 @@ const Styled = styled.h4`
 		${minWidth && `min-width: ${minWidth}`};
 	`}
 `
-
+// @ts-ignore
 const Typography = styled(Styled).attrs(({ as }: { as: string }) => ({
 	as: as ? as : 'span',
 }))`

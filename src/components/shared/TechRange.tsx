@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Typography from '../../helpers/Typography'
 
 const TechRange = ({ range, tech }: { range: number; tech: any }) => {
-	const rangeSwitch = () => {
+	const switchRange = () => {
 		switch (range) {
 			case 1:
 				return 'nice to have'
@@ -31,22 +31,24 @@ const TechRange = ({ range, tech }: { range: number; tech: any }) => {
 			</RangeContainer>
 			<Typography
 				color='title'
+				// @ts-ignore
 				fWeight='600'
 				fontSize='1.1rem'
 				align='flex-start'
-				margin='5px 0'
+				margin='0.3125em 0'
 				hide
 			>
 				{tech}
 			</Typography>
 			<Typography
 				color='title'
+				// @ts-ignore
 				fontSize='0.8rem'
 				fWeight='400'
 				align='flex-start'
 				margin='0'
 			>
-				{rangeSwitch()}
+				{switchRange()}
 			</Typography>
 		</Container>
 	)
@@ -57,7 +59,7 @@ const Container = styled.div`
 	flex-direction: column;
 	max-width: 20%;
 	flex: 0 0 20%;
-	margin: 0px 0px 32px;
+	margin: 0 0 2em;
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.md}) {
 		max-width: 50%;
@@ -72,14 +74,14 @@ const RangePoint = styled.span`
 		disabled,
 		theme,
 	}: {
-		disabled: boolean
+		disabled?: boolean
 		theme: any
 	}) => (disabled ? 'rgb(191, 197, 210)' : theme.colors.pink)};
 	display: block;
 	width: 10px;
 	height: 10px;
 	border-radius: 50%;
-	margin: 0px 10px 0px 0px;
+	margin: 0 0.625em 0 0;
 `
 
 export default TechRange

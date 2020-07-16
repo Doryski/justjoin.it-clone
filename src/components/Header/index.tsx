@@ -8,14 +8,8 @@ import AddOffer from '../shared/AddOfferModal/AddOffer'
 import Logo from '../shared/Logo'
 import Typography from '../../helpers/Typography'
 import CustomButton from '../shared/CustomButton'
-
-const navList = [
-	{ title: 'Offers', active: true },
-	{ title: 'Brands', active: false },
-	{ title: 'News', active: false },
-	{ title: 'Matchmaking', active: false },
-	{ title: 'Select', active: false },
-]
+import JustjoinLogo from '../shared/JustjoinLogo'
+import Navigation from './Navigation'
 
 const Header = () => {
 	const [openDrawer, setOpenDrawer] = useState(false)
@@ -36,35 +30,21 @@ const Header = () => {
 
 	return (
 		<Container>
+			<JustjoinLogo />
 			<Logo />
 			{/* @ts-ignore */}
 			<Typography color='span' fWeight='400'>
 				#1 Job Board for IT industry in Poland
 			</Typography>
-			<NavList>
-				{navList.map(item => (
-					<NavItem key={item.title}>
-						<Typography
-						//@ts-ignore
-							fWeight='600'
-							color={item.active ? 'pink' : 'span'}
-							margin='0 6px'
-							minWidth='64px'
-							hoverColor='rgb(244, 143, 177)'
-						>
-							{item.title}
-						</Typography>
-					</NavItem>
-				))}
-			</NavList>
+			<Navigation />
 			<Wrapper>
 				<AddOffer />
 				<CustomButton
 					fWeight='400'
 					icon
 					pink
-					padding='2px 6px 3px 14px'
-					margin='0 15px 0 0'
+					padding='0.125em 0.375em 0.1875em 0.875em'
+					margin='0 0.9375em 0 0'
 				>
 					Sign in
 				</CustomButton>
@@ -86,19 +66,10 @@ const Container = styled.header`
 	width: 100%;
 `
 
-const NavList = styled.ul`
-	display: flex;
-	justify-content: flex-end;
-	flex: 1 1 0%;
-`
-const NavItem = styled.li`
-	display: block;
-	cursor: pointer;
-`
 const Wrapper = styled.div`
 	display: flex;
 	height: 38px;
-	margin-right: 12px;
+	margin-right: 0.75em;
 	align-items: center;
 `
 
