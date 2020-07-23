@@ -29,18 +29,16 @@ const Button = styled.button`
 	color: ${({ theme }) => theme.colors.text};
 `
 const InputWrapper = styled.div`
-	background: rgb(243, 246, 248);
-	padding: 0.1875em 0.625em;
+	background: ${({ theme }) => theme.colors.buttonBackgroundHover};
+	padding: 0.2em 0.625em;
+	margin: -0.75em 0.625em 0 0;
 	border-radius: 20px;
-	flex-wrap: wrap;
 	min-width: 150px;
-	// width: 100%;
-	// max-width: 150px;
 	cursor: text;
 	display: inline-flex;
 	align-items: center;
-	margin: -0.75em 0.625em 0 0;
 	position: relative;
+	border: 1px solid ${({ theme }) => theme.colors.buttonBackground};
 `
 const Input = styled.input`
 	display: block;

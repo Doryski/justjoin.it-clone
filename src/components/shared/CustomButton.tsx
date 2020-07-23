@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Typography from '../../helpers/Typography'
+import { ExpandLess, ExpandMore } from '@material-ui/icons'
+import { ICON_SIZE } from './InfoLabel'
 
 type CustomButtonProps = {
 	children: any
@@ -14,6 +15,8 @@ type CustomButtonProps = {
 	pink?: boolean
 	fWeight?: string
 	minWidth?: string
+	isOpen?: boolean
+	display?: string
 }
 
 type StyledButtonProps = {
@@ -37,6 +40,8 @@ const CustomButton = ({
 	pink = false,
 	fWeight,
 	minWidth,
+	isOpen,
+	display,
 }: CustomButtonProps) => {
 	return (
 		<Button
@@ -54,6 +59,7 @@ const CustomButton = ({
 				//@ts-ignore
 				fontSize={fontSize}
 				fWeight={fWeight}
+				display={display}
 			>
 				{children}
 			</Typography>
@@ -63,6 +69,7 @@ const CustomButton = ({
 						// @ts-ignore
 						pink={pink}
 						active={active}
+						isOpen={isOpen}
 					/>
 				</IconWrapper>
 			)}
@@ -75,9 +82,11 @@ const Button = styled.button`
 			active || pink
 				? theme.colors.pink
 				: theme.colors.buttonBorder};
-	border-radius: 18px;
+	border-radius: 20px;
 	padding: ${({ padding, icon }: StyledButtonProps) =>
-		icon ? padding || '0.125em 0.5em 0.125em 0.75em' : padding || '0.125em 0.75em'};
+		icon
+			? padding || '0.125em 0.5em 0.125em 0.75em'
+			: padding || '0.125em 0.75em'};
 	margin: ${({ margin }: StyledButtonProps) => margin || '0'};
 	background: ${({ theme, active, pink }: StyledButtonProps) =>
 		active
@@ -107,9 +116,14 @@ const IconWrapper = styled.div`
 	margin-top: 0.1875em;
 	transition: all 0.4s;
 `
-const MyExpandMoreIcon = styled(({ active, pink, ...props }) => (
-	<ExpandMoreIcon {...props} />
-))`
+export const MyExpandMoreIcon = styled(
+	({ active, pink, isOpen, ...props }) =>
+		isOpen ? (
+			<ExpandLess {...props} fontSize={ICON_SIZE} />
+		) : (
+			<ExpandMore {...props} fontSize={ICON_SIZE} />
+		)
+)`
 	color: ${({ theme, active, pink }: StyledButtonProps) =>
 		active
 			? theme.colors.pink

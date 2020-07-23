@@ -1,11 +1,7 @@
 import React from 'react'
 
 export default (
-	<svg
-		width='42'
-		height='42'
-		viewBox='0 0 42 42'
-	>
+	<svg width='45' height='45' viewBox='0 0 42 42'>
 		<defs>
 			<linearGradient
 				id='php-a'

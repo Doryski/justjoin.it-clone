@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import {
-	expLvlOptions,
+	expLvlArray,
 	empTypeOptions,
 	techArray,
 } from '../../../helpers/options'
@@ -13,6 +13,7 @@ import {
 	InputsContainer,
 } from './StyledComponents'
 import { InputWrapper, Label, StyledTextField } from '../StyledInputs'
+import _ from 'lodash'
 
 const InfoSection = () => {
 	const { register, errors } = useForm()
@@ -151,7 +152,9 @@ const InfoSection = () => {
 					register={register}
 					required
 					errors={errors}
-					options={expLvlOptions}
+					options={expLvlArray.map(lvl =>
+						_.capitalize(lvl)
+					)}
 				/>
 			</Wrapper>
 		</InputsContainer>

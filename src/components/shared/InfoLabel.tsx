@@ -32,7 +32,7 @@ const InfoLabel = ({
 	title,
 }: {
 	icon: number
-	title: string
+	title: string | number
 }) => {
 	function switchIcons() {
 		switch (icon) {
@@ -68,11 +68,11 @@ const InfoLabel = ({
 		<Container>
 			<IconWrapper>{switchIcons()?.icon}</IconWrapper>
 			{/* @ts-ignore */}
-			<Typography color='title' fontSize='0.8rem' fWeight='400'>
+			<Typography color='title' fWeight='400'>
 				{title}
 			</Typography>
 			<Typography
-				color='title'
+				color='span'
 				// @ts-ignore
 				fontSize='0.7rem'
 				fWeight='400'

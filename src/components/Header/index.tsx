@@ -5,11 +5,11 @@ import { IconButton } from '@material-ui/core'
 import Drawer from '@material-ui/core/Drawer'
 import SideBar from '../shared/SideBar'
 import AddOffer from '../shared/AddOfferModal/AddOffer'
-import Logo from '../shared/Logo'
 import Typography from '../../helpers/Typography'
 import CustomButton from '../shared/CustomButton'
 import JustjoinLogo from '../shared/JustjoinLogo'
 import Navigation from './Navigation'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
 	const [openDrawer, setOpenDrawer] = useState(false)
@@ -30,8 +30,11 @@ const Header = () => {
 
 	return (
 		<Container>
-			<JustjoinLogo />
-			<Logo />
+			<Link to='/'>
+				<LogoWrapper>
+					<JustjoinLogo />
+				</LogoWrapper>
+			</Link>
 			{/* @ts-ignore */}
 			<Typography color='span' fWeight='400'>
 				#1 Job Board for IT industry in Poland
@@ -43,7 +46,7 @@ const Header = () => {
 					fWeight='400'
 					icon
 					pink
-					padding='0.125em 0.375em 0.1875em 0.875em'
+					padding='0.375em 0.625em 0.375em 1.125em'
 					margin='0 0.9375em 0 0'
 				>
 					Sign in
@@ -66,6 +69,12 @@ const Container = styled.header`
 	width: 100%;
 `
 
+const LogoWrapper = styled.div`
+	display: inline-block;
+	width: 120px;
+	float: left;
+	margin: 7px 15px 0px 25px;
+`
 const Wrapper = styled.div`
 	display: flex;
 	height: 38px;

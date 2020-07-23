@@ -5,7 +5,8 @@ import DialogHeader from '../DialogHeader'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import SliderArea from './SliderArea'
 import DialogFooter from '../DialogFooter'
-import { ParamsType } from '../../../store/reducer'
+import { ParamsType, InitialStoreState } from '../../../store/reducer'
+import { connect } from 'react-redux'
 
 const DialogComponent = ({
 	params,
@@ -56,7 +57,6 @@ const DialogComponent = ({
 				/>
 
 				<DialogFooter
-					params={params}
 					onClose={onClose}
 					value={value}
 					expLvl={expLvl}
@@ -76,4 +76,8 @@ const Container = styled.div`
 	}
 `
 
-export default DialogComponent
+const mapStateToProps = ({ params }: InitialStoreState) => ({
+	params,
+})
+
+export default connect(mapStateToProps)(DialogComponent)

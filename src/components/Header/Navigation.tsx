@@ -21,7 +21,11 @@ const Navigation = () => {
 						color={item.active ? 'pink' : 'span'}
 						margin='0 0.375em'
 						minWidth='64px'
-						hoverColor='rgb(244, 143, 177)'
+						hoverColor={
+							item.active
+								? 'none'
+								: 'rgb(244, 143, 177)'
+						}
 					>
 						{item.title}
 					</Typography>

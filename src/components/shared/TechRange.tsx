@@ -35,15 +35,14 @@ const TechRange = ({ range, tech }: { range: number; tech: any }) => {
 				fWeight='600'
 				fontSize='1.1rem'
 				align='flex-start'
-				margin='0.3125em 0'
+				margin='0.3125em 0 0'
 				hide
 			>
 				{tech}
 			</Typography>
 			<Typography
-				color='title'
+				color='span'
 				// @ts-ignore
-				fontSize='0.8rem'
 				fWeight='400'
 				align='flex-start'
 				margin='0'

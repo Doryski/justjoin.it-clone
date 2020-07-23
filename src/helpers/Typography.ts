@@ -1,18 +1,20 @@
 import styled, { css } from 'styled-components'
 
 const Styled = styled.h4`
-	display: block;
 	${({
 		margin,
 		align,
 		padding,
 		minWidth,
+		display,
 	}: {
 		margin: string
 		align: string
 		padding: string
 		minWidth: string
+		display?: string
 	}) => css`
+		display: ${display || 'block'};
 		margin: ${margin || '0'};
 		text-align: ${align || 'center'};
 		padding: ${padding || '0'};

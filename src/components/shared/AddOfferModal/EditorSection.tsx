@@ -5,11 +5,11 @@ import styled from 'styled-components'
 import { ErrorMessage } from './StyledComponents'
 
 const EditorSection = ({
-	setDescription,
 	descriptionError,
+	setDescription,
 }: {
-	setDescription: React.Dispatch<React.SetStateAction<string>>
 	descriptionError: string
+	setDescription: React.Dispatch<React.SetStateAction<string>>
 }) => {
 	const onChangeDescription = (event: any, editor: any) => {
 		const data = editor.getData()

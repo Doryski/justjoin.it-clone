@@ -5,16 +5,25 @@ import NightsStayIcon from '@material-ui/icons/NightsStay'
 import Switch from '@material-ui/core/Switch'
 import { changeViewMode } from '../../../store/actions'
 import { connect } from 'react-redux'
-import Logo from '../Logo'
 import { InitialStoreState } from '../../../store/reducer'
 import SidebarList from './SidebarList'
+import JustjoinLogo from '../JustjoinLogo'
+import { Link } from 'react-router-dom'
 
-const SideBar = ({ darkMode }: { darkMode?: boolean }) => {
+const SideBar = ({
+	darkMode,
+	changeViewMode,
+}: {
+	darkMode?: boolean
+	changeViewMode: () => { type: string }
+}) => {
 	return (
 		<Container>
-			<LogoWrapper>
-				<Logo center />
-			</LogoWrapper>
+			<Link to='/'>
+				<LogoWrapper>
+					<JustjoinLogo />
+				</LogoWrapper>
+			</Link>
 			<SidebarList />
 			<ToggleWrapper>
 				<MyWbSunnyIcon />
@@ -40,9 +49,10 @@ const Container = styled.div`
 	height: 100%;
 `
 const LogoWrapper = styled.div`
-	width: 240px;
-	margin: 0 auto;
-	padding: 0.9375em 0;
+	width: 120px;
+	box-sizing: content-box;
+	padding: 0.9375em 4em;
+	margin: auto;
 	border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
 `
 

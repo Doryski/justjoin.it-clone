@@ -1,10 +1,13 @@
 import React from 'react'
 import CustomButton from './CustomButton'
 import styled from 'styled-components'
-import url from '../../helpers/urlFunc'
+import createUrl from '../../helpers/createUrl'
 import MAX_SLIDER_VALUE from '../../helpers/maxSliderValue'
-import { ParamsType } from '../../store/reducer'
+import { ParamsType, InitialStoreState } from '../../store/reducer'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { setParams } from '../../store/actions'
+import stringFormat from '../../helpers/stringFormat'
 
 type DialogFooterProps = {
 	params: ParamsType
@@ -13,6 +16,12 @@ type DialogFooterProps = {
 	location?: ParamsType['location']
 	value?: number[] | number
 	filterType: 'expLvl' | 'location'
+	setParams: (
+		params: ParamsType
+	) => {
+		type: string
+		payload: ParamsType
+	}
 }
 
 const DialogFooter = ({
@@ -22,26 +31,29 @@ const DialogFooter = ({
 	location,
 	value,
 	filterType,
+	setParams,
 }: DialogFooterProps) => {
-	function generateLinks() {
-		let clearFilters: string = url({ ...params })
-		let showOffers: string = url({ ...params })
-		const val0 = value instanceof Array ? value[0] : value
-		const val1 = value instanceof Array ? value[1] : value
+	const loc = stringFormat(location)
+	const val0 = value instanceof Array ? value[0] : value
+	const val1 = value instanceof Array ? value[1] : value
+
+	function getParams() {
+		let clearFilters: ParamsType = { ...params }
+		let showOffers: ParamsType = { ...params }
 		if (filterType === 'expLvl') {
-			clearFilters = url({ ...params, expLvl: null })
-			showOffers = url({
+			clearFilters = { ...params, expLvl: null }
+			showOffers = {
 				...params,
 				expLvl,
 				from: val0,
 				to: val1 === MAX_SLIDER_VALUE ? null : val1,
-			})
+			}
 		} else if (filterType === 'location') {
-			clearFilters = url({ ...params, location: null })
-			showOffers = url({
+			clearFilters = { ...params, location: null }
+			showOffers = {
 				...params,
-				location: location || params.location,
-			})
+				location: loc || params.location,
+			}
 		}
 
 		return { clearFilters, showOffers }
@@ -49,13 +61,27 @@ const DialogFooter = ({
 
 	return (
 		<BottomWrapper>
-			<Link to={generateLinks().clearFilters} onClick={onClose}>
+			<Link
+				to={createUrl(getParams().clearFilters)}
+				onClick={() => {
+					setParams(getParams().clearFilters)
+					console.log(getParams().clearFilters)
+					onClose()
+				}}
+			>
 				<CustomButton padding='0.5em 1.875em'>
 					Clear filters
 				</CustomButton>
 			</Link>
 
-			<Link to={generateLinks().showOffers} onClick={onClose}>
+			<Link
+				to={createUrl(getParams().showOffers)}
+				onClick={() => {
+					setParams(getParams().showOffers)
+					console.log(getParams().showOffers)
+					onClose()
+				}}
+			>
 				<CustomButton
 					padding='0.5em 1.125em'
 					pink
@@ -76,4 +102,8 @@ const BottomWrapper = styled.div`
 	border-top: 1px solid ${({ theme }) => theme.colors.divider};
 `
 
-export default DialogFooter
+const mapStateToProps = ({ params }: InitialStoreState) => ({
+	params,
+})
+
+export default connect(mapStateToProps, { setParams })(DialogFooter)

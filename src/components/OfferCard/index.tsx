@@ -1,62 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Typography from '../../helpers/Typography'
 import styled from 'styled-components'
-import SmallLabel from './SmallLabel'
-import CustomLabel from './CustomLabel'
-import dateConvert from '../../helpers/dateConvert'
+import SmallLabel from '../shared/SmallLabel'
+import CustomLabel from '../shared/CustomLabel'
+import dateDiffFromNow from '../../helpers/dateDiffFromNow'
 import { BASE_URL } from '../../axios'
 import { Link } from 'react-router-dom'
+import formatThous from '../../helpers/formatThous'
 
-export type OfferCard = {
+export type OfferCardType = {
 	slug: string
 	tech: string
-	title: string
+	offerTitle: string
 	companyName: string
 	city: string
 	image: string
-	technology: { tech: string }[]
+	technology: { tech: any }[]
 	salaryFrom: number
 	salaryTo: number
-	expLvl: string
 	placeId: string
 	dateAdd: string
 }
 
-const OfferCard = ({
-	slug,
-	tech,
-	title,
-	companyName,
-	city,
-	image,
-	technology,
-	from,
-	to,
-	placeId,
-	dateAdd,
-}: OfferCard) => {
-	const handleMouse = (
-		e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-		eventType: 'mouseOver' | 'mouseOut'
-	) => {
-		const element = document.getElementById(placeId)
-		if (eventType === 'mouseOver') {
-			element?.classList.add('active_marker')
-		} else if (eventType === 'mouseOut') {
-			element?.classList.remove('active_marker')
-		}
-	}
+const OfferCard = ({ offer }: { offer: OfferCardType }) => {
+	const [isOfferActive, setIsOfferActive] = useState(false)
 
 	return (
-		<Link to={`/offer/${slug}`}>
+		<Link to={`/offers/${offer.slug}`}>
 			<Container
-				onMouseOver={e => handleMouse(e, 'mouseOver')}
-				onMouseOut={e => handleMouse(e, 'mouseOut')}
+				onMouseOver={() => setIsOfferActive(true)}
+				onMouseOut={() => setIsOfferActive(false)}
 			>
 				{/* @ts-ignore */}
-				<TechColor tech={tech} />
+				<TechColor tech={offer.tech} />
 				<ImgWrapper>
-					<Img src={`${BASE_URL}${image}`} />
+					<Img src={`${BASE_URL}${offer.image}`} />
 				</ImgWrapper>
 				<InfoContainer>
 					<TopWrapper>
@@ -65,10 +43,10 @@ const OfferCard = ({
 								color='title'
 								align='flex-start'
 								// @ts-ignore
-								fontSize='1.2rem'
+								fontSize='1rem'
 								hide
 							>
-								{title}
+								{offer.offerTitle}
 							</Typography>
 						</TitleWrapper>
 						<SalaryWrapper>
@@ -77,17 +55,23 @@ const OfferCard = ({
 								align='flex-start'
 								// @ts-ignore
 								fWeight='400'
-								fontSize='1.1rem'
+								fontSize='1rem'
+								margin='0 .1em 0 0'
 							>
-								{from} - {to} PLN
+								{formatThous(offer.salaryFrom)} -{' '}
+								{formatThous(offer.salaryTo)} PLN
 							</Typography>
 							<SmallLabel
-								isNew={!dateConvert(dateAdd)}
+								isNew={
+									dateDiffFromNow(offer.dateAdd) < 1
+								}
 								margin='0 0.3125em 0 0.625em'
 							>
-								{dateConvert(dateAdd) > 0
-									? `${dateConvert(dateAdd)}d ago`
-									: 'New'}
+								{dateDiffFromNow(offer.dateAdd) < 1
+									? 'New'
+									: `${dateDiffFromNow(
+											offer.dateAdd
+									  )}d ago`}
 							</SmallLabel>
 						</SalaryWrapper>
 					</TopWrapper>
@@ -95,19 +79,21 @@ const OfferCard = ({
 						<InfoWrapper>
 							<CustomLabel
 								type='business'
-								label={companyName}
+								label={offer.companyName}
 							/>
 							<CustomLabel
 								type='location'
-								label={city}
+								label={offer.city}
 							/>
 						</InfoWrapper>
 						<RequirementsWrapper>
-							{technology.map(({ tech }) => (
-								<SmallLabel span key={tech}>
-									{tech.toLowerCase()}
-								</SmallLabel>
-							))}
+							{offer.technology
+								.slice(0, 3)
+								.map(({ tech }) => (
+									<SmallLabel span key={tech}>
+										{tech.toLowerCase()}
+									</SmallLabel>
+								))}
 						</RequirementsWrapper>
 					</BottomWrapper>
 				</InfoContainer>
@@ -116,14 +102,15 @@ const OfferCard = ({
 	)
 }
 const Container = styled.div`
-	margin: 0.3125em 0.3125em 0.625em 0.3125em;
-	border-radius: 8px;
+	margin: 0 0.625em 0.75em;
+	border-radius: 6px;
 	box-shadow: ${({ theme }) => theme.shadows.card};
 	background: ${({ theme }) => theme.colors.primary};
 	display: flex;
 	overflow: hidden;
 	transition: box-shadow 0.13s;
 	cursor: pointer;
+	height: 77px;
 	&:hover {
 		box-shadow: ${({ theme }) => theme.shadows.cardHover};
 	}
@@ -148,15 +135,15 @@ const InfoContainer = styled.div`
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	padding: 0.5em 0.25em 0.5em 0px;
 `
 const TopWrapper = styled.div`
 	display: flex;
-	padding: 0.625em 0;
+	padding: 0.35em 0 0.45em;
 	flex-wrap: wrap;
 `
 const BottomWrapper = styled.div`
 	display: flex;
-	padding: 0.125em 0 0.625em 0;
 
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.sm}) {

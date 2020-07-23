@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default (
-	<svg width='40' height='40' viewBox='0 0 40 40'>
+	<svg width='47' height='47' viewBox='0 0 40 40'>
 		<defs>
 			<linearGradient
 				id='data-a'

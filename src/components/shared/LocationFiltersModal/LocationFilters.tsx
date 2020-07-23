@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
-import CustomButton from './CustomButton'
+import CustomButton from '../CustomButton'
 import styled from 'styled-components'
 import { Dialog } from '@material-ui/core'
-import DialogHeader from './DialogHeader'
-import stringFormat from '../../helpers/stringFormat'
+import DialogHeader from '../DialogHeader'
+import stringFormat from '../../../helpers/stringFormat'
 import { connect } from 'react-redux'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { InitialStoreState, ParamsType } from '../../store/reducer'
-import { locationArray } from '../../helpers/options'
-import DialogFooter from './DialogFooter'
-import Typography from '../../helpers/Typography'
+import { InitialStoreState, ParamsType } from '../../../store/reducer'
+import { locationArray } from '../../../helpers/options'
+import DialogFooter from '../DialogFooter'
+import Typography from '../../../helpers/Typography'
+import { setParams } from '../../../store/actions'
 
 const LocationFilters = ({ params }: any) => {
 	const [dialogOpen, setDialogOpen] = useState(false)
@@ -18,7 +19,6 @@ const LocationFilters = ({ params }: any) => {
 
 	const onClose = () => {
 		setDialogOpen(false)
-		setLocation(null)
 	}
 
 	return (
@@ -27,12 +27,14 @@ const LocationFilters = ({ params }: any) => {
 				onclick={() => {
 					setDialogOpen(true)
 				}}
-				margin='0.375em 1em 0 0.3125em'
+				margin='0.375em 1.25em 0 0.3125em'
 				active={Boolean(params.location)}
 				icon
 				minWidth='148px'
+				isOpen={dialogOpen}
+				padding='0.425em 0.75em 0.425em 1em'
 			>
-				Location
+				{location || 'Location'}
 			</CustomButton>
 
 			<Dialog
@@ -61,13 +63,12 @@ const LocationFilters = ({ params }: any) => {
 						{locationArray.slice(0, 6).map(loc => (
 							<ItemWrapper key={loc}>
 								<CustomButton
-									onclick={() =>
-										setLocation(stringFormat(loc))
-									}
+									onclick={() => {
+										setLocation(loc)
+									}}
 									active={
 										location
-											? stringFormat(loc) ===
-											  location
+											? loc === location
 											: stringFormat(loc) ===
 											  params.location
 									}
@@ -92,13 +93,12 @@ const LocationFilters = ({ params }: any) => {
 						{locationArray.slice(6).map(loc => (
 							<ItemWrapper key={loc}>
 								<CustomButton
-									onclick={() =>
-										setLocation(stringFormat(loc))
-									}
+									onclick={() => {
+										setLocation(loc)
+									}}
 									active={
 										location
-											? stringFormat(loc) ===
-											  location
+											? loc === location
 											: stringFormat(loc) ===
 											  params.location
 									}
@@ -111,7 +111,6 @@ const LocationFilters = ({ params }: any) => {
 					</Wrapper>
 
 					<DialogFooter
-						params={params}
 						onClose={onClose}
 						location={location}
 						filterType={'location'}
@@ -139,4 +138,6 @@ const mapStateToProps = ({ params }: InitialStoreState) => ({
 	params,
 })
 
-export default connect(mapStateToProps)(LocationFilters)
+export default connect(mapStateToProps, { setParams })(
+	LocationFilters
+)

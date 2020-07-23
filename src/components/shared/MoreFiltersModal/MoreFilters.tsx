@@ -4,9 +4,22 @@ import DialogComponent from './DialogComponent'
 import { InitialStoreState, ParamsType } from '../../../store/reducer'
 import { connect } from 'react-redux'
 import { Tune } from '@material-ui/icons'
+import Typography from '../../../helpers/Typography'
+import styled from 'styled-components'
 
 const MoreFilters = ({ params }: { params: ParamsType }) => {
 	const [dialogOpen, setDialogOpen] = useState(false)
+
+	const isActive =
+		Boolean(params.expLvl) ||
+		Boolean(params.from) ||
+		Boolean(params.to)
+
+	const bothFiltersApplied =
+		Boolean(params.expLvl) &&
+		(Boolean(params.from) || Boolean(params.to))
+
+	const filtersApplied = isActive && bothFiltersApplied ? 2 : 1
 
 	return (
 		<>
@@ -14,21 +27,33 @@ const MoreFilters = ({ params }: { params: ParamsType }) => {
 				onclick={() => {
 					setDialogOpen(true)
 				}}
-				active={
-					Boolean(params.expLvl) ||
-					Boolean(params.from) ||
-					Boolean(params.to)
-				}
+				active={isActive}
 				icon
-				margin='0.3125em 0.3125em 0.3125em 0.625em'
+				isOpen={dialogOpen}
+				padding='0.375em 0.5em 0.375em 1em'
+				margin='-0.75em 0.3125em 0.3125em 0.625em'
 				minWidth='158px'
+				display='flex'
 			>
-				<Tune fontSize='small' />
-				More filters
+				{isActive ? (
+					<Number>{filtersApplied}</Number>
+				) : (
+					<Tune fontSize='small' />
+				)}
+				<Typography
+					color={isActive ? 'pink' : 'text'}
+					// @ts-ignore
+					fontSize='inherit'
+					fWeight='inherit'
+					margin={
+						isActive ? '.125em 0 0 .5em' : '0 0 0 .5em'
+					}
+				>
+					More filters
+				</Typography>
 			</CustomButton>
 			{dialogOpen && (
 				<DialogComponent
-					params={params}
 					dialogOpen={dialogOpen}
 					setDialogOpen={setDialogOpen}
 				/>
@@ -36,6 +61,17 @@ const MoreFilters = ({ params }: { params: ParamsType }) => {
 		</>
 	)
 }
+
+const Number = styled.div`
+	width: 24px;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	color: rgb(255, 255, 255);
+	margin-left: 0px;
+	border-radius: 12px;
+	background: rgb(255, 64, 129);
+`
 
 const mapStateToProps = ({ params }: InitialStoreState) => ({
 	params,

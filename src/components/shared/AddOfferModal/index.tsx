@@ -6,7 +6,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import axios from '../../../axios'
 import DialogHeader from '../DialogHeader'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import apiKey from '../../../apiKey'
 import InfoSection from './InfoSection'
 import TechnologySection from './TechnologySection'
 import EditorSection from './EditorSection'
@@ -19,7 +18,7 @@ const AddOfferModal = ({
 	setDialogOpen,
 }: {
 	dialogOpen: boolean
-	setDialogOpen: any
+	setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
 	const { handleSubmit, getValues, setError } = useForm()
 	const [techSize, setTechSize] = useState(1)
@@ -28,92 +27,93 @@ const AddOfferModal = ({
 	const [loading, setLoading] = useState(false)
 	const fullScreen = useMediaQuery('(max-width:800px)')
 
-	async function onSubmit(inputsData: any) {
-		if (!description) {
-			setDescriptionError('This field is required.')
-		}
+	// async function onSubmit(inputsData: any) {
+	// 	if (!description) {
+	// 		setDescriptionError('This field is required.')
+	// 	}
 
-		setLoading(true)
+	// 	setLoading(true)
 
-		const { data } = await axios.get(
-			'https://maps.googleapis.com/maps/api/geocode/json',
-			{
-				params: {
-					apiKey,
-					address: `${getValues('city')} ${getValues(
-						'street'
-					)}`,
-				},
-			}
-		)
-		const address = {
-			city: '',
-			street: '',
-		}
+	// const { data } = await axios.get(
+	// 	'https://maps.googleapis.com/maps/api/geocode/json',
+	// 	{
+	// 		params: {
+	// 			apiKey,
+	// 			address: `${getValues('city')} ${getValues(
+	// 				'street'
+	// 			)}`,
+	// 		},
+	// 	}
+	// )
+	// 	const address = {
+	// 		city: '',
+	// 		street: '',
+	// 	}
 
-		if (data.status !== 'OK') {
-			return setError([
-				{
-					name: 'city',
-					message: "Can't find this location.",
-				},
-				{
-					name: 'street',
-					message: "Can't find this location.",
-				},
-			])
-		}
+	// 	if (data.status !== 'OK') {
+	// 		return setError([
+	// 			{
+	// 				name: 'city',
+	// 				message: "Can't find this location.",
+	// 			},
+	// 			{
+	// 				name: 'street',
+	// 				message: "Can't find this location.",
+	// 			},
+	// 		])
+	// 	}
 
-		let route = ''
-		let political = ''
-		let streetNumber = ''
+	// 	let route = ''
+	// 	let political = ''
+	// 	let streetNumber = ''
 
-		data.results[0].address_components.forEach((i: any) => {
-			switch (i.types[0]) {
-				case 'political':
-					return (political = i.long_name)
-				case 'route':
-					return (route = i.long_name)
-				case 'street_number':
-					return (streetNumber = i.long_name)
-				case 'locality':
-					return (address.city = i.long_name)
-			}
-		})
+	// 	data.results[0].address_components.forEach((i: any) => {
+	// 		switch (i.types[0]) {
+	// 			case 'political':
+	// 				return (political = i.long_name)
+	// 			case 'route':
+	// 				return (route = i.long_name)
+	// 			case 'street_number':
+	// 				return (streetNumber = i.long_name)
+	// 			case 'locality':
+	// 				return (address.city = i.long_name)
+	// 		}
+	// 	})
 
-		address.street = `${political} ${route} ${streetNumber}`
+	// 	address.street = `${political} ${route} ${streetNumber}`
 
-		const finalData = {
-			...inputsData,
-			...address,
-			techSize,
-			description,
-			placeId: data.results[0].place_id,
-			lat: data.results[0].geometry.location.lat,
-			lng: data.results[0].geometry.location.lng,
-		}
+	// 	const finalData = {
+	// 		...inputsData,
+	// 		...address,
+	// 		techSize,
+	// 		description,
+	// 		placeId: data.results[0].place_id,
+	// 		lat: data.results[0].geometry.location.lat,
+	// 		lng: data.results[0].geometry.location.lng,
+	// 	}
 
-		let formData = new FormData()
+	// 	let formData = new FormData()
 
-		_.forEach(finalData, (value: string, key: string) => {
-			formData.append(key, value)
-		})
+	// 	_.forEach(finalData, (value: string, key: string) => {
+	// 		formData.append(key, value)
+	// 	})
 
-		axios
-			.post('/posts/', formData, {
-				headers: {
-					'content-type': 'multipart/form-data',
-				},
-			})
-			.then(res => {
-				setDialogOpen(false)
-				alert('Success. You added offer.')
-			})
-			.catch(err => alert(err.message))
-			.finally(() => {
-				setLoading(false)
-			})
-	}
+	// 	axios
+	// 	// /posts/
+	// 		.post('/posts/', formData, {
+	// 			headers: {
+	// 				'content-type': 'multipart/form-data',
+	// 			},
+	// 		})
+	// 		.then(res => {
+	// 			setDialogOpen(false)
+	// 			alert('Success. You added offer.')
+	// 		})
+	// 		.catch(err => alert(err.message))
+	// 		.finally(() => {
+	// 			setLoading(false)
+	// 		})
+	// }
 
 	const onClose = () => {
 		setDialogOpen(false)
@@ -132,7 +132,7 @@ const AddOfferModal = ({
 			fullScreen={fullScreen}
 		>
 			<form
-				onSubmit={handleSubmit(onSubmit)}
+				// onSubmit={handleSubmit(onSubmit)}
 				autoComplete='off'
 			>
 				<Container>

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import LocationFilters from '../shared/LocationFilters'
+import LocationFilters from '../shared/LocationFiltersModal/LocationFilters'
 import MoreFilters from '../shared/MoreFiltersModal/MoreFilters'
 import TechFilters from '../shared/TechFilters'
 import InputFilter from '../shared/InputFilter'
@@ -19,6 +19,7 @@ const Filters = () => {
 }
 const Container = styled.div`
 	min-height: 68px;
+	max-width: 100%;
 	background: ${({ theme }) => theme.colors.primary};
 	display: flex;
 	align-items: center;

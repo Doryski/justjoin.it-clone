@@ -15,7 +15,7 @@ const Container = styled.div`
 	justify-content: center;
 	width: 40px;
 	height: 40px;
-	border: 1px solid ${({ theme }) => theme.colors.text};
+	border: 1px solid ${({ theme }) => theme.colors.span};
 	border-radius: 50%;
 	cursor: pointer;
 	transition: all 0.3s;
@@ -25,6 +25,6 @@ const Container = styled.div`
 	}
 `
 const MyCloseIcon = styled(CloseIcon)`
-	color: ${({ theme }) => theme.colors.text};
+	color: ${({ theme }) => theme.colors.span};
 `
 export default CloseButton

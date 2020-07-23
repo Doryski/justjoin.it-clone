@@ -1,17 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
-import TechSvg from '../../helpers/TechSvg'
+import styled, { css } from 'styled-components'
+import TechSvg from './TechSvg'
 import { connect } from 'react-redux'
-import url from '../../helpers/urlFunc'
 import { InitialStoreState, ParamsType } from '../../store/reducer'
-import { Link } from 'react-router-dom'
 
 const TechIcon = ({
 	tech,
 	params,
 	onclick,
 }: {
-	tech: string
+	tech: string | null
 	params: ParamsType
 	onclick: VoidFunction
 }) => {
@@ -22,14 +20,7 @@ const TechIcon = ({
 			focus={params.tech === tech || !params.tech}
 			onClick={onclick}
 		>
-			<Link
-				to={url({
-					...params,
-					tech: params.tech === tech ? null : tech,
-				})}
-			>
-				<TechSvg tech={tech} />
-			</Link>
+			<TechSvg tech={tech} />
 		</Container>
 	)
 }
@@ -37,7 +28,7 @@ const Container = styled.div`
 	position: relative;
 	margin: 0 0.1875em;
 	border-radius: 50px;
-	background: ${({
+	${({
 		theme,
 		tech,
 		focus,
@@ -45,8 +36,13 @@ const Container = styled.div`
 		theme: any
 		tech: string
 		focus: boolean
-	}) =>
-		focus ? theme.techColors[tech] : theme.techColors.disabled};
+	}) => css`
+		svg circle {
+			fill: ${focus
+				? theme.techColors[tech]
+				: theme.techColors.disabled};
+		}
+	`}
 	overflow: hidden;
 	display: flex;
 	align-items: center;
@@ -56,9 +52,9 @@ const Container = styled.div`
 		content: '';
 		position: absolute;
 		top: 0;
-		left: -35px;
-		width: 35px;
-		height: 35px;
+		left: -45px;
+		width: 45px;
+		height: 45px;
 		background: rgb(255, 255, 255, 0.2);
 		transition: all 0.4s;
 	}

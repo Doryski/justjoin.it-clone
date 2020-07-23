@@ -15,12 +15,20 @@ const CustomLabel = ({
 }) => {
 	return (
 		<Wrapper>
-			<MyIcon type={type} />
+			<IconWrapper>
+				{type === 'business' ? (
+					<BusinessIcon />
+				) : type === 'location' ? (
+					<LocationOnIcon />
+				) : (
+					<People />
+				)}
+			</IconWrapper>
 			<Typography
-				color='text'
+				color='span'
 				// @ts-ignore
-				fontSize='.75rem'
-				fWeight='300'
+				fontSize='.7rem'
+				fWeight='400'
 			>
 				{label}
 			</Typography>
@@ -33,17 +41,12 @@ const Wrapper = styled.div`
 	align-items: center;
 	margin-right: 0.3125em;
 `
-const MyIcon = styled(({ type }: { type: 'business' | 'location' }) =>
-	type === 'business' ? (
-		<BusinessIcon fontSize={ICON_SIZE} />
-	) : type === 'location' ? (
-		<LocationOnIcon fontSize={ICON_SIZE} />
-	) : (
-		<People fontSize={ICON_SIZE} />
-	)
-)`
+
+const IconWrapper = styled.div`
 	color: ${({ theme }) => theme.colors.span};
 	margin-right: 0.25em;
-	height: 1px;
+	svg {
+		font-size: 0.9rem;
+	}
 `
 export default CustomLabel

@@ -1,8 +1,9 @@
 import { createGlobalStyle } from 'styled-components'
+import { ThemeType } from '.'
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   *,
-  *:before,
+  &:before,
   &:after {
     margin: 0;
     padding: 0;
@@ -11,8 +12,8 @@ const GlobalStyle = createGlobalStyle`
   }
  
   html {
-   
     height: 100%;
+    max-height: 100%;
     @media only screen and (max-width: ${({ theme }) =>
 		theme.breakpoints.md}) {
       font-size: 80.5%;
@@ -25,14 +26,14 @@ const GlobalStyle = createGlobalStyle`
 		theme.breakpoints.xs}) {
       font-size: 60.5%;
     }
-
   }
   
   body {
     font-family: "Open Sans", sans-serif;
     box-sizing: border-box;
-    line-height: 1.25;
+    max-height: 100vh;
   }
+
   button {
     cursor: pointer;
   }
@@ -42,8 +43,25 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
+    cursor: pointer;
     text-decoration: none;
     color: ${({ theme }) => theme.colors.title}
   }
+
+  ::-webkit-scrollbar {
+      width: 10px;
+      margin: 0.625em 0;
+      &-track {
+            border-radius: 10px;
+        }
+      &-thumb {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        &:hover {
+              background: rgba(0, 0, 0, 0.1);
+          }
+        }
+    }
+ 
 `
 export default GlobalStyle

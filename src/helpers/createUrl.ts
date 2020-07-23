@@ -1,6 +1,6 @@
 import { ParamsType } from '../store/reducer'
 
-export default function urlFunc({
+export default function createUrl({
 	location,
 	tech,
 	expLvl,

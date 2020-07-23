@@ -1,100 +1,111 @@
 import React, { useState } from 'react'
-import CustomButton from './CustomButton'
 import styled from 'styled-components'
-import { Dialog } from '@material-ui/core'
 import { connect } from 'react-redux'
-import url from '../../helpers/urlFunc'
-import { InitialStoreState, ParamsType } from '../../store/reducer'
-import { Link } from 'react-router-dom'
+import createUrl from '../../helpers/createUrl'
+import { InitialStoreState } from '../../store/reducer'
+import { Link as RouteLink } from 'react-router-dom'
+import { DropdownList, DropdownListItem } from './DropdownList'
+import Typography from '../../helpers/Typography'
+import { sortOptions } from '../../helpers/options'
+import { MyExpandMoreIcon } from './CustomButton'
+import { setParams } from '../../store/actions'
 
-const SortFilter = ({ params }) => {
-	const [dialogOpen, setDialogOpen] = useState(false)
+const SortFilter = ({ params, setParams }) => {
+	const [listOpen, setListOpen] = useState(false)
+	const handleListClick = () => ({
+		open: setListOpen(true),
+		close: setListOpen(false),
+		toggle: setListOpen(!listOpen),
+	})
 
-	const onClose = () => {
-		setDialogOpen(false)
+	const getCurrentSortOption = () =>
+		params.sort === sortOptions.salaryUp.id
+			? sortOptions.salaryUp
+			: params.sort === sortOptions.salaryDown.id
+			? sortOptions.salaryDown
+			: sortOptions.dateLatest
+
+	const newParams = {
+		salaryDown: {
+			...params,
+			sort: sortOptions.salaryDown.id,
+		},
+		salaryUp: {
+			...params,
+			sort: sortOptions.salaryUp.id,
+		},
+		dateLatest: {
+			...params,
+			sort: sortOptions.dateLatest.id,
+		},
 	}
 
 	return (
-		<>
-			<ButtonWrapper>
-				<CustomButton
-					onclick={() => {
-						setDialogOpen(true)
-					}}
-					active={params.sort}
-					icon
-				>
-					{params.sort === 'sal-up'
-						? 'highest salary'
-						: params.sort === 'sal-down'
-						? 'lowest salary'
-						: 'latest'}
-				</CustomButton>
-			</ButtonWrapper>
+		<ButtonWrapper onClick={() => handleListClick().toggle}>
+			<Typography color='span'>Sort by:</Typography>
+			<Typography color='text' margin='0 .25em 0 .5em'>
+				{getCurrentSortOption().name}
+			</Typography>
+			<MyExpandMoreIcon isOpen={listOpen} />
 
-			<Dialog
-				maxWidth='xs'
-				open={dialogOpen}
-				onClose={onClose}
-				fullWidth={true}
-			>
-				<Container>
+			<DropdownList isOpen={listOpen}>
+				<DropdownListItem>
 					<Link
-						to={url({ ...params, sort: null })}
-						onClick={onClose}
+						to={createUrl(newParams.dateLatest)}
+						onClick={() => {
+							handleListClick().close
+							setParams(newParams.dateLatest)
+						}}
 					>
-						<CustomButton
-							padding='0.5em 5em'
-							active={!params.sort}
-						>
-							latest
-						</CustomButton>
+						<Typography color='text' align='left'>
+							{sortOptions.dateLatest.name}
+						</Typography>
 					</Link>
-
+				</DropdownListItem>
+				<DropdownListItem>
 					<Link
-						to={url({ ...params, sort: 'sal-up' })}
-						onClick={onClose}
+						to={createUrl(newParams.salaryDown)}
+						onClick={() => {
+							handleListClick().close
+							setParams(newParams.salaryDown)
+						}}
 					>
-						<CustomButton
-							padding='0.5em 5em'
-							active={params.sort === 'sal-up'}
-						>
-							highest salary
-						</CustomButton>
+						<Typography color='text' align='left'>
+							{sortOptions.salaryDown.name}
+						</Typography>
 					</Link>
-
+				</DropdownListItem>
+				<DropdownListItem>
 					<Link
-						to={url({ ...params, sort: 'sal-down' })}
-						onClick={onClose}
+						to={createUrl(newParams.salaryUp)}
+						onClick={() => {
+							handleListClick().close
+							setParams(newParams.salaryUp)
+						}}
 					>
-						<CustomButton
-							padding='0.5em 5em'
-							active={params.sort === 'sal-down'}
-						>
-							lowest salary
-						</CustomButton>
+						<Typography color='text' align='left'>
+							{sortOptions.salaryUp.name}
+						</Typography>
 					</Link>
-				</Container>
-			</Dialog>
-		</>
+				</DropdownListItem>
+			</DropdownList>
+		</ButtonWrapper>
 	)
 }
 const ButtonWrapper = styled.div`
 	margin: 0 0.3125em;
-`
-const Container = styled.div`
-	height: 220px;
-	width: 100%;
-	background: ${({ theme }) => theme.colors.primary};
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	padding: 2.5em 0;
+	cursor: pointer;
+`
+const Link = styled(RouteLink)`
+	padding: 0.5em 0.7em;
+	width: 100%;
 `
 
 const mapStateToProps = ({ params }: InitialStoreState) => ({
 	params,
 })
 
-export default connect(mapStateToProps)(SortFilter)
+export default connect(mapStateToProps, { setParams })(SortFilter)

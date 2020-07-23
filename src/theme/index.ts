@@ -1,7 +1,6 @@
 const theme = {
 	techColors: {
-		disabled:
-			'linear-gradient(-90deg, rgb(145, 147, 170), rgb(125, 130, 168))',
+		disabled: 'rgb(125, 130, 168)',
 		all:
 			'linear-gradient(-90deg, rgb(186, 104, 200), rgb(156, 39, 176))',
 		js:
@@ -60,6 +59,9 @@ const theme = {
 		sm: '500px',
 		md: '800px',
 	},
+	fontSize: {},
+	fontWeight: {},
+	distance: {},
 }
 const lightModeTheme = {
 	colors: {
@@ -104,3 +106,4 @@ const darkModeTheme = {
 
 export const darkMode = { ...theme, ...darkModeTheme }
 export const lightMode = { ...theme, ...lightModeTheme }
+export type ThemeType = typeof darkMode

@@ -26,7 +26,7 @@ const SidebarList = () => {
 
 const List = styled.ul`
 	width: 100%;
-	padding-top: 0.625em;
+	padding-bottom: 0.625em;
 `
 
 const ListItem = styled.li`
