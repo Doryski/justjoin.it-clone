@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Clone of popular website with job offers for IT sector",
     "main": "webpack.config.js",
+    "homepage": "https://justjoinit-clone.netlify.app/",
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^19.0.2",
         "@ckeditor/ckeditor5-build-decoupled-document": "^19.0.2",
