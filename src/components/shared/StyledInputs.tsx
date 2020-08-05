@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
-export const StyledTextField = styled.input`
+export const StyledInput = styled.input<{ padding?: string }>`
 	border: 1px solid ${({ theme }) => theme.colors.buttonBorder};
 	border-radius: 18px;
 
-	padding: ${(props: any) => props.padding || '0.125em 0.9375em'};
+	padding: ${({ padding }) => padding || '0.125em 0.9375em'};
 	background: ${({ theme }) => theme.colors.buttonBackground};
 	color: ${({ theme }) => theme.colors.text};
 	width: 100%;
@@ -24,11 +24,11 @@ export const StyledTextField = styled.input`
 		height: 25px;
 	}
 `
-export const StyledSelect = styled.select`
+export const StyledSelect = styled.select<{ padding?: string }>`
 	border: 1px solid ${({ theme }) => theme.colors.buttonBorder};
 	border-radius: 18px;
 
-	padding: ${(props: any) => props.padding || '0.125em 0.9375em'};
+	padding: ${({ padding }) => padding || '0.125em 0.9375em'};
 	background: ${({ theme }) => theme.colors.buttonBackground};
 	color: ${({ theme }) => theme.colors.text};
 	width: 100%;
@@ -55,9 +55,8 @@ export const Label = styled.label`
 	margin-left: 0.625em;
 	color: ${({ theme }) => theme.colors.text};
 `
-export const Info = styled.span`
-	// @ts-ignore
-	color: ${({ theme, span }: { theme: any; span: boolean }) =>
+export const Info = styled.span<{ span?: boolean }>`
+	color: ${({ theme, span }) =>
 		span ? theme.colors.span : theme.colors.pink};
 	font-size: 0.7rem;
 	margin-left: 0.625em;

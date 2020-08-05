@@ -17,6 +17,7 @@ type CustomButtonProps = {
 	minWidth?: string
 	isOpen?: boolean
 	display?: string
+	type?: string
 }
 
 type StyledButtonProps = {
@@ -42,6 +43,7 @@ const CustomButton = ({
 	minWidth,
 	isOpen,
 	display,
+	type,
 }: CustomButtonProps) => {
 	return (
 		<Button
@@ -53,6 +55,8 @@ const CustomButton = ({
 			pink={pink}
 			icon={icon}
 			minWidth={minWidth}
+			//@ts-ignore
+			type={type}
 		>
 			<Typography
 				color={active ? 'pink' : pink ? 'white' : 'text'}
@@ -76,19 +80,19 @@ const CustomButton = ({
 		</Button>
 	)
 }
-const Button = styled.button`
+export const Button = styled.button<StyledButtonProps>`
 	border: 1px solid
-		${({ theme, active, pink }: StyledButtonProps) =>
+		${({ theme, active, pink }) =>
 			active || pink
 				? theme.colors.pink
 				: theme.colors.buttonBorder};
 	border-radius: 20px;
-	padding: ${({ padding, icon }: StyledButtonProps) =>
+	padding: ${({ padding, icon }) =>
 		icon
 			? padding || '0.125em 0.5em 0.125em 0.75em'
 			: padding || '0.125em 0.75em'};
-	margin: ${({ margin }: StyledButtonProps) => margin || '0'};
-	background: ${({ theme, active, pink }: StyledButtonProps) =>
+	margin: ${({ margin }) => margin || '0'};
+	background: ${({ theme, active, pink }) =>
 		active
 			? theme.colors.buttonBackgroundActive
 			: pink
@@ -97,34 +101,42 @@ const Button = styled.button`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	width: ${({ minWidth }: StyledButtonProps) => minWidth || 'auto'};
-	min-width: ${({ minWidth }: StyledButtonProps) =>
-		minWidth || 'none'};
+	width: ${({ minWidth }) => minWidth || 'auto'};
+	min-width: ${({ minWidth }) => minWidth || 'none'};
 	transition: all 0.4s;
 	&:hover {
-		background: ${({ theme, pink }: StyledButtonProps) =>
+		background: ${({ theme, pink }) =>
 			pink
 				? theme.colors.opacityPink
 				: theme.colors.buttonBackgroundHover};
-		border-color: ${({ theme, pink }: StyledButtonProps) =>
+		border-color: ${({ theme, pink }) =>
 			pink
 				? theme.colors.opacityPink
 				: theme.colors.buttonBorder};
 	}
 `
-const IconWrapper = styled.div`
+export const IconWrapper = styled.div`
 	margin-top: 0.1875em;
 	transition: all 0.4s;
 `
 export const MyExpandMoreIcon = styled(
-	({ active, pink, isOpen, ...props }) =>
+	({
+		active,
+		pink,
+		isOpen,
+		...props
+	}: {
+		active?: boolean
+		pink?: boolean
+		isOpen?: boolean
+	}) =>
 		isOpen ? (
 			<ExpandLess {...props} fontSize={ICON_SIZE} />
 		) : (
 			<ExpandMore {...props} fontSize={ICON_SIZE} />
 		)
 )`
-	color: ${({ theme, active, pink }: StyledButtonProps) =>
+	color: ${({ theme, active, pink }) =>
 		active
 			? theme.colors.pink
 			: pink

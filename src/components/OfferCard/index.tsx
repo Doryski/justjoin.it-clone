@@ -1,40 +1,43 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Typography from '../../helpers/Typography'
 import styled from 'styled-components'
 import SmallLabel from '../shared/SmallLabel'
 import CustomLabel from '../shared/CustomLabel'
 import dateDiffFromNow from '../../helpers/dateDiffFromNow'
-import { BASE_URL } from '../../axios'
 import { Link } from 'react-router-dom'
 import formatThous from '../../helpers/formatThous'
+import { setParams } from '../../store/actions'
+import stringFormat from '../../helpers/stringFormat'
+import {
+	ParamsType,
+	InitialStoreState,
+	OfferType,
+} from '../../store/reducer'
+import { connect } from 'react-redux'
 
-export type OfferCardType = {
-	slug: string
-	tech: string
-	offerTitle: string
-	companyName: string
-	city: string
-	image: string
-	technology: { tech: any }[]
-	salaryFrom: number
-	salaryTo: number
-	placeId: string
-	dateAdd: string
-}
-
-const OfferCard = ({ offer }: { offer: OfferCardType }) => {
-	const [isOfferActive, setIsOfferActive] = useState(false)
-
+const OfferCard = ({
+	params,
+	offer,
+}: {
+	params: ParamsType
+	offer: OfferType
+}) => {
 	return (
-		<Link to={`/offers/${offer.slug}`}>
-			<Container
-				onMouseOver={() => setIsOfferActive(true)}
-				onMouseOut={() => setIsOfferActive(false)}
-			>
+		<Link
+			to={`/offers/${offer.slug}`}
+			onClick={() => {
+				setParams({
+					...params,
+					location: stringFormat(offer.city),
+					tech: offer.tech,
+				})
+			}}
+		>
+			<Container>
 				{/* @ts-ignore */}
 				<TechColor tech={offer.tech} />
 				<ImgWrapper>
-					<Img src={`${BASE_URL}${offer.image}`} />
+					<Img src={offer.image} />
 				</ImgWrapper>
 				<InfoContainer>
 					<TopWrapper>
@@ -90,7 +93,7 @@ const OfferCard = ({ offer }: { offer: OfferCardType }) => {
 							{offer.technology
 								.slice(0, 3)
 								.map(({ tech }) => (
-									<SmallLabel span key={tech}>
+									<SmallLabel isSpan key={tech}>
 										{tech.toLowerCase()}
 									</SmallLabel>
 								))}
@@ -101,7 +104,7 @@ const OfferCard = ({ offer }: { offer: OfferCardType }) => {
 		</Link>
 	)
 }
-const Container = styled.div`
+export const Container = styled.div`
 	margin: 0 0.625em 0.75em;
 	border-radius: 6px;
 	box-shadow: ${({ theme }) => theme.shadows.card};
@@ -115,34 +118,33 @@ const Container = styled.div`
 		box-shadow: ${({ theme }) => theme.shadows.cardHover};
 	}
 `
-const TechColor = styled.div`
-	background: ${({ theme, tech }: { theme: any; tech: string }) =>
-		theme.techColors[tech]};
+export const TechColor = styled.div<{ tech: string }>`
+	background: ${({ theme, tech }) => theme.techColors[tech]};
 	width: 5px;
 `
-const ImgWrapper = styled.div`
+export const ImgWrapper = styled.div`
 	height: 77px;
 	width: 125px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 `
-const Img = styled.img`
-	max-width: 85px;
-	max-height: 40px;
+export const Img = styled.img`
+	max-width: 100%;
+	max-height: 60%;
 `
-const InfoContainer = styled.div`
+export const InfoContainer = styled.div`
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 	padding: 0.5em 0.25em 0.5em 0px;
 `
-const TopWrapper = styled.div`
+export const TopWrapper = styled.div`
 	display: flex;
 	padding: 0.35em 0 0.45em;
 	flex-wrap: wrap;
 `
-const BottomWrapper = styled.div`
+export const BottomWrapper = styled.div`
 	display: flex;
 
 	@media only screen and (max-width: ${({ theme }) =>
@@ -150,14 +152,14 @@ const BottomWrapper = styled.div`
 		display: none;
 	}
 `
-const TitleWrapper = styled.div`
+export const TitleWrapper = styled.div`
 	flex: 1;
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.sm}) {
 		padding: 0.3125em 0.625em 0.3125em 0;
 	}
 `
-const SalaryWrapper = styled.div`
+export const SalaryWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -167,12 +169,16 @@ const SalaryWrapper = styled.div`
 		padding: 0.3125em 0.625em 0.3125em 0;
 	}
 `
-const InfoWrapper = styled.div`
+export const InfoWrapper = styled.div`
 	flex: 1;
 	display: flex;
 `
-const RequirementsWrapper = styled.div`
+export const RequirementsWrapper = styled.div`
 	display: flex;
 	margin-right: 0.875em;
 `
-export default OfferCard
+
+const mapStateToProps = ({ params }: InitialStoreState) => ({
+	params,
+})
+export default connect(mapStateToProps, { setParams })(OfferCard)

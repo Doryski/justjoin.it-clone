@@ -1,16 +1,17 @@
 import styled from 'styled-components'
 
-// TODO: onClick elsewhere than Dropdown setListOpen(false)
-export const DropdownList = styled.ul`
-	display: ${({ isOpen }: { isOpen: boolean }) =>
-		isOpen ? 'block' : 'none'};
+export const DropdownList = styled.ul<{
+	isOpen: boolean
+	width?: string
+}>`
+	display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
 	position: absolute;
 	top: 35px;
 	cursor: pointer;
 	list-style-type: none;
 	background: ${({ theme }) => theme.colors.buttonBackground};
 	z-index: 20;
-	width: 150px;
+	width: ${({ width }) => width || '150px'};
 	padding: 0.5em 0;
 	border-radius: 4px;
 	box-shadow: rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,

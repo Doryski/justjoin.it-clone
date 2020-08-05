@@ -7,20 +7,23 @@ import stringFormat from '../../../helpers/stringFormat'
 import { connect } from 'react-redux'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { InitialStoreState, ParamsType } from '../../../store/reducer'
-import { locationArray } from '../../../helpers/options'
+import locations from '../../../helpers/locations'
 import DialogFooter from '../DialogFooter'
 import Typography from '../../../helpers/Typography'
 import { setParams } from '../../../store/actions'
 
 const LocationFilters = ({ params }: any) => {
-	const [dialogOpen, setDialogOpen] = useState(false)
-	const [location, setLocation] = useState<string | null>(null)
+	const [dialogOpen, setDialogOpen] = useState<boolean>(false)
+	const [location, setLocation] = useState<ParamsType['location']>(
+		null
+	)
 	const fullScreen = useMediaQuery('(max-width:800px)')
 
 	const onClose = () => {
 		setDialogOpen(false)
 	}
-
+	const TOP_LOCATIONS_NUM = 6
+	
 	return (
 		<>
 			<CustomButton
@@ -28,13 +31,18 @@ const LocationFilters = ({ params }: any) => {
 					setDialogOpen(true)
 				}}
 				margin='0.375em 1.25em 0 0.3125em'
-				active={Boolean(params.location)}
+				active={!!params.location}
 				icon
 				minWidth='148px'
 				isOpen={dialogOpen}
 				padding='0.425em 0.75em 0.425em 1em'
 			>
-				{location || 'Location'}
+				{params.location === null
+					? 'Location'
+					: locations.filter(
+							loc =>
+								stringFormat(loc) === params.location
+					  )}
 			</CustomButton>
 
 			<Dialog
@@ -60,24 +68,28 @@ const LocationFilters = ({ params }: any) => {
 						Top locations
 					</Typography>
 					<Wrapper>
-						{locationArray.slice(0, 6).map(loc => (
-							<ItemWrapper key={loc}>
-								<CustomButton
-									onclick={() => {
-										setLocation(loc)
-									}}
-									active={
-										location
-											? loc === location
-											: stringFormat(loc) ===
-											  params.location
-									}
-									padding='0.5em 1.875em'
-								>
-									{loc}
-								</CustomButton>
-							</ItemWrapper>
-						))}
+						{locations
+							.slice(0, TOP_LOCATIONS_NUM)
+							.map(loc => (
+								<ItemWrapper key={loc}>
+									<CustomButton
+										onclick={() => {
+											setLocation(loc)
+										}}
+										active={
+											location
+												? loc === location
+												: stringFormat(
+														loc
+												  ) ===
+												  params.location
+										}
+										padding='0.5em 1.875em'
+									>
+										{loc}
+									</CustomButton>
+								</ItemWrapper>
+							))}
 					</Wrapper>
 					<Typography
 						style={{ display: 'flex' }}
@@ -90,29 +102,34 @@ const LocationFilters = ({ params }: any) => {
 						Other locations
 					</Typography>
 					<Wrapper>
-						{locationArray.slice(6).map(loc => (
-							<ItemWrapper key={loc}>
-								<CustomButton
-									onclick={() => {
-										setLocation(loc)
-									}}
-									active={
-										location
-											? loc === location
-											: stringFormat(loc) ===
-											  params.location
-									}
-									padding='0.5em 1.875em'
-								>
-									{loc}
-								</CustomButton>
-							</ItemWrapper>
-						))}
+						{locations
+							.slice(TOP_LOCATIONS_NUM)
+							.map(loc => (
+								<ItemWrapper key={loc}>
+									<CustomButton
+										onclick={() => {
+											setLocation(loc)
+										}}
+										active={
+											location
+												? loc === location
+												: stringFormat(
+														loc
+												  ) ===
+												  params.location
+										}
+										padding='0.5em 1.875em'
+									>
+										{loc}
+									</CustomButton>
+								</ItemWrapper>
+							))}
 					</Wrapper>
 
 					<DialogFooter
 						onClose={onClose}
 						location={location}
+						setLocation={setLocation}
 						filterType={'location'}
 					/>
 				</Container>
@@ -120,15 +137,15 @@ const LocationFilters = ({ params }: any) => {
 		</>
 	)
 }
-const ItemWrapper = styled.div`
+export const ItemWrapper = styled.div`
 	margin: 0.3125em;
 `
-const Container = styled.div`
+export const Container = styled.div`
 	height: 100%;
 	width: 100%;
 	background: ${({ theme }) => theme.colors.primary};
 `
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	padding: 0.9375em;

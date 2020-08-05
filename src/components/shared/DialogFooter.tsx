@@ -14,14 +14,12 @@ type DialogFooterProps = {
 	onClose: VoidFunction
 	expLvl?: ParamsType['expLvl']
 	location?: ParamsType['location']
+	setLocation?: React.Dispatch<
+		React.SetStateAction<ParamsType['location']>
+	>
 	value?: number[] | number
 	filterType: 'expLvl' | 'location'
-	setParams: (
-		params: ParamsType
-	) => {
-		type: string
-		payload: ParamsType
-	}
+	setParams: (params: ParamsType) => void
 }
 
 const DialogFooter = ({
@@ -29,6 +27,7 @@ const DialogFooter = ({
 	onClose,
 	expLvl,
 	location,
+	setLocation,
 	value,
 	filterType,
 	setParams,
@@ -41,18 +40,20 @@ const DialogFooter = ({
 		let clearFilters: ParamsType = { ...params }
 		let showOffers: ParamsType = { ...params }
 		if (filterType === 'expLvl') {
-			clearFilters = { ...params, expLvl: null }
+			clearFilters = { ...params, expLvl: null, search: null }
 			showOffers = {
 				...params,
 				expLvl,
 				from: val0,
 				to: val1 === MAX_SLIDER_VALUE ? null : val1,
+				search: null,
 			}
 		} else if (filterType === 'location') {
-			clearFilters = { ...params, location: null }
+			clearFilters = { ...params, location: null, search: null }
 			showOffers = {
 				...params,
 				location: loc || params.location,
+				search: null,
 			}
 		}
 
@@ -65,8 +66,8 @@ const DialogFooter = ({
 				to={createUrl(getParams().clearFilters)}
 				onClick={() => {
 					setParams(getParams().clearFilters)
-					console.log(getParams().clearFilters)
 					onClose()
+					setLocation && setLocation(null)
 				}}
 			>
 				<CustomButton padding='0.5em 1.875em'>
@@ -78,7 +79,6 @@ const DialogFooter = ({
 				to={createUrl(getParams().showOffers)}
 				onClick={() => {
 					setParams(getParams().showOffers)
-					console.log(getParams().showOffers)
 					onClose()
 				}}
 			>
@@ -95,7 +95,7 @@ const DialogFooter = ({
 	)
 }
 
-const BottomWrapper = styled.div`
+export const BottomWrapper = styled.div`
 	padding: 0.9375em 1.25em;
 	display: flex;
 	justify-content: space-between;

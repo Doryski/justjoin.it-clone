@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Typography from '../../helpers/Typography'
 import BusinessIcon from '@material-ui/icons/Business'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
-import { ICON_SIZE } from './InfoLabel'
 import { People } from '@material-ui/icons'
 
 const CustomLabel = ({
@@ -36,13 +35,13 @@ const CustomLabel = ({
 	)
 }
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
 	margin-right: 0.3125em;
 `
 
-const IconWrapper = styled.div`
+export const IconWrapper = styled.div`
 	color: ${({ theme }) => theme.colors.span};
 	margin-right: 0.25em;
 	svg {

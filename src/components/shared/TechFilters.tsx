@@ -5,7 +5,7 @@ import { Dialog } from '@material-ui/core'
 import CustomButton from './CustomButton'
 import { connect } from 'react-redux'
 import createUrl from '../../helpers/createUrl'
-import { techArray } from '../../helpers/options'
+import technologies from '../../helpers/technologies'
 import { InitialStoreState, ParamsType } from '../../store/reducer'
 import { Link as RouteLink } from 'react-router-dom'
 import { MoreHoriz } from '@material-ui/icons'
@@ -24,25 +24,26 @@ const TechFilters = ({
 	setParams,
 }: {
 	params: ParamsType
-	setParams: (
-		params: ParamsType
-	) => {
-		type: string
-		payload: ParamsType
-	}
+	setParams: (params: ParamsType) => void
 }) => {
-	const [dialogOpen, setDialogOpen] = useState(false)
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
 	const [mobileView, setMobileView] = useState(getWidth() <= 1025)
-	const [listOpen, setListOpen] = useState(false)
+	const [isListOpen, setIsListOpen] = useState(false)
 
 	const CUT_TECH_ARRAY = 14
-	const onClose = () => {
-		setDialogOpen(false)
-		setListOpen(false)
-	}
-
-	const toggleList = () => {
-		setListOpen(!listOpen)
+	const handleDialog = {
+		open: () => {
+			setIsDialogOpen(true)
+			setIsListOpen(true)
+		},
+		close: () => {
+			setIsDialogOpen(false)
+			setIsListOpen(false)
+		},
+		toggle: () => {
+			setIsListOpen(!isListOpen)
+			setIsDialogOpen(!isDialogOpen)
+		},
 	}
 
 	useEffect(() => {
@@ -56,20 +57,21 @@ const TechFilters = ({
 			window.removeEventListener('resize', resizeListener)
 		}
 	}, [])
-	const getParams = () => ({
-		all: { ...params, tech: null },
+	const getParams = {
+		all: { ...params, tech: null, search: null },
 		tech: (tech: string | null | undefined) => ({
 			...params,
 			tech: params.tech === tech ? null : tech,
+			search: null,
 		}),
-	})
+	}
 
 	const DesktopView = () => (
 		<Container>
 			<Link
-				to={createUrl(getParams().all)}
+				to={createUrl(getParams.all)}
 				onClick={() => {
-					setParams(getParams().all)
+					setParams(getParams.all)
 				}}
 			>
 				{/* @ts-ignore */}
@@ -78,48 +80,50 @@ const TechFilters = ({
 				</AllIconContainer>
 				<TechName all>All</TechName>
 			</Link>
-			{techArray.slice(0, CUT_TECH_ARRAY).map(tech => (
+			{technologies.slice(0, CUT_TECH_ARRAY).map(tech => (
 				<RouteLink
-					to={createUrl(
-						getParams().tech(stringFormat(tech))
-					)}
+					to={createUrl(getParams.tech(stringFormat(tech)))}
 					onClick={() => {
-						setParams(
-							getParams().tech(stringFormat(tech))
-						)
+						setParams(getParams.tech(stringFormat(tech)))
 					}}
 					key={tech}
 				>
 					<IconWrapper>
 						<TechIcon
 							tech={stringFormat(tech)}
-							onclick={onClose}
+							onclick={handleDialog.close}
 						/>
 						<TechName>{tech}</TechName>
 					</IconWrapper>
 				</RouteLink>
 			))}
 			<IconWrapper>
-				<MyMoreHorizIcon onClick={toggleList} />
-				<DropdownList isOpen={listOpen}>
-					{techArray
+				<MyMoreHorizIcon onClick={handleDialog.toggle} />
+				<DropdownList
+					isOpen={isListOpen}
+					onMouseLeave={handleDialog.close}
+				>
+					{technologies
 						.slice(CUT_TECH_ARRAY)
 						.map((tech: string) => (
 							<RouteLink
-								to={createUrl(getParams().tech(tech))}
+								to={createUrl(
+									getParams.tech(stringFormat(tech))
+								)}
 								key={tech}
-							>
-								<DropdownListItem
-									onClick={() => {
-										setParams(
-											getParams().tech(tech)
+								onClick={() => {
+									setParams(
+										getParams.tech(
+											stringFormat(tech)
 										)
-									}}
-								>
+									)
+									handleDialog.close()
+								}}
+							>
+								<DropdownListItem>
 									<TechIcon
 										// @ts-ignore
-										tech={tech}
-										onclick={onClose}
+										tech={stringFormat(tech)}
 									/>
 									<Typography
 										// @ts-ignore
@@ -141,11 +145,11 @@ const TechFilters = ({
 			<ButtonWrapper>
 				<CustomButton
 					onclick={() => {
-						setDialogOpen(true)
+						setIsDialogOpen(true)
 					}}
-					active={Boolean(params.tech)}
+					active={!!params.tech}
 					icon
-					isOpen={dialogOpen}
+					isOpen={isDialogOpen}
 				>
 					Tech
 				</CustomButton>
@@ -153,8 +157,8 @@ const TechFilters = ({
 
 			<Dialog
 				maxWidth='md'
-				open={dialogOpen}
-				onClose={onClose}
+				open={isDialogOpen}
+				onClose={handleDialog.close}
 				fullWidth={true}
 			>
 				<DesktopView />
@@ -164,7 +168,7 @@ const TechFilters = ({
 
 	return mobileView ? <MobileView /> : <DesktopView />
 }
-const Container = styled.div`
+export const Container = styled.div`
 	display: flex;
 	align-items: center;
 	margin: -0.15em 0 0 0;
@@ -178,11 +182,11 @@ const Container = styled.div`
 	}
 `
 
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
 	margin: 0 0.3125em;
 `
 
-const AllIconContainer = styled.div`
+export const AllIconContainer = styled.div<{ focus?: boolean }>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -195,31 +199,25 @@ const AllIconContainer = styled.div`
 	margin-top: 0.45em;
 	color: ${({ theme }) => theme.colors.white};
 	border-radius: 50%;
-	background: ${({
-		focus,
-		theme,
-	}: {
-		focus: boolean
-		theme: any
-	}) => (focus ? theme.techColors.all : theme.techColors.disabled)};
+	background: ${({ focus, theme }) =>
+		focus ? theme.techColors.all : theme.techColors.disabled};
 `
 
-const IconWrapper = styled.div`
+export const IconWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	position: relative;
 `
-const TechName = styled.span`
+export const TechName = styled.span<{ all?: boolean }>`
 	font-size: 0.6875rem;
 	color: ${({ theme }) => theme.colors.text};
 	line-height: 15px;
 	text-align: center;
-	margin-top: ${({ all }: { all?: boolean }) =>
-		all ? '.1em' : '-5px'};
+	margin-top: ${({ all }) => (all ? '.1em' : '-5px')};
 `
-const Link = styled(RouteLink)`
+export const Link = styled(RouteLink)`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -228,9 +226,19 @@ const Link = styled(RouteLink)`
 	height: 64px;
 	text-align: center;
 `
-const MyMoreHorizIcon = styled(MoreHoriz)`
+export const MyMoreHorizIcon = styled(MoreHoriz)`
 	margin: -10px 0 0 0.125em;
 	color: ${({ theme }) => theme.colors.text};
+	cursor: pointer;
+	border-radius: 50%;
+	width: 1.25em !important;
+	height: 1.25em !important;
+	padding: 0.125em;
+	transition: background 0.3s !important;
+	&:hover {
+		background: ${({ theme }) =>
+			theme.colors.buttonBackgroundHover};
+	}
 `
 
 const mapStateToProps = ({ params }: InitialStoreState) => ({

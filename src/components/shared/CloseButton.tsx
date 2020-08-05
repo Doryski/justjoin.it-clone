@@ -9,7 +9,7 @@ const CloseButton = ({ onclick }: { onclick: VoidFunction }) => {
 		</Container>
 	)
 }
-const Container = styled.div`
+export const Container = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -24,7 +24,7 @@ const Container = styled.div`
 			theme.colors.buttonBackgroundHover};
 	}
 `
-const MyCloseIcon = styled(CloseIcon)`
+export const MyCloseIcon = styled(CloseIcon)`
 	color: ${({ theme }) => theme.colors.span};
 `
 export default CloseButton

@@ -10,14 +10,10 @@ import styled from 'styled-components'
 const MoreFilters = ({ params }: { params: ParamsType }) => {
 	const [dialogOpen, setDialogOpen] = useState(false)
 
-	const isActive =
-		Boolean(params.expLvl) ||
-		Boolean(params.from) ||
-		Boolean(params.to)
+	const isActive = !!params.expLvl || !!params.from || !!params.to
 
 	const bothFiltersApplied =
-		Boolean(params.expLvl) &&
-		(Boolean(params.from) || Boolean(params.to))
+		!!params.expLvl && (!!params.from || !!params.to)
 
 	const filtersApplied = isActive && bothFiltersApplied ? 2 : 1
 
@@ -62,7 +58,7 @@ const MoreFilters = ({ params }: { params: ParamsType }) => {
 	)
 }
 
-const Number = styled.div`
+export const Number = styled.div`
 	width: 24px;
 	height: 24px;
 	text-align: center;

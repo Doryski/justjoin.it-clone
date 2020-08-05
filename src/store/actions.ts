@@ -1,44 +1,28 @@
 import {
 	CHANGE_VIEW_MODE,
-	SET_MARKERS,
-	SET_MARKER_CLASS,
-	SET_ALL_OFFERS,
-	SET_MAP,
-	SET_OFFERS_LIST,
+	SET_OFFERS,
 	SET_PARAMS,
+	SET_MAP,
 } from './types'
-import { ParamsType, OfferType } from './reducer'
+import OfferType from '../types/OfferType'
+import ParamsType from '../types/ParamsType'
+import InitialStoreState from '../types/InitialStoreState'
 
-export const changeViewMode = () => ({
+export const toggleThemeMode = () => ({
 	type: CHANGE_VIEW_MODE,
 })
 
-export const setMarkers = (data: any) => ({
-	type: SET_MARKERS,
-	payload: data,
-})
-
-export const setMarkerClass = (markerClass: any) => ({
-	type: SET_MARKER_CLASS,
-	payload: markerClass,
-})
-
-export const setAllOffers = (data: any) => ({
-	type: SET_ALL_OFFERS,
-	payload: data,
-})
-
-export const setGoogleMap = (map: any) => ({
-	type: SET_MAP,
-	payload: map,
-})
-
-export const setOffersList = (list: OfferType[]) => ({
-	type: SET_OFFERS_LIST,
-	payload: list,
+export const setOffers = (offers: OfferType[]) => ({
+	type: SET_OFFERS,
+	payload: offers,
 })
 
 export const setParams = (params: ParamsType) => ({
 	type: SET_PARAMS,
 	payload: params,
+})
+
+export const setMap = (map: InitialStoreState['map']) => ({
+	type: SET_MAP,
+	payload: map,
 })

@@ -29,7 +29,7 @@ const EditorSection = ({
 	)
 }
 
-const EditorContainer = styled.div`
+export const EditorContainer = styled.div`
 	width: 100%;
 	padding: 0.9375em;
 `

@@ -17,7 +17,7 @@ const Filters = () => {
 		</Container>
 	)
 }
-const Container = styled.div`
+export const Container = styled.div`
 	min-height: 68px;
 	max-width: 100%;
 	background: ${({ theme }) => theme.colors.primary};
@@ -26,7 +26,7 @@ const Container = styled.div`
 	padding: 0.875em 0.9375em 0.625em 1.1875em;
 `
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
 	display: flex;
 	width: 100%;
 	padding-left: 0.25em;

@@ -29,13 +29,13 @@ const Tooltip = ({ offer }: { offer: OfferType }) => {
 	)
 }
 
-const Container = styled.div`
+export const Container = styled.div`
 	width: 225px;
 	height: 86px;
 	position: relative;
 `
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
 	width: 100%;
 	height: 100%;
 	border-radius: 12px;
@@ -48,17 +48,17 @@ const Wrapper = styled.div`
 	position: relative
 	box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
 `
-const ImageWrapper = styled.div`
+export const ImageWrapper = styled.div`
 	margin-top: 10px;
 	width: 30%;
 `
-const CompanyImage = styled.img`
-	max-height: 40px;
-	max-width: 40px;
+export const CompanyImage = styled.img`
+	max-height: 70px;
+	max-width: 100%;
 	position: relative;
 	padding: 5px;
 `
-const InfoWrapper = styled.section`
+export const InfoWrapper = styled.section`
 	display: flex;
 	flex-direction: column;
 	margin-left: 5px;
@@ -68,7 +68,7 @@ const InfoWrapper = styled.section`
 	min-width: 140px;
 	padding: 6px;
 `
-const Description = styled.span`
+export const Description = styled.span`
 	color: ${({ theme }) => theme.colors.title};
 	display: block;
 	font-size: 0.875em;
@@ -77,12 +77,12 @@ const Description = styled.span`
 	overflow: hidden;
 	width: 125px;
 `
-const Salary = styled.span`
+export const Salary = styled.span`
 	color: ${({ theme }) => theme.colors.salary};
 	display: flex;
 	font-size: 0.75rem;
 `
-const TipWrapper = styled.div`
+export const TipWrapper = styled.div`
 	width: 40px;
 	height: 20px;
 	position: absolute;
@@ -91,7 +91,7 @@ const TipWrapper = styled.div`
 	overflow: hidden;
 	pointer-events: none;
 `
-const Tip = styled.div`
+export const Tip = styled.div`
 	background: ${({ theme }) => theme.colors.primary};
 	box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
 	width: 17px;

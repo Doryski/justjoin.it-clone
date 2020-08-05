@@ -3,19 +3,19 @@ import styled from 'styled-components'
 
 type ContainerProps = {
 	theme?: any
-	span?: boolean
+	isSpan?: boolean
 	margin?: string
 	isNew?: boolean
 }
 
 const SmallLabel = ({
 	children,
-	span,
+	isSpan,
 	margin,
 	isNew,
 }: {
 	children: any
-	span?: boolean
+	isSpan?: boolean
 	margin?: string
 	isNew?: boolean
 }) => {
@@ -23,29 +23,29 @@ const SmallLabel = ({
 		// @ts-ignore
 		<Container isNew={isNew} margin={margin}>
 			{/* @ts-ignore */}
-			<Typography isNew={isNew} span={span}>
+			<Typography isNew={isNew} isSpan={isSpan}>
 				{children}
 			</Typography>
 		</Container>
 	)
 }
-const Container = styled.div`
+export const Container = styled.div<ContainerProps>`
 	padding: 0.1875em 0.4375em;
-	margin: ${({ margin }: ContainerProps) => margin || '0 0.125em'};
+	margin: ${({ margin }) => margin || '0 0.125em'};
 	border: 1px solid rgb(217, 221, 252);
-	background: ${({ theme, isNew }: ContainerProps) =>
+	background: ${({ theme, isNew }) =>
 		isNew ? 'rgb(217, 221, 252)' : theme.colors.primary};
 	border-radius: 11px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 `
-const Typography = styled.span`
+export const Typography = styled.span<ContainerProps>`
 	font-size: 0.6875rem;
-	color: ${({ theme, span, isNew }: ContainerProps) =>
+	color: ${({ theme, isSpan, isNew }) =>
 		isNew
 			? 'rgb(66, 86, 239)'
-			: span
+			: isSpan
 			? theme.colors.span
 			: theme.colors.title};
 `

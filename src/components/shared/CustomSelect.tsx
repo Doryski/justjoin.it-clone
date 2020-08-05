@@ -5,19 +5,18 @@ import {
 	StyledSelect,
 	Info,
 } from './StyledInputs'
-import { NestDataObject, FieldError } from 'react-hook-form'
 
 type SelectComponentProps = {
-	id: string
+	name: string
 	label: string
 	register: any
 	required: boolean
 	options: any[]
-	errors: NestDataObject<Record<string, any>, FieldError>
+	errors: Record<string, Object>
 }
 
 const SelectComponent = ({
-	id,
+	name,
 	label,
 	register,
 	required,
@@ -26,8 +25,8 @@ const SelectComponent = ({
 }: SelectComponentProps) => {
 	return (
 		<InputWrapper>
-			<Label>{label}</Label>
-			<StyledSelect name={id} ref={register({ required })}>
+			<Label htmlFor={name}>{label}</Label>
+			<StyledSelect name={name} ref={register({ required })}>
 				<option value={undefined}></option>
 				{options.map((option: string) => (
 					<option key={option} value={option}>
@@ -36,7 +35,9 @@ const SelectComponent = ({
 				))}
 			</StyledSelect>
 			{/* @ts-ignore */}
-			{errors[id] && <Info>This field is required.</Info>}
+			{errors[name] && errors[name].required && (
+				<Info>This field is required.</Info>
+			)}
 		</InputWrapper>
 	)
 }

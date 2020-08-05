@@ -99,7 +99,7 @@ const SalarySection = ({
 	)
 }
 
-const SliderWrapper = styled.div`
+export const SliderWrapper = styled.div`
 	padding: 0 0.375em;
 	width: 100%;
 	@media only screen and (max-width: ${({ theme }) =>
@@ -108,13 +108,13 @@ const SliderWrapper = styled.div`
 	}
 `
 
-const AmountContainer = styled.div`
+export const AmountContainer = styled.div`
 	margin-top: 0.25em;
 	width: 100%;
 	display: flex;
 	align-items: center;
 `
-const AmountWrapper = styled.div`
+export const AmountWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

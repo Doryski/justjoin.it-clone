@@ -4,14 +4,15 @@ import AddOfferModal from '.'
 
 const AddOffer = () => {
 	const [dialogOpen, setDialogOpen] = useState(false)
-
+	const handleDialog = {
+		open: () => setDialogOpen(true),
+		close: () => setDialogOpen(false),
+	}
 	return (
 		<>
 			<CustomButton
 				fWeight='400'
-				onclick={() => {
-					setDialogOpen(true)
-				}}
+				onclick={handleDialog.open}
 				margin='0 0.875em 0 0.375em'
 				padding='0.625em 1.125em'
 			>
@@ -19,7 +20,7 @@ const AddOffer = () => {
 			</CustomButton>
 			<AddOfferModal
 				dialogOpen={dialogOpen}
-				setDialogOpen={setDialogOpen}
+				handleDialog={handleDialog}
 			/>
 		</>
 	)

@@ -9,20 +9,20 @@ import {
 	Timelapse,
 } from '@material-ui/icons'
 
-const MyBusinessIcon = styled(Business)`
+export const MyBusinessIcon = styled(Business)`
 	color: rgb(255, 82, 82);
 `
-const MyShowChartIcon = styled(ShowChart)`
+export const MyShowChartIcon = styled(ShowChart)`
 	color: rgb(102, 187, 106);
 `
-const MyPeopleIcon = styled(People)`
+export const MyPeopleIcon = styled(People)`
 	color: rgb(251, 140, 0);
 `
-const MyNoteIcon = styled(Note)`
+export const MyNoteIcon = styled(Note)`
 	color: rgb(171, 71, 188);
 	transform: rotate(-90deg);
 `
-const MyTimelapseIcon = styled(Timelapse)`
+export const MyTimelapseIcon = styled(Timelapse)`
 	color: rgb(68, 138, 255);
 `
 
@@ -83,7 +83,7 @@ const InfoLabel = ({
 		</Container>
 	)
 }
-const Container = styled.div`
+export const Container = styled.div`
 	align-items: center;
 	background: ${({ theme }) => theme.colors.primary};
 	box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 2px 0px,
@@ -103,7 +103,7 @@ const Container = styled.div`
 		margin: 0.0625em;
 	}
 `
-const IconWrapper = styled.div`
+export const IconWrapper = styled.div`
 	box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 2px 0px,
 		rgba(0, 0, 0, 0.06) 0px 1px 5px 0px;
 	display: flex;

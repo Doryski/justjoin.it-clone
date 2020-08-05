@@ -3,7 +3,6 @@ import _ from 'lodash'
 import { Dialog } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import axios from '../../../axios'
 import DialogHeader from '../DialogHeader'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import InfoSection from './InfoSection'
@@ -12,131 +11,104 @@ import EditorSection from './EditorSection'
 import styled from 'styled-components'
 import { Wrapper } from './StyledComponents'
 import CustomButton from '../CustomButton'
+import { setOffers } from '../../../store/actions'
+import moment from 'moment'
+import isDefined from '../../../helpers/isDefined'
+import DATE_FORMAT from '../../../helpers/dateFormat'
+
+interface HandleDialog {
+	open: () => void
+	close: () => void
+}
+
+interface FormDataType {
+	tech: string
+	offerTitle: string
+	companyName: string
+	city: string
+	street: string
+	companySize: number
+	salaryFrom: number
+	salaryTo: number
+	empType: string
+	expLvl: string
+	technology: string
+	techLvl: number
+}
 
 const AddOfferModal = ({
 	dialogOpen,
-	setDialogOpen,
+	handleDialog,
 }: {
 	dialogOpen: boolean
-	setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
+	handleDialog: HandleDialog
 }) => {
-	const { handleSubmit, getValues, setError } = useForm()
+	const { handleSubmit, getValues, errors } = useForm<
+		FormDataType
+	>()
 	const [techSize, setTechSize] = useState(1)
 	const [description, setDescription] = useState('')
 	const [descriptionError, setDescriptionError] = useState('')
 	const [loading, setLoading] = useState(false)
 	const fullScreen = useMediaQuery('(max-width:800px)')
+	const location = getValues('city')
+	const street = getValues('street')
 
-	// async function onSubmit(inputsData: any) {
-	// 	if (!description) {
-	// 		setDescriptionError('This field is required.')
-	// 	}
+	const onSubmit = handleSubmit((data, e) => {
+		// setDescriptionError('')
+		// console.log(description)
+		console.log(errors)
+		if (!description)
+			return setDescriptionError('This field is required.')
+		if (!data.companyName) return alert("there's no data")
 
-	// 	setLoading(true)
+		setLoading(true)
 
-	// const { data } = await axios.get(
-	// 	'https://maps.googleapis.com/maps/api/geocode/json',
-	// 	{
-	// 		params: {
-	// 			apiKey,
-	// 			address: `${getValues('city')} ${getValues(
-	// 				'street'
-	// 			)}`,
-	// 		},
-	// 	}
-	// )
-	// 	const address = {
-	// 		city: '',
-	// 		street: '',
-	// 	}
+		// const finalData = {
+		// 	...data,
+		// 	dateAdd: moment().format(DATE_FORMAT),
+		// 	image: 'https://source.unsplash.com/700x400/?logo',
+		// 	description,
+		// 	placeId: `${street}-${location}`,
+		// }
+		// console.log(finalData)
+		// setOffers(finalData)
+		// // let formData = new FormData()
 
-	// 	if (data.status !== 'OK') {
-	// 		return setError([
-	// 			{
-	// 				name: 'city',
-	// 				message: "Can't find this location.",
-	// 			},
-	// 			{
-	// 				name: 'street',
-	// 				message: "Can't find this location.",
-	// 			},
-	// 		])
-	// 	}
+		// // _.forEach(finalData, (value: string, key: string) => {
+		// // 	formData.append(key, value)
+		// // })
 
-	// 	let route = ''
-	// 	let political = ''
-	// 	let streetNumber = ''
+		// // try {
+		// // 	await axios.post('/posts/', formData, {
+		// // 		headers: {
+		// // 			'content-type': 'multipart/form-data',
+		// // 		},
+		// // 	})
+		// // 	setDialogOpen(false)
+		// // 	alert('Success. You added offer.')
+		// // } catch (error) {
+		// // 	alert(error.message)
+		// // }
 
-	// 	data.results[0].address_components.forEach((i: any) => {
-	// 		switch (i.types[0]) {
-	// 			case 'political':
-	// 				return (political = i.long_name)
-	// 			case 'route':
-	// 				return (route = i.long_name)
-	// 			case 'street_number':
-	// 				return (streetNumber = i.long_name)
-	// 			case 'locality':
-	// 				return (address.city = i.long_name)
-	// 		}
-	// 	})
+		setLoading(false)
+		alert('Offer was added successfully!')
 
-	// 	address.street = `${political} ${route} ${streetNumber}`
-
-	// 	const finalData = {
-	// 		...inputsData,
-	// 		...address,
-	// 		techSize,
-	// 		description,
-	// 		placeId: data.results[0].place_id,
-	// 		lat: data.results[0].geometry.location.lat,
-	// 		lng: data.results[0].geometry.location.lng,
-	// 	}
-
-	// 	let formData = new FormData()
-
-	// 	_.forEach(finalData, (value: string, key: string) => {
-	// 		formData.append(key, value)
-	// 	})
-
-	// 	axios
-	// 	// /posts/
-	// 		.post('/posts/', formData, {
-	// 			headers: {
-	// 				'content-type': 'multipart/form-data',
-	// 			},
-	// 		})
-	// 		.then(res => {
-	// 			setDialogOpen(false)
-	// 			alert('Success. You added offer.')
-	// 		})
-	// 		.catch(err => alert(err.message))
-	// 		.finally(() => {
-	// 			setLoading(false)
-	// 		})
-	// }
-
-	const onClose = () => {
-		setDialogOpen(false)
-	}
-
-	const onOpen = () => {
-		setDialogOpen(true)
-	}
+		console.log(data, e)
+		return handleDialog.close()
+	})
 
 	return (
 		<Dialog
 			maxWidth='md'
 			open={dialogOpen}
-			onClose={onClose}
+			onClose={handleDialog.close}
 			fullWidth={true}
 			fullScreen={fullScreen}
 		>
-			<form
-				// onSubmit={handleSubmit(onSubmit)}
-				autoComplete='off'
-			>
+			<form onSubmit={onSubmit}>
 				<Container>
-					<DialogHeader close={onClose}>
+					<DialogHeader close={handleDialog.close}>
 						Add offer
 					</DialogHeader>
 					<InfoSection />
@@ -152,9 +124,9 @@ const AddOfferModal = ({
 					/>
 					<Wrapper>
 						<CustomButton
+							type='submit'
 							padding='0.5em 1.125em'
 							pink
-							onclick={onOpen}
 						>
 							{loading ? (
 								<StyledCircularProgress
@@ -172,13 +144,13 @@ const AddOfferModal = ({
 	)
 }
 
-const Container = styled.div`
+export const Container = styled.div`
 	height: 100%;
 	width: 100%;
 	background: ${({ theme }) => theme.colors.primary};
 	padding-bottom: 0.625em;
 `
-const StyledCircularProgress = styled(CircularProgress)`
+export const StyledCircularProgress = styled(CircularProgress)`
 	margin: 0 1.5625em;
 `
 

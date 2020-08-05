@@ -1,4 +1,4 @@
-const offerListDemo = [
+export default [
 	{
 		slug: 'some link',
 		tech: 'html',
@@ -11,7 +11,7 @@ const offerListDemo = [
 		expLvl: 'Junior',
 		salaryFrom: 3000,
 		salaryTo: 5000,
-		image: 'some image',
+		image: 'https://source.unsplash.com/700x400/?logo',
 		technology: [
 			{
 				tech: 'html',
@@ -28,6 +28,7 @@ const offerListDemo = [
 		],
 		placeId: 'some place id',
 		dateAdd: '12.07.2020',
+		description: 'desc1',
 	},
 	{
 		slug: 'some link 2 ',
@@ -41,7 +42,7 @@ const offerListDemo = [
 		expLvl: 'Mid',
 		salaryFrom: 5000,
 		salaryTo: 8000,
-		image: 'some image2',
+		image: 'https://source.unsplash.com/701x400/?logo',
 		technology: [
 			{
 				tech: 'react',
@@ -58,6 +59,7 @@ const offerListDemo = [
 		],
 		placeId: 'some place id2',
 		dateAdd: '13.07.2020',
+		description: 'desc2',
 	},
 	{
 		slug: 'somelink3',
@@ -71,7 +73,7 @@ const offerListDemo = [
 		expLvl: 'Junior',
 		salaryFrom: 4000,
 		salaryTo: 7000,
-		image: 'some image3',
+		image: 'https://source.unsplash.com/702x400/?logo',
 		technology: [
 			{
 				tech: 'python',
@@ -88,7 +90,6 @@ const offerListDemo = [
 		],
 		placeId: 'some place id3',
 		dateAdd: '15.07.2020',
+		description: 'desc3',
 	},
 ]
-
-export default offerListDemo

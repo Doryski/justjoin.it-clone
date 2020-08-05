@@ -24,12 +24,12 @@ const SidebarList = () => {
 	)
 }
 
-const List = styled.ul`
+export const List = styled.ul`
 	width: 100%;
 	padding-bottom: 0.625em;
 `
 
-const ListItem = styled.li`
+export const ListItem = styled.li`
 	display: flex;
 	padding: 0.5em 1em 0.5em 2em;
 	height: 56px;
@@ -42,11 +42,11 @@ const ListItem = styled.li`
 	}
 `
 
-const IconWrapper = styled.div`
+export const IconWrapper = styled.div`
 	display: inline-flex;
 	margin: auto 0;
 `
-const TitleWrapper = styled.div`
+export const TitleWrapper = styled.div`
 	margin: auto 0 auto 2em;
 `
 

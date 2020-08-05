@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Label from '../shared/Label'
-import SortFilter from '../shared/SortFilter'
+import SortFilter from '../shared/SortDropdown'
 
 const ListHeader = () => {
 	return (
@@ -16,12 +16,12 @@ const ListHeader = () => {
 	)
 }
 
-const FiltersWrapper = styled.div`
+export const FiltersWrapper = styled.div`
 	background: ${({ theme }) => theme.colors.primary};
 	display: flex;
 	margin-bottom: 0.5em;
 `
-const SalaryFiltersWrapper = styled.div`
+export const SalaryFiltersWrapper = styled.div`
 	padding-left: 1.5625em;
 	display: flex;
 	position: relative;
@@ -50,7 +50,7 @@ const SalaryFiltersWrapper = styled.div`
 		);
 	}
 `
-const SortFiltersWrapper = styled.div`
+export const SortFiltersWrapper = styled.div`
 	flex: 1;
 	display: flex;
 	justify-content: flex-end;

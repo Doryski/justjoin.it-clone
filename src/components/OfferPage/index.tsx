@@ -1,154 +1,52 @@
-import React, { useState, useEffect, useRef } from 'react'
-import Typography from '../../helpers/Typography'
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
+import { useParams, Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import _ from 'lodash'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { Share, ArrowBack } from '@material-ui/icons'
+import InitialStoreState from '../../types/InitialStoreState'
+import OfferType from '../../types/OfferType'
+import ParamsType from '../../types/ParamsType'
+import { setParams } from '../../store/actions'
 import InfoLabel from '../shared/InfoLabel'
 import TechRange from '../shared/TechRange'
-import styled from 'styled-components'
-import { useParams, useLocation, Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import {
-	setMarkers,
-	setGoogleMap,
-	setOffersList,
-	setMarkerClass,
-	setParams,
-} from '../../store/actions'
-import axios, { BASE_URL } from '../../axios'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { InitialStoreState, OfferType } from '../../store/reducer'
-import _ from 'lodash'
-import Map from '../Map'
-import offerListDemo from '../Map/offerListDemo'
-import useUpdateLogger from '../../helpers/useUpdateLogger'
+import Typography from '../../helpers/Typography'
 import formatThous from '../../helpers/formatThous'
-import {
-	Share,
-	ArrowLeft,
-	ChevronLeft,
-	KeyboardArrowLeft,
-	ArrowBack,
-} from '@material-ui/icons'
+import infoLabels from '../../helpers/infoLabels'
 
-export type SingleOfferProps = {
-	history: any
-	setMarkers: Function
-	setMarkerClass: Function
-	setParams: Function
-	setGoogleMap: Function
-	setOffersList: Function
-	state: InitialStoreState
-}
-
-const SingleOffer = ({
-	history,
-	setMarkers,
-	setMarkerClass,
-	setParams,
-	setGoogleMap,
-	setOffersList,
-	state: { params, loading, markers, allOffers },
-}: SingleOfferProps) => {
+const OfferPage = ({
+	params,
+	offers,
+}: {
+	params: ParamsType
+	offers: OfferType[]
+}) => {
 	const { slug } = useParams()
-	const location = useLocation()
 
-	const [offer, setOffer] = useState<OfferType>(offerListDemo[0])
+	const [offer, setOffer] = useState<OfferType>(offers[0])
 
-	// const [loading2, setLoading2] = useState(false)
+	const [loading2, setLoading2] = useState(false)
 
-	// const ref = useRef()
-
-	// useEffect(() => {
-	// 	if (!loading && _.isEmpty(markers)) {
-	// 		const paramss = JSON.parse(localStorage.params) || params
-
-	// 		const map = new global.google.maps.Map(
-	// 			document.getElementById('map'),
-	// 			initMapOptions()
-	// 		)
-
-	// 		const markers: {
-	// 			[key: string]: {
-	// 				(item: any, map: any, initParams: any): void
-	// 				prototype?: google.maps.OverlayView
-	// 			}
-	// 		} = {}
-
-	// 		const CustomMarker = createHTMLMapMarker(history)
-
-	// 		let list: any[] = []
-
-	// 		allOffers.forEach((item: any) => {
-	// 			list = list.concat(item.offers)
-	// 			markers[item.placeId] = new CustomMarker(
-	// 				item,
-	// 				map,
-	// 				paramss
-	// 			)
-	// 		})
-
-	// 		setGoogleMap(map)
-	// 		setMarkers(markers)
-	// 		setParams(paramss)
-	// 		setMarkerClass(CustomMarker)
-	// 		setOffersList(list)
-
-	// 		if (offer) {
-	// 			markers[offer.placeId].activeMarker()
-	// 		}
-	// 	}
-	// }, [markers, loading])
-
-	// useEffect(() => {
-	// 	async function offerFetch() {
-	// 		setLoading2(true)
-	// 		try {
-	// 			// /posts/
-	// 			const { data } = await axios.get(`/posts/${slug}`)
-
-	// 			setOffer((prev: any) => {
-	// 				if (prev) {
-	// 					markers[prev.placeId].deactiveMarker()
-	// 				}
-	// 				return data
-	// 			})
-
-	// 			ref.current = data.placeId
-
-	// 			if (markers) {
-	// 				markers[data.placeId].activeMarker(data.tech)
-	// 			}
-	// 		} catch {
-	// 			alert('Error')
-	// 		} finally {
-	// 			setLoading2(false)
-	// 		}
-	// 	}
-
-	// 	offerFetch()
-	// }, [slug])
-
-	// useEffect(
-	// 	() => () => {
-	// 		document
-	// 			.getElementById(ref.current)
-	// 			.classList.remove('active_marker')
-	// 	},
-	// 	[]
-	// )
-
-	// const createMarkup = () => ({
-	// 	__html: offer && offer.description,
-	// })
+	useEffect(() => {
+		setLoading2(true)
+		console.log(localStorage.offers)
+		const posts = JSON.parse(localStorage.offers)
+		const foundPost = posts.find(
+			(post: OfferType) => post.slug === slug
+		)
+		setOffer(foundPost)
+		setLoading2(false)
+	}, [slug])
 
 	return (
-		// offer &&
 		<Container>
 			<ContainerScroll>
-				{
-					// loading || loading2 ? (
-					// 	<ProgressWrapper>
-					// 		<CircularProgress size='30px' />
-					// 	</ProgressWrapper>
-					// ) :
+				{loading2 ? (
+					<ProgressWrapper>
+						<CircularProgress size='30px' />
+					</ProgressWrapper>
+				) : (
 					<>
 						<HeaderContainer>
 							{/* @ts-ignore */}
@@ -165,9 +63,7 @@ const SingleOffer = ({
 
 								<HeaderWrapper>
 									<ImgBackground>
-										<Img
-											src={`${BASE_URL}${offer.image}`}
-										/>
+										<Img src={offer.image} />
 									</ImgBackground>
 									<MainInfoContainer>
 										<Typography
@@ -209,26 +105,14 @@ const SingleOffer = ({
 								</HeaderWrapper>
 							</HeaderInner>
 							<InfoLabelsContainer>
-								<InfoLabel
-									icon={1}
-									title={offer.companyName}
-								/>
-								<InfoLabel
-									icon={2}
-									title={offer.companySize}
-								/>
-								<InfoLabel
-									icon={3}
-									title={offer.empType}
-								/>
-								<InfoLabel
-									icon={4}
-									title={offer.expLvl}
-								/>
-								<InfoLabel
-									icon={5}
-									title={offer.dateAdd}
-								/>
+								{infoLabels.map(label => (
+									<InfoLabel
+										key={label.id}
+										icon={label.id}
+										// @ts-ignore
+										title={offer[label.title]}
+									/>
+								))}
 							</InfoLabelsContainer>
 						</HeaderContainer>
 						<TechStackContainer>
@@ -296,12 +180,12 @@ const SingleOffer = ({
 							</Wrapper>
 						</ApplyContainer>
 					</>
-				}
+				)}
 			</ContainerScroll>
 		</Container>
 	)
 }
-const Container = styled.div`
+export const Container = styled.div`
 	flex: 1;
 	background: ${({ theme }) => theme.colors.secondary};
 	display: flex;
@@ -310,7 +194,7 @@ const Container = styled.div`
 	position: relative;
 	flex: 1 1 0%;
 `
-const ContainerScroll = styled.div`
+export const ContainerScroll = styled.div`
 	position: absolute;
 	top: 0px;
 	right: 0px;
@@ -323,28 +207,27 @@ const ContainerScroll = styled.div`
 		padding: 0 0.1875em;
 	}
 `
-const HeaderContainer = styled.div`
+export const HeaderContainer = styled.div`
 	height: 235px;
 	position: relative;
 	margin: 0 0 3.125em 0;
 `
-const HeaderInner = styled.div`
+export const HeaderInner = styled.div<{ tech: string }>`
 	background: url(https://justjoin.it/static/media/header_background.0ef18c97.png)
 			center center / cover no-repeat,
-		${({ theme, tech }: { theme: any; tech: any }) =>
-			theme.techColors[tech]};
+		${({ theme, tech }) => theme.techColors[tech]};
 	height: 100%;
 	border-radius: 0px 0px 4px 4px;
 	padding: 2.5em 2.5em 2.5em;
 	position: relative;
 `
-const HeaderWrapper = styled.div`
+export const HeaderWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	align-content: flex-start;
 	justify-content: center;
 `
-const ImgBackground = styled.div`
+export const ImgBackground = styled.div`
 	background-color: rgb(255, 255, 255);
 	width: 107px;
 	height: 107px;
@@ -371,15 +254,15 @@ const ImgBackground = styled.div`
 		transform: scale(1.4);
 	}
 `
-const Img = styled.img`
+export const Img = styled.img`
 	max-width: 70px;
 	max-height: 45px;
 `
-const MainInfoContainer = styled.div`
+export const MainInfoContainer = styled.div`
 	flex: 1;
 	margin: 0 0 0 2.5em;
 `
-const InfoLabelsContainer = styled.div`
+export const InfoLabelsContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -391,7 +274,7 @@ const InfoLabelsContainer = styled.div`
 		transform: translateY(-25%);
 	}
 `
-const TechStackContainer = styled.div`
+export const TechStackContainer = styled.div`
 	padding: 0.3125em 0;
 	box-shadow: ${({ theme }) => theme.colors.shadow};
 	margin-top: 2.5em;
@@ -402,13 +285,13 @@ const TechStackContainer = styled.div`
 		margin-top: 10.625em;
 	}
 `
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
 	padding: 1.5em;
 	border-top: 2px solid ${({ theme }) => theme.colors.secondary};
 	display: flex;
 	flex-wrap: wrap;
 `
-const DescriptionContainer = styled.div`
+export const DescriptionContainer = styled.div`
 	margin: 1.875em 0;
 	padding: 0.3125em 0;
 	box-shadow: ${({ theme }) => theme.colors.shadow};
@@ -419,17 +302,17 @@ const DescriptionContainer = styled.div`
 		margin: 0.9375em 0;
 	}
 `
-const DescriptionContent = styled.div`
+export const DescriptionContent = styled.div`
 	padding: 0 0.9375em;
 	color: ${({ theme }) => theme.colors.title};
 `
-const ProgressWrapper = styled.div`
+export const ProgressWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	padding-top: 2.5em;
 `
 
-const ApplyContainer = styled.div`
+export const ApplyContainer = styled.div`
 	margin: 1.875em 0;
 	padding: 0.3125em 0;
 	box-shadow: ${({ theme }) => theme.colors.shadow};
@@ -441,7 +324,7 @@ const ApplyContainer = styled.div`
 	}
 `
 
-const HeaderActionIcon = styled.button`
+export const HeaderActionIcon = styled.button<{ arrow?: boolean }>`
 	position: absolute;
 	color: ${({ theme }) => theme.colors.white};
 	background: rgba(0, 0, 0, 0.2);
@@ -452,8 +335,8 @@ const HeaderActionIcon = styled.button`
 	align-items: center;
 	justify-content: center;
 	top: 10px;
-	left: ${({ arrow }: { arrow: any }) => (arrow ? '10px' : '')};
-	right: ${({ arrow }: { arrow: any }) => (arrow ? '' : '10px')};
+	left: ${({ arrow }) => (arrow ? '10px' : '')};
+	right: ${({ arrow }) => (arrow ? '' : '10px')};
 	padding: 2px;
 	border: none;
 	border-radius: 4px;
@@ -463,12 +346,9 @@ const HeaderActionIcon = styled.button`
 	}
 `
 
-const mapStateToProps = (state: InitialStoreState) => ({ state })
+const mapStateToProps = ({ params, offers }: InitialStoreState) => ({
+	params,
+	offers,
+})
 
-export default connect(mapStateToProps, {
-	setGoogleMap,
-	setMarkers,
-	setMarkerClass,
-	setParams,
-	setOffersList,
-})(SingleOffer)
+export default connect(mapStateToProps, { setParams })(OfferPage)

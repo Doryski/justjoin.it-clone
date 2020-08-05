@@ -1,18 +1,58 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { Search } from '@material-ui/icons'
+import { InitialStoreState, ParamsType } from '../../store/reducer'
+import { setParams } from '../../store/actions'
+import isDefined from '../../helpers/isDefined'
+import createUrl from '../../helpers/createUrl'
+import resetParams from '../../helpers/resetParams'
 
-const InputFilter = () => {
+const InputFilter = ({
+	params,
+	setParams,
+}: {
+	params: ParamsType
+	setParams: Function
+}) => {
+	const history = useHistory()
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const reset = resetParams(params)
+		setParams(reset)
+		history.push(createUrl(reset))
+		const par = {
+			...params,
+			location: null,
+			tech: null,
+			expLvl: null,
+			from: null,
+			to: null,
+			search: e.target.value,
+		}
+		setParams(par)
+		history.push(createUrl(par))
+	}
+
 	return (
 		<InputWrapper>
 			<Button>
 				<Search />
 			</Button>
-			<Input type='text' placeholder='Search' />
+			<Input
+				type='text'
+				placeholder='Search'
+				value={
+					isDefined(params.search)
+						? String(params.search)
+						: ''
+				}
+				onChange={handleChange}
+			/>
 		</InputWrapper>
 	)
 }
-const Button = styled.button`
+export const Button = styled.button`
 	display: flex;
 	align-items: center;
 	background: transparent;
@@ -28,7 +68,7 @@ const Button = styled.button`
 	justify-content: center;
 	color: ${({ theme }) => theme.colors.text};
 `
-const InputWrapper = styled.div`
+export const InputWrapper = styled.div`
 	background: ${({ theme }) => theme.colors.buttonBackgroundHover};
 	padding: 0.2em 0.625em;
 	margin: -0.75em 0.625em 0 0;
@@ -40,7 +80,7 @@ const InputWrapper = styled.div`
 	position: relative;
 	border: 1px solid ${({ theme }) => theme.colors.buttonBackground};
 `
-const Input = styled.input`
+export const Input = styled.input`
 	display: block;
 	color: ${({ theme }) => theme.colors.text};
 	font-size: 0.875rem;
@@ -57,4 +97,9 @@ const Input = styled.input`
 		color: ${({ theme }) => theme.colors.span};
 	}
 `
-export default InputFilter
+
+const mapStateToProps = ({ params }: InitialStoreState) => ({
+	params,
+})
+
+export default connect(mapStateToProps, { setParams })(InputFilter)

@@ -1,10 +1,10 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import {
-	expLvlArray,
-	empTypeOptions,
-	techArray,
-} from '../../../helpers/options'
+import _ from 'lodash'
+import expLvlOptions from '../../../helpers/expLvlOptions'
+import empTypeOptions from '../../../helpers/empTypeOptions'
+import technologies from '../../../helpers/technologies'
+import locations from '../../../helpers/locations'
 import InputComponent from '../CustomInput'
 import SelectComponent from '../CustomSelect'
 import {
@@ -12,26 +12,25 @@ import {
 	ErrorMessage,
 	InputsContainer,
 } from './StyledComponents'
-import { InputWrapper, Label, StyledTextField } from '../StyledInputs'
-import _ from 'lodash'
+import { InputWrapper, Label, StyledInput } from '../StyledInputs'
 
 const InfoSection = () => {
 	const { register, errors } = useForm()
-
+	const SALARY_STEP = 100
 	return (
 		<InputsContainer>
 			<SelectComponent
-				id='tech'
+				name='tech'
 				label='Technology'
 				register={register}
 				required
 				errors={errors}
-				options={techArray}
+				options={technologies}
 			/>
 
 			<InputComponent
 				type='text'
-				id='offer_title'
+				name='offerTitle'
 				label='Offer title'
 				register={register}
 				required
@@ -39,24 +38,24 @@ const InfoSection = () => {
 			/>
 			<InputComponent
 				type='text'
-				id='company_name'
+				name='companyName'
 				label='Company name'
 				register={register}
 				required
 				errors={errors}
 			/>
 
-			<InputComponent
-				type='text'
-				id='city'
+			<SelectComponent
+				name='city'
 				label='City'
 				register={register}
 				required
 				errors={errors}
+				options={locations}
 			/>
 			<InputComponent
 				type='text'
-				id='street'
+				name='street'
 				label='Street'
 				register={register}
 				required
@@ -64,15 +63,17 @@ const InfoSection = () => {
 			/>
 			<InputWrapper>
 				<Label>Company size</Label>
-				<StyledTextField
+				<StyledInput
 					type='number'
 					name='companySize'
 					ref={register({
 						required: 'This field is required.',
+						// validate by regex
+						// pattern: /.../,
 						validate: {
 							lessThan: value =>
 								value > 0 ||
-								'Company size should be more than 0.',
+								'Company size cannot equal 0.',
 							moreThan: value =>
 								value < 100000 ||
 								'Number is too big.',
@@ -89,9 +90,10 @@ const InfoSection = () => {
 			<Wrapper>
 				<InputWrapper>
 					<Label>Salary from</Label>
-					<StyledTextField
+					<StyledInput
 						type='number'
 						name='salaryFrom'
+						step={SALARY_STEP}
 						ref={register({
 							required: 'This field is required.',
 							validate: {
@@ -113,9 +115,10 @@ const InfoSection = () => {
 
 				<InputWrapper>
 					<Label>Salary to</Label>
-					<StyledTextField
+					<StyledInput
 						type='number'
 						name='salaryTo'
+						step={SALARY_STEP}
 						ref={register({
 							required: 'This field is required.',
 							validate: {
@@ -138,7 +141,7 @@ const InfoSection = () => {
 
 			<Wrapper>
 				<SelectComponent
-					id='emp_type'
+					name='empType'
 					label='EMP type'
 					register={register}
 					required
@@ -147,12 +150,12 @@ const InfoSection = () => {
 				/>
 
 				<SelectComponent
-					id='exp_lvl'
+					name='expLvl'
 					label='EXP level'
 					register={register}
 					required
 					errors={errors}
-					options={expLvlArray.map(lvl =>
+					options={expLvlOptions.map(lvl =>
 						_.capitalize(lvl)
 					)}
 				/>

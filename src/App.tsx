@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { darkMode, lightMode } from './theme'
 import MainPage from './components/MainPage'
 import GlobalStyle from './theme/GlobalStyle'
 import { connect } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import { InitialStoreState } from './store/reducer'
+import InitialStoreState from './types/InitialStoreState'
+import { setOffers } from './store/actions'
 
 const App = ({ state }: { state: InitialStoreState }) => {
+	useEffect(() => {
+		if (!localStorage.offers) {
+			setOffers(state.offers)
+		}
+	}, [])
+
 	return (
 		<ThemeProvider theme={state.darkMode ? darkMode : lightMode}>
 			<BrowserRouter>

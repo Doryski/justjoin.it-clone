@@ -1,7 +1,7 @@
 import React from 'react'
 import Typography from '../../../helpers/Typography'
 import CustomButton from '../CustomButton'
-import { expLvlArray } from '../../../helpers/options'
+import expLvlOptions from '../../../helpers/expLvlOptions'
 import _ from 'lodash'
 import { Wrapper } from './StyledComponents'
 import { ParamsType } from '../../../store/reducer'
@@ -37,7 +37,7 @@ const SenioritySection = ({
 				>
 					All
 				</CustomButton>
-				{expLvlArray.map(lvl => (
+				{expLvlOptions.map(lvl => (
 					<CustomButton
 						onclick={() => {
 							setExpLvl(lvl)

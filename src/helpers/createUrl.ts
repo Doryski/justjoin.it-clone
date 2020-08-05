@@ -7,6 +7,7 @@ export default function createUrl({
 	from,
 	to,
 	sort,
+	search,
 }: ParamsType) {
 	const techType = tech
 		? tech.toLowerCase().replace(/\.\+/, '')
@@ -27,5 +28,6 @@ export default function createUrl({
 		from ? `/${from / 1000}k` : to ? '/-' : '',
 		to ? `/${to / 1000}k` : '',
 		sort ? `?sort=${sort}` : '',
+		search ? `?search=${search}` : '',
 	].join('')
 }

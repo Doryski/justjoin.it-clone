@@ -11,7 +11,7 @@ const TechIcon = ({
 }: {
 	tech: string | null
 	params: ParamsType
-	onclick: VoidFunction
+	onclick?: VoidFunction
 }) => {
 	return (
 		<Container
@@ -24,19 +24,14 @@ const TechIcon = ({
 		</Container>
 	)
 }
-const Container = styled.div`
+export const Container = styled.div<{
+	tech: string
+	focus: boolean
+}>`
 	position: relative;
 	margin: 0 0.1875em;
 	border-radius: 50px;
-	${({
-		theme,
-		tech,
-		focus,
-	}: {
-		theme: any
-		tech: string
-		focus: boolean
-	}) => css`
+	${({ theme, tech, focus }) => css`
 		svg circle {
 			fill: ${focus
 				? theme.techColors[tech]

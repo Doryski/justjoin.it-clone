@@ -16,15 +16,10 @@ const Label = ({
 		</Container>
 	)
 }
-const Container = styled.div`
+export const Container = styled.div<{ active?: boolean }>`
 	padding: 0.625em 2.1875em;
-	background: ${({
-		theme,
-		active,
-	}: {
-		theme: any
-		active: boolean
-	}) => (active ? theme.colors.secondary : theme.colors.primary)};
+	background: ${({ theme, active }) =>
+		active ? theme.colors.secondary : theme.colors.primary};
 	position: relative;
 	border-radius: 20px 20px 0 0;
 `

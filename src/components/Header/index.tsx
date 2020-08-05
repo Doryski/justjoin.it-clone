@@ -12,17 +12,17 @@ import Navigation from './Navigation'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
-	const [openDrawer, setOpenDrawer] = useState(false)
+	const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false)
 
-	const openDrawerHandler = () => {
-		setOpenDrawer(!openDrawer)
+	const handleMenuIconClick = () => {
+		setIsSideBarOpen(!isSideBarOpen)
 	}
 
 	const DrawerComponent = () => (
 		<Drawer
 			anchor='right'
-			open={openDrawer}
-			onClose={openDrawerHandler}
+			open={isSideBarOpen}
+			onClose={handleMenuIconClick}
 		>
 			<SideBar />
 		</Drawer>
@@ -51,7 +51,7 @@ const Header = () => {
 				>
 					Sign in
 				</CustomButton>
-				<IconButton onClick={openDrawerHandler}>
+				<IconButton onClick={handleMenuIconClick}>
 					<MyMenuIcon />
 				</IconButton>
 			</Wrapper>
@@ -59,7 +59,7 @@ const Header = () => {
 		</Container>
 	)
 }
-const Container = styled.header`
+export const Container = styled.header`
 	min-height: 68px;
 	display: flex;
 	align-items: center;
@@ -69,20 +69,20 @@ const Container = styled.header`
 	width: 100%;
 `
 
-const LogoWrapper = styled.div`
+export const LogoWrapper = styled.div`
 	display: inline-block;
 	width: 120px;
 	float: left;
 	margin: 7px 15px 0px 25px;
 `
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
 	display: flex;
 	height: 38px;
 	margin-right: 0.75em;
 	align-items: center;
 `
 
-const MyMenuIcon = styled(MenuIcon)`
+export const MyMenuIcon = styled(MenuIcon)`
 	color: ${({ theme }) => theme.colors.span};
 `
 

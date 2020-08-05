@@ -34,12 +34,12 @@ const SliderArea = ({
 	)
 }
 
-const MainWrapper = styled.div`
+export const MainWrapper = styled.div`
 	padding: 1em 1.5em;
 	border-bottom: 1px solid ${({ theme }) => theme.colors.divider};
 `
 
-const HorizontalLine = styled.hr`
+export const HorizontalLine = styled.hr`
 	margin: 1.5em 0 1em;
 	border: none;
 	height: 1px;

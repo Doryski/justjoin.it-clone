@@ -1,5 +1,5 @@
 import React from 'react'
-import { techLvlOptions } from '../../../helpers/options'
+import techLvlOptions from '../../../helpers/techLvlOptions'
 import SelectComponent from '../CustomSelect'
 import InputComponent from '../CustomInput'
 import styled from 'styled-components'
@@ -17,8 +17,9 @@ const TechnologySection = ({
 }) => {
 	const { register, errors } = useForm()
 
-	const techSizeHandler = (action: string = '') => {
-		setTechSize(action === 'add' ? techSize + 1 : techSize - 1)
+	const handleTechSize = {
+		add: () => setTechSize(techSize + 1),
+		remove: () => setTechSize(techSize - 1),
 	}
 
 	return (
@@ -28,7 +29,7 @@ const TechnologySection = ({
 					<InputComponent
 						max={35}
 						type='text'
-						id={`tech_${index}`}
+						name={`technology[${index}]`}
 						label='Technology'
 						register={register}
 						required
@@ -36,7 +37,7 @@ const TechnologySection = ({
 					/>
 
 					<SelectComponent
-						id={`tech_lvl_${index}`}
+						name={`techLvl[${index}]`}
 						label='Tech level'
 						register={register}
 						required
@@ -48,15 +49,13 @@ const TechnologySection = ({
 
 			<IconsWrapper>
 				{techSize < 10 && (
-					<IconWrapper
-						onClick={() => techSizeHandler('add')}
-					>
+					<IconWrapper onClick={handleTechSize.add}>
 						<MyAddIcon />
 					</IconWrapper>
 				)}
 
 				{techSize > 1 && (
-					<IconWrapper onClick={() => techSizeHandler()}>
+					<IconWrapper onClick={handleTechSize.remove}>
 						<MyRemoveIcon />
 					</IconWrapper>
 				)}
@@ -64,7 +63,7 @@ const TechnologySection = ({
 		</InputsContainer>
 	)
 }
-const IconsWrapper = styled.div`
+export const IconsWrapper = styled.div`
 	padding: 0.3125em 0.625em;
 	border: 1px solid ${({ theme }) => theme.colors.buttonBorder};
 	border-radius: 18px;
@@ -74,7 +73,7 @@ const IconsWrapper = styled.div`
 	width: 200px;
 	margin: auto;
 `
-const IconWrapper = styled.div`
+export const IconWrapper = styled.div`
 	padding: 0.3125em 0.625em;
 	border: 1px solid ${({ theme }) => theme.colors.buttonBorder};
 	border-radius: 18px;
@@ -90,10 +89,10 @@ const IconWrapper = styled.div`
 	}
 `
 
-const MyAddIcon = styled(AddIcon)`
+export const MyAddIcon = styled(AddIcon)`
 	color: ${({ theme }) => theme.colors.span};
 `
-const MyRemoveIcon = styled(RemoveIcon)`
+export const MyRemoveIcon = styled(RemoveIcon)`
 	color: ${({ theme }) => theme.colors.span};
 `
 export default TechnologySection

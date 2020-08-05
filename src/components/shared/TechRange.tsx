@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Typography from '../../helpers/Typography'
+import techLvlOptions from '../../helpers/techLvlOptions'
 
 const TechRange = ({ range, tech }: { range: number; tech: any }) => {
 	const switchRange = () => {
@@ -21,12 +22,12 @@ const TechRange = ({ range, tech }: { range: number; tech: any }) => {
 	return (
 		<Container>
 			<RangeContainer>
-				{[...Array(range)].map(() => (
-					<RangePoint />
+				{[...Array(range)].map((v, index) => (
+					<RangePoint key={index} />
 				))}
-				{[...Array(5 - range)].map(() => (
+				{[...Array(5 - range)].map((v, index) => (
 					// @ts-ignore
-					<RangePoint disabled />
+					<RangePoint key={index} disabled />
 				))}
 			</RangeContainer>
 			<Typography
@@ -52,7 +53,7 @@ const TechRange = ({ range, tech }: { range: number; tech: any }) => {
 		</Container>
 	)
 }
-const Container = styled.div`
+export const Container = styled.div`
 	display: flex;
 	justify-content: flex-start;
 	flex-direction: column;
@@ -65,17 +66,14 @@ const Container = styled.div`
 		flex: 1 0 50%;
 	}
 `
-const RangeContainer = styled.div`
+export const RangeContainer = styled.div`
 	display: flex;
 `
-const RangePoint = styled.span`
-	background-color: ${({
-		disabled,
-		theme,
-	}: {
-		disabled?: boolean
-		theme: any
-	}) => (disabled ? 'rgb(191, 197, 210)' : theme.colors.pink)};
+export const RangePoint = styled.span<{
+	disabled?: boolean
+}>`
+	background-color: ${({ disabled, theme }) =>
+		disabled ? 'rgb(191, 197, 210)' : theme.colors.pink};
 	display: block;
 	width: 10px;
 	height: 10px;

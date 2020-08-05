@@ -1,34 +1,49 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Map from 'pigeon-maps'
-import { InitialStoreState, ParamsType } from '../../store/reducer'
+import Overlay from 'pigeon-overlay'
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { latlngOptions } from '../../helpers/options'
-import { isUndefined, isNull } from 'lodash'
+import TechSvg from '../shared/TechSvg'
+import latlngOptions from '../../helpers/latLngOptions'
+import stringFormat from '../../helpers/stringFormat'
+import isDefined from '../../helpers/isDefined'
 import mapTilerProvider from './mapTilerProvider'
-import Markers from './Markers'
+import Tooltip from './Tooltip'
+import InitialStoreState from '../../types/InitialStoreState'
+import ParamsType from '../../types/ParamsType'
+import { setMap } from '../../store/actions'
 
-const MapWrapper = ({ params }: { params: ParamsType }) => {
-	const [coordinates, setCoordinates] = useState(
-		latlngOptions.poland
-	)
-	const [zoom, setZoom] = useState(6)
+const MapWrapper = ({
+	params,
+	offers,
+	map,
+}: {
+	params: ParamsType
+	offers: InitialStoreState['offers']
+	map: InitialStoreState['map']
+}) => {
+	const [mouseOver, setMouseOver] = useState<{
+		slug: string | null
+		state: boolean
+	}>({
+		slug: null,
+		state: false,
+	})
+	const history = useHistory()
 
 	useEffect(() => {
-		const isLocationDefined =
-			!isNull(params.location) && !isUndefined(params.location)
+		const coordinates = isDefined(params.location)
+			? // @ts-ignore
+			  latlngOptions[params.location]
+			: latlngOptions.poland
 
-		setCoordinates(
-			isLocationDefined
-				? // @ts-ignore
-				  latlngOptions[params.location]
-				: latlngOptions.poland
-		)
-		setZoom(
-			!isLocationDefined || params.location === 'poland'
+		const zoom =
+			!isDefined(params.location) ||
+			params.location === 'poland'
 				? 6
 				: 10
-		)
+		setMap({ coordinates, zoom })
 	}, [params.location])
 
 	return (
@@ -36,16 +51,63 @@ const MapWrapper = ({ params }: { params: ParamsType }) => {
 			<Map
 				provider={mapTilerProvider}
 				dprs={[1, 2]}
-				center={coordinates}
-				zoom={zoom}
+				center={map.coordinates}
+				zoom={map.zoom}
 			>
-				<Markers />
+				{offers.map(offer => (
+					<Overlay
+						key={offer.slug}
+						anchor={
+							// @ts-ignore
+							latlngOptions[stringFormat(offer.city)]
+						}
+						offset={
+							mouseOver.state &&
+							mouseOver.slug == offer.slug
+								? [20, 110]
+								: [20, 20]
+						}
+						style={{ cursor: 'pointer' }}
+					>
+						{mouseOver.state &&
+							mouseOver.slug == offer.slug && (
+								<Tooltip offer={offer} />
+							)}
+						<div
+							onMouseOver={() => {
+								setMouseOver({
+									slug: offer.slug,
+									state: true,
+								})
+							}}
+							onMouseOut={() => {
+								setMouseOver({
+									slug: offer.slug,
+									state: false,
+								})
+							}}
+							onClick={() => {
+								history.push(`/offers/${offer.slug}`)
+								setMap({
+									...map,
+									coordinates:
+										latlngOptions[
+											// @ts-ignore
+											stringFormat(offer.city)
+										],
+								})
+							}}
+						>
+							<TechSvg tech={offer.tech} />
+						</div>
+					</Overlay>
+				))}
 			</Map>
 		</Container>
 	)
 }
 
-const Container = styled.div`
+export const Container = styled.div`
 	flex: 1;
 	height: 100%;
 	@media (max-width: 1025px) {
@@ -53,8 +115,14 @@ const Container = styled.div`
 	}
 `
 
-const mapStateToProps = ({ params }: InitialStoreState) => ({
+const mapStateToProps = ({
 	params,
+	offers,
+	map,
+}: InitialStoreState) => ({
+	params,
+	offers,
+	map,
 })
 
 export default connect(mapStateToProps)(MapWrapper)
