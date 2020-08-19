@@ -5,19 +5,23 @@ import DialogHeader from '../DialogHeader'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import SliderArea from './SliderArea'
 import DialogFooter from '../DialogFooter'
-import { ParamsType, InitialStoreState } from '../../../store/reducer'
 import { connect } from 'react-redux'
+import ParamsType from '../../../types/ParamsType'
+import InitialStoreState from '../../../types/InitialStoreState'
+import HandleDialogType from '../../../types/HandleDialogType'
+
+export type Value = number | number[]
 
 const DialogComponent = ({
 	params,
-	setDialogOpen,
-	dialogOpen,
+	handleDialog,
+	isDialogOpen,
 }: {
 	params: ParamsType
-	setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
-	dialogOpen: boolean
+	handleDialog: HandleDialogType
+	isDialogOpen: boolean
 }) => {
-	const [value, setValue] = useState<number | number[]>([
+	const [value, setValue] = useState<Value>([
 		params.from || 0,
 		params.to || 50000,
 	])
@@ -25,27 +29,23 @@ const DialogComponent = ({
 
 	const handleChange = (
 		event: React.ChangeEvent<{}>,
-		newValue: number | number[]
+		newValue: Value
 	) => {
 		setValue(newValue as number[])
 	}
 
 	const [expLvl, setExpLvl] = useState(params.expLvl)
 
-	const onClose = () => {
-		setDialogOpen(false)
-	}
-
 	return (
 		<Dialog
 			maxWidth='sm'
-			open={dialogOpen}
-			onClose={onClose}
+			open={isDialogOpen}
+			onClose={handleDialog.close}
 			fullWidth={true}
 			fullScreen={fullScreen}
 		>
 			<Container>
-				<DialogHeader close={onClose}>
+				<DialogHeader close={handleDialog.close}>
 					More filters
 				</DialogHeader>
 
@@ -57,7 +57,7 @@ const DialogComponent = ({
 				/>
 
 				<DialogFooter
-					onClose={onClose}
+					onClose={handleDialog.close}
 					value={value}
 					expLvl={expLvl}
 					filterType={'expLvl'}

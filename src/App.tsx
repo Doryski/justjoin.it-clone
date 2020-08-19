@@ -6,13 +6,21 @@ import GlobalStyle from './theme/GlobalStyle'
 import { connect } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import InitialStoreState from './types/InitialStoreState'
-import { setOffers } from './store/actions'
 
 const App = ({ state }: { state: InitialStoreState }) => {
 	useEffect(() => {
-		if (!localStorage.offers) {
-			setOffers(state.offers)
+		function fetchStorage() {
+			const response = localStorage.getItem('offers')
+			if (!response) {
+				localStorage.setItem(
+					'offers',
+					JSON.stringify(state.offers)
+				)
+				return localStorage.offers
+			}
+			return response
 		}
+		fetchStorage()
 	}, [])
 
 	return (

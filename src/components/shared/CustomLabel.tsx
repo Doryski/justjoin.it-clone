@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import Typography from '../../helpers/Typography'
+import Typography from './Typography'
 import BusinessIcon from '@material-ui/icons/Business'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import { People } from '@material-ui/icons'
+import theme, { textColors } from '../../theme'
 
 const CustomLabel = ({
 	label,
@@ -24,10 +25,9 @@ const CustomLabel = ({
 				)}
 			</IconWrapper>
 			<Typography
-				color='span'
-				// @ts-ignore
-				fontSize='.7rem'
-				fWeight='400'
+				color={textColors.span}
+				fontSize={theme.fontSize.small}
+				fWeight={theme.fontWeight[400]}
 			>
 				{label}
 			</Typography>

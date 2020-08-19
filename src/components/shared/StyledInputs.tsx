@@ -58,6 +58,6 @@ export const Label = styled.label`
 export const Info = styled.span<{ span?: boolean }>`
 	color: ${({ theme, span }) =>
 		span ? theme.colors.span : theme.colors.pink};
-	font-size: 0.7rem;
+	font-size: ${({ theme }) => theme.fontSize.small}
 	margin-left: 0.625em;
 `

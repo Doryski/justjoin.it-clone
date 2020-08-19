@@ -5,10 +5,10 @@ import NightsStayIcon from '@material-ui/icons/NightsStay'
 import Switch from '@material-ui/core/Switch'
 import { toggleThemeMode } from '../../../store/actions'
 import { connect } from 'react-redux'
-import { InitialStoreState } from '../../../store/reducer'
 import SidebarList from './SidebarList'
 import JustjoinLogo from '../JustjoinLogo'
 import { Link } from 'react-router-dom'
+import InitialStoreState from '../../../types/InitialStoreState'
 
 const SideBar = ({
 	darkMode,
@@ -26,7 +26,7 @@ const SideBar = ({
 			</Link>
 			<SidebarList />
 			<ToggleWrapper>
-				<MyWbSunnyIcon />
+				<ThemeIcon light />
 				<Switch
 					checked={darkMode}
 					onChange={toggleThemeMode}
@@ -35,7 +35,7 @@ const SideBar = ({
 						'aria-label': 'checkbox with default color',
 					}}
 				/>
-				<MyNightsStayIcon />
+				<ThemeIcon />
 			</ToggleWrapper>
 		</Container>
 	)
@@ -60,12 +60,13 @@ export const ToggleWrapper = styled.div`
 	display: flex;
 	align-items: center;
 `
-export const MyWbSunnyIcon = styled(WbSunnyIcon)`
+
+export const ThemeIcon = styled(({ light }: { light?: boolean }) =>
+	light ? <WbSunnyIcon /> : <NightsStayIcon />
+)`
 	color: rgba(0, 0, 0, 0.54);
 `
-export const MyNightsStayIcon = styled(NightsStayIcon)`
-	color: rgba(0, 0, 0, 0.54);
-`
+
 const mapStateToProps = ({ darkMode }: InitialStoreState) => ({
 	darkMode,
 })

@@ -2,23 +2,23 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import TechSvg from './TechSvg'
 import { connect } from 'react-redux'
-import { InitialStoreState, ParamsType } from '../../store/reducer'
+import InitialStoreState from '../../types/InitialStoreState'
+import ParamsType from '../../types/ParamsType'
 
 const TechIcon = ({
 	tech,
 	params,
-	onclick,
+	handleClick,
 }: {
-	tech: string | null
+	tech: string
 	params: ParamsType
-	onclick?: VoidFunction
+	handleClick?: VoidFunction
 }) => {
 	return (
 		<Container
-			// @ts-ignore
 			tech={tech}
 			focus={params.tech === tech || !params.tech}
-			onClick={onclick}
+			onClick={handleClick}
 		>
 			<TechSvg tech={tech} />
 		</Container>

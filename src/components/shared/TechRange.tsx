@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import Typography from '../../helpers/Typography'
+import Typography from './Typography'
 import techLvlOptions from '../../helpers/techLvlOptions'
+import theme, { textColors } from '../../theme'
 
 const TechRange = ({ range, tech }: { range: number; tech: any }) => {
 	const switchRange = () => {
@@ -26,14 +27,12 @@ const TechRange = ({ range, tech }: { range: number; tech: any }) => {
 					<RangePoint key={index} />
 				))}
 				{[...Array(5 - range)].map((v, index) => (
-					// @ts-ignore
 					<RangePoint key={index} disabled />
 				))}
 			</RangeContainer>
 			<Typography
-				color='title'
-				// @ts-ignore
-				fWeight='600'
+				color={textColors.title}
+				fWeight={theme.fontWeight[600]}
 				fontSize='1.1rem'
 				align='flex-start'
 				margin='0.3125em 0 0'
@@ -42,9 +41,8 @@ const TechRange = ({ range, tech }: { range: number; tech: any }) => {
 				{tech}
 			</Typography>
 			<Typography
-				color='span'
-				// @ts-ignore
-				fWeight='400'
+				color={textColors.span}
+				fWeight={theme.fontWeight[400]}
 				align='flex-start'
 				margin='0'
 			>

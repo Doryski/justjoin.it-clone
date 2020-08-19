@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import CustomButton from '../CustomButton'
 import DialogComponent from './DialogComponent'
-import { InitialStoreState, ParamsType } from '../../../store/reducer'
 import { connect } from 'react-redux'
 import { Tune } from '@material-ui/icons'
-import Typography from '../../../helpers/Typography'
+import Typography from '../Typography'
 import styled from 'styled-components'
+import ParamsType from '../../../types/ParamsType'
+import InitialStoreState from '../../../types/InitialStoreState'
+import { textColors } from '../../../theme'
 
 const MoreFilters = ({ params }: { params: ParamsType }) => {
-	const [dialogOpen, setDialogOpen] = useState(false)
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
 
 	const isActive = !!params.expLvl || !!params.from || !!params.to
 
@@ -17,15 +19,25 @@ const MoreFilters = ({ params }: { params: ParamsType }) => {
 
 	const filtersApplied = isActive && bothFiltersApplied ? 2 : 1
 
+	const handleDialog = {
+		open: () => {
+			setIsDialogOpen(true)
+		},
+		close: () => {
+			setIsDialogOpen(false)
+		},
+		toggle: () => {
+			setIsDialogOpen(!isDialogOpen)
+		},
+	}
+
 	return (
 		<>
 			<CustomButton
-				onclick={() => {
-					setDialogOpen(true)
-				}}
+				onclick={handleDialog.open}
 				active={isActive}
 				icon
-				isOpen={dialogOpen}
+				isOpen={isDialogOpen}
 				padding='0.375em 0.5em 0.375em 1em'
 				margin='-0.75em 0.3125em 0.3125em 0.625em'
 				minWidth='158px'
@@ -37,8 +49,9 @@ const MoreFilters = ({ params }: { params: ParamsType }) => {
 					<Tune fontSize='small' />
 				)}
 				<Typography
-					color={isActive ? 'pink' : 'text'}
-					// @ts-ignore
+					color={
+						isActive ? textColors.pink : textColors.text
+					}
 					fontSize='inherit'
 					fWeight='inherit'
 					margin={
@@ -48,10 +61,10 @@ const MoreFilters = ({ params }: { params: ParamsType }) => {
 					More filters
 				</Typography>
 			</CustomButton>
-			{dialogOpen && (
+			{isDialogOpen && (
 				<DialogComponent
-					dialogOpen={dialogOpen}
-					setDialogOpen={setDialogOpen}
+					isDialogOpen={isDialogOpen}
+					handleDialog={handleDialog}
 				/>
 			)}
 		</>
@@ -63,7 +76,7 @@ export const Number = styled.div`
 	height: 24px;
 	text-align: center;
 	line-height: 24px;
-	color: rgb(255, 255, 255);
+	color: ${({ theme }) => theme.colors.white};
 	margin-left: 0px;
 	border-radius: 12px;
 	background: rgb(255, 64, 129);

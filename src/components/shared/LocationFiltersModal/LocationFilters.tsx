@@ -6,11 +6,13 @@ import DialogHeader from '../DialogHeader'
 import stringFormat from '../../../helpers/stringFormat'
 import { connect } from 'react-redux'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { InitialStoreState, ParamsType } from '../../../store/reducer'
 import locations from '../../../helpers/locations'
 import DialogFooter from '../DialogFooter'
-import Typography from '../../../helpers/Typography'
+import Typography from '../Typography'
 import { setParams } from '../../../store/actions'
+import ParamsType from '../../../types/ParamsType'
+import InitialStoreState from '../../../types/InitialStoreState'
+import theme, { textColors } from '../../../theme'
 
 const LocationFilters = ({ params }: any) => {
 	const [dialogOpen, setDialogOpen] = useState<boolean>(false)
@@ -23,7 +25,7 @@ const LocationFilters = ({ params }: any) => {
 		setDialogOpen(false)
 	}
 	const TOP_LOCATIONS_NUM = 6
-	
+
 	return (
 		<>
 			<CustomButton
@@ -58,11 +60,10 @@ const LocationFilters = ({ params }: any) => {
 					</DialogHeader>
 
 					<Typography
-						style={{ display: 'flex' }}
-						color='text'
-						// @ts-ignore
-						fWeight='700'
-						fontSize='1rem'
+						display='flex'
+						color={textColors.text}
+						fWeight={theme.fontWeight[700]}
+						fontSize={theme.fontSize.large}
 						padding='1.25em 1.25em 0 1.25em'
 					>
 						Top locations
@@ -92,11 +93,10 @@ const LocationFilters = ({ params }: any) => {
 							))}
 					</Wrapper>
 					<Typography
-						style={{ display: 'flex' }}
-						color='text'
-						// @ts-ignore
-						fWeight='700'
-						fontSize='1rem'
+						display='flex'
+						color={textColors.text}
+						fWeight={theme.fontWeight[700]}
+						fontSize={theme.fontSize.large}
 						padding='0 1.25em'
 					>
 						Other locations

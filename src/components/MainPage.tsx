@@ -7,31 +7,30 @@ import Map from './Map'
 import OfferPage from './OfferPage'
 import { Switch, Route } from 'react-router-dom'
 
-const MainPage = () => {
-	return (
-		<MainContainer>
-			<Header />
-			<Filters />
-			<SubContainer>
-				<OfferContainer>
-					<OfferContainerScroll>
-						<Switch>
-							<Route
-								path='/offers/:slug?'
-								component={OfferPage}
-							/>
-							<Route
-								path='/:location?/:tech?/:expLvl?/:from?/:to?'
-								component={OfferList}
-							/>
-						</Switch>
-					</OfferContainerScroll>
-				</OfferContainer>
-				<Map />
-			</SubContainer>
-		</MainContainer>
-	)
-}
+const MainPage = () => (
+	<MainContainer>
+		<Header />
+		<Filters />
+		<SubContainer>
+			<OfferContainer>
+				<OfferContainerScroll>
+					<Switch>
+						<Route
+							path='/offers/:slug?'
+							component={OfferPage}
+						/>
+						<Route
+							path='/:location?/:tech?/:expLvl?/:from?/:to?'
+							component={OfferList}
+						/>
+					</Switch>
+				</OfferContainerScroll>
+			</OfferContainer>
+			<Map />
+		</SubContainer>
+	</MainContainer>
+)
+
 export const MainContainer = styled.main`
 	height: 100vh;
 	display: flex;

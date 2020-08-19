@@ -1,28 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
 import sideBarItems from './SideBarItems'
-import Typography from '../../../helpers/Typography'
+import Typography from '../Typography'
+import theme from '../../../theme'
 
-const SidebarList = () => {
-	return (
-		<List>
-			{sideBarItems.map(item => (
-				<ListItem key={item.title}>
-					<IconWrapper>{item.icon}</IconWrapper>
-					<TitleWrapper>
-						<Typography
-							color='sideBarText'
-							// @ts-ignore
-							fWeight='400'
-						>
-							{item.title}
-						</Typography>
-					</TitleWrapper>
-				</ListItem>
-			))}
-		</List>
-	)
-}
+const SidebarList = () => (
+	<List>
+		{sideBarItems.map(item => (
+			<ListItem key={item.title}>
+				<IconWrapper>{item.icon}</IconWrapper>
+				<TitleWrapper>
+					<Typography fWeight={theme.fontWeight[400]}>
+						{item.title}
+					</Typography>
+				</TitleWrapper>
+			</ListItem>
+		))}
+	</List>
+)
 
 export const List = styled.ul`
 	width: 100%;

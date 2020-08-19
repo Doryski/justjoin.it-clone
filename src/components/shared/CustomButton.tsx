@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import Typography from '../../helpers/Typography'
+import Typography from './Typography'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { ICON_SIZE } from './InfoLabel'
+import { textColors } from '../../theme'
 
 type CustomButtonProps = {
 	children: any
 	active?: boolean
-	fontSize?: number
+	fontSize?: string
 	icon?: boolean
 	onclick?: VoidFunction
 	padding?: string
@@ -17,11 +18,10 @@ type CustomButtonProps = {
 	minWidth?: string
 	isOpen?: boolean
 	display?: string
-	type?: string
+	type?: 'button' | 'submit' | 'reset'
 }
 
 type StyledButtonProps = {
-	theme?: any
 	pink?: boolean
 	active?: boolean
 	icon?: boolean
@@ -47,7 +47,6 @@ const CustomButton = ({
 }: CustomButtonProps) => {
 	return (
 		<Button
-			//@ts-ignore
 			active={active}
 			onClick={onclick}
 			padding={padding}
@@ -55,12 +54,16 @@ const CustomButton = ({
 			pink={pink}
 			icon={icon}
 			minWidth={minWidth}
-			//@ts-ignore
 			type={type}
 		>
 			<Typography
-				color={active ? 'pink' : pink ? 'white' : 'text'}
-				//@ts-ignore
+				color={
+					active
+						? textColors.pink
+						: pink
+						? textColors.white
+						: textColors.text
+				}
 				fontSize={fontSize}
 				fWeight={fWeight}
 				display={display}
@@ -69,8 +72,7 @@ const CustomButton = ({
 			</Typography>
 			{icon && (
 				<IconWrapper>
-					<MyExpandMoreIcon
-						// @ts-ignore
+					<StyledExpandMoreIcon
 						pink={pink}
 						active={active}
 						isOpen={isOpen}
@@ -119,7 +121,7 @@ export const IconWrapper = styled.div`
 	margin-top: 0.1875em;
 	transition: all 0.4s;
 `
-export const MyExpandMoreIcon = styled(
+export const StyledExpandMoreIcon = styled(
 	({
 		active,
 		pink,

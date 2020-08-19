@@ -12,7 +12,7 @@ type SelectComponentProps = {
 	register: any
 	required: boolean
 	options: any[]
-	errors: Record<string, Object>
+	errors: Record<string, { required: boolean }>
 }
 
 const SelectComponent = ({
@@ -34,7 +34,6 @@ const SelectComponent = ({
 					</option>
 				))}
 			</StyledSelect>
-			{/* @ts-ignore */}
 			{errors[name] && errors[name].required && (
 				<Info>This field is required.</Info>
 			)}

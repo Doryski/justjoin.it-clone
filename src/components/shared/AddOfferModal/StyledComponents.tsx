@@ -11,7 +11,7 @@ export const InputsContainer = styled.div`
 export const ErrorMessage = styled.span<{ span?: boolean }>`
 	color: ${({ span, theme }) =>
 		span ? theme.colors.span : theme.colors.pink};
-	font-size: 0.7rem;
+	font-size: ${({theme}) => theme.fontSize.small}
 	margin-left: 0.625em;
 `
 export const Wrapper = styled.div`

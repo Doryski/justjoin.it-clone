@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { Search } from '@material-ui/icons'
-import { InitialStoreState, ParamsType } from '../../store/reducer'
 import { setParams } from '../../store/actions'
-import isDefined from '../../helpers/isDefined'
 import createUrl from '../../helpers/createUrl'
 import resetParams from '../../helpers/resetParams'
+import InitialStoreState from '../../types/InitialStoreState'
+import ParamsType from '../../types/ParamsType'
 
 const InputFilter = ({
 	params,
@@ -42,11 +42,7 @@ const InputFilter = ({
 			<Input
 				type='text'
 				placeholder='Search'
-				value={
-					isDefined(params.search)
-						? String(params.search)
-						: ''
-				}
+				value={!!params.search ? String(params.search) : ''}
 				onChange={handleChange}
 			/>
 		</InputWrapper>

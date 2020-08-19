@@ -3,11 +3,14 @@ import CustomButton from './CustomButton'
 import styled from 'styled-components'
 import createUrl from '../../helpers/createUrl'
 import MAX_SLIDER_VALUE from '../../helpers/maxSliderValue'
-import { ParamsType, InitialStoreState } from '../../store/reducer'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setParams } from '../../store/actions'
 import stringFormat from '../../helpers/stringFormat'
+import ParamsType from '../../types/ParamsType'
+import InitialStoreState from '../../types/InitialStoreState'
+import theme from '../../theme'
+import { Value } from './MoreFiltersModal/DialogComponent'
 
 type DialogFooterProps = {
 	params: ParamsType
@@ -17,7 +20,7 @@ type DialogFooterProps = {
 	setLocation?: React.Dispatch<
 		React.SetStateAction<ParamsType['location']>
 	>
-	value?: number[] | number
+	value?: Value
 	filterType: 'expLvl' | 'location'
 	setParams: (params: ParamsType) => void
 }
@@ -32,7 +35,7 @@ const DialogFooter = ({
 	filterType,
 	setParams,
 }: DialogFooterProps) => {
-	const loc = stringFormat(location)
+	const loc = !!location && stringFormat(location)
 	const val0 = value instanceof Array ? value[0] : value
 	const val1 = value instanceof Array ? value[1] : value
 
@@ -85,7 +88,7 @@ const DialogFooter = ({
 				<CustomButton
 					padding='0.5em 1.125em'
 					pink
-					fWeight='600'
+					fWeight={theme.fontWeight[600]}
 					margin='0 0.625em'
 				>
 					Show offers

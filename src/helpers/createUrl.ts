@@ -1,4 +1,4 @@
-import { ParamsType } from '../store/reducer'
+import ParamsType from '../types/ParamsType'
 
 export default function createUrl({
 	location,

@@ -1,13 +1,12 @@
-import { ParamsType } from '../store/reducer'
+import ParamsType from '../types/ParamsType'
 
-export default function resetParams(params: ParamsType) {
-	return {
-		...params,
-		location: null,
-		tech: null,
-		expLvl: null,
-		from: null,
-		to: null,
-		search: null,
-	}
-}
+const resetParams = (params: ParamsType) => ({
+	...params,
+	location: null,
+	tech: null,
+	expLvl: null,
+	from: null,
+	to: null,
+	search: null,
+})
+export default resetParams

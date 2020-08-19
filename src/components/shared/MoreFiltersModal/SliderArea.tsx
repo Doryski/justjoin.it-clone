@@ -1,15 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ParamsType } from '../../../store/reducer'
 import SenioritySection from './SenioritySection'
 import SalarySection from './SalarySection'
+import ParamsType from '../../../types/ParamsType'
+import { Value } from './DialogComponent'
 
 type SliderAreaPropsTypes = {
 	handleChange?: (
 		event: React.ChangeEvent<{}>,
-		value: number | number[]
+		value: Value
 	) => void
-	value: number | number[]
+	value: Value
 	expLvl?: ParamsType['expLvl']
 	setExpLvl: React.Dispatch<
 		React.SetStateAction<ParamsType['expLvl']>

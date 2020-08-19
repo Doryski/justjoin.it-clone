@@ -1,10 +1,11 @@
 import React from 'react'
-import Typography from '../../../helpers/Typography'
+import Typography from '../Typography'
 import CustomButton from '../CustomButton'
 import expLvlOptions from '../../../helpers/expLvlOptions'
 import _ from 'lodash'
 import { Wrapper } from './StyledComponents'
-import { ParamsType } from '../../../store/reducer'
+import ParamsType from '../../../types/ParamsType'
+import theme, { textColors } from '../../../theme'
 
 const SenioritySection = ({
 	expLvl,
@@ -19,9 +20,8 @@ const SenioritySection = ({
 		<>
 			<Typography
 				align='flex-start'
-				color='text'
-				// @ts-ignore
-				fWeight='700'
+				color={textColors.text}
+				fWeight={theme.fontWeight[700]}
 				margin='0 0 1em 0'
 			>
 				Seniority

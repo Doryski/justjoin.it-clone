@@ -1,32 +1,28 @@
 import React from 'react'
 import styled from 'styled-components'
-import Typography from '../../helpers/Typography'
+import Typography from '../shared/Typography'
 import navLinks from '../../helpers/navLinks'
+import theme, { textColors } from '../../theme'
 
-const Navigation = () => {
-	return (
-		<NavList>
-			{navLinks.map(item => (
-				<NavItem key={item.title}>
-					<Typography
-						//@ts-ignore
-						fWeight='600'
-						color={item.active ? 'pink' : 'span'}
-						margin='0 0.375em'
-						minWidth='64px'
-						hoverColor={
-							item.active
-								? 'none'
-								: 'rgb(244, 143, 177)'
-						}
-					>
-						{item.title}
-					</Typography>
-				</NavItem>
-			))}
-		</NavList>
-	)
-}
+const Navigation = () => (
+	<NavList>
+		{navLinks.map(({ title, active }) => (
+			<NavItem key={title}>
+				<Typography
+					fWeight={theme.fontWeight[600]}
+					color={active ? textColors.pink : textColors.span}
+					margin='0 0.375em'
+					minWidth='64px'
+					hoverColor={
+						active ? 'none' : textColors.lightPink
+					}
+				>
+					{title}
+				</Typography>
+			</NavItem>
+		))}
+	</NavList>
+)
 
 export const NavList = styled.ul`
 	display: flex;

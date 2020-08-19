@@ -7,6 +7,7 @@ import { Wrapper, InputsContainer } from './StyledComponents'
 import { useForm } from 'react-hook-form'
 import RemoveIcon from '@material-ui/icons/Remove'
 import AddIcon from '@material-ui/icons/Add'
+import StyledIcon from '../StyledIcon'
 
 const TechnologySection = ({
 	techSize,
@@ -50,13 +51,13 @@ const TechnologySection = ({
 			<IconsWrapper>
 				{techSize < 10 && (
 					<IconWrapper onClick={handleTechSize.add}>
-						<MyAddIcon />
+						<StyledIcon Icon={AddIcon} />
 					</IconWrapper>
 				)}
 
 				{techSize > 1 && (
 					<IconWrapper onClick={handleTechSize.remove}>
-						<MyRemoveIcon />
+						<StyledIcon Icon={RemoveIcon} />
 					</IconWrapper>
 				)}
 			</IconsWrapper>
@@ -89,10 +90,4 @@ export const IconWrapper = styled.div`
 	}
 `
 
-export const MyAddIcon = styled(AddIcon)`
-	color: ${({ theme }) => theme.colors.span};
-`
-export const MyRemoveIcon = styled(RemoveIcon)`
-	color: ${({ theme }) => theme.colors.span};
-`
 export default TechnologySection

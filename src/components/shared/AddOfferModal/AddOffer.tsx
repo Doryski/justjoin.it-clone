@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import CustomButton from '../CustomButton'
 import AddOfferModal from '.'
+import theme from '../../../theme'
 
 const AddOffer = () => {
-	const [dialogOpen, setDialogOpen] = useState(false)
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
 	const handleDialog = {
-		open: () => setDialogOpen(true),
-		close: () => setDialogOpen(false),
+		open: () => setIsDialogOpen(true),
+		close: () => setIsDialogOpen(false),
+		toggle: () => setIsDialogOpen(!isDialogOpen),
 	}
 	return (
 		<>
 			<CustomButton
-				fWeight='400'
+				fWeight={theme.fontWeight[400]}
 				onclick={handleDialog.open}
 				margin='0 0.875em 0 0.375em'
 				padding='0.625em 1.125em'
@@ -19,7 +21,7 @@ const AddOffer = () => {
 				Post a Job
 			</CustomButton>
 			<AddOfferModal
-				dialogOpen={dialogOpen}
+				isDialogOpen={isDialogOpen}
 				handleDialog={handleDialog}
 			/>
 		</>

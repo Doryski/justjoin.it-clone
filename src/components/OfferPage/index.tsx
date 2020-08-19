@@ -3,41 +3,63 @@ import styled from 'styled-components'
 import { useParams, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { Share, ArrowBack } from '@material-ui/icons'
+import {
+	Share,
+	ArrowBack,
+	PersonOutline,
+	Email,
+	Create,
+	Send,
+} from '@material-ui/icons'
 import InitialStoreState from '../../types/InitialStoreState'
 import OfferType from '../../types/OfferType'
 import ParamsType from '../../types/ParamsType'
 import { setParams } from '../../store/actions'
 import InfoLabel from '../shared/InfoLabel'
 import TechRange from '../shared/TechRange'
-import Typography from '../../helpers/Typography'
+import Typography from '../shared/Typography'
 import formatThous from '../../helpers/formatThous'
 import infoLabels from '../../helpers/infoLabels'
+import {
+	TextField,
+	CircularProgress,
+	Checkbox,
+} from '@material-ui/core'
+import CustomButton from '../shared/CustomButton'
+import UploadCv from '../shared/UploadCv'
+import InputIcon from './InputIcon'
+import theme, { textColors } from '../../theme'
 
-const OfferPage = ({
-	params,
-	offers,
-}: {
-	params: ParamsType
-	offers: OfferType[]
-}) => {
+const OfferPage = ({ offers }: { offers: OfferType[] }) => {
 	const { slug } = useParams()
 
-	const [offer, setOffer] = useState<OfferType>(offers[0])
+	const [offer, setOffer] = useState<OfferType>(
+		!!localStorage.offers
+			? JSON.parse(localStorage.offers)[0]
+			: offers[0]
+	)
 
 	const [loading2, setLoading2] = useState(false)
 
 	useEffect(() => {
 		setLoading2(true)
-		console.log(localStorage.offers)
-		const posts = JSON.parse(localStorage.offers)
+		const posts = !!localStorage.offers
+			? JSON.parse(localStorage.offers)
+			: offers
 		const foundPost = posts.find(
 			(post: OfferType) => post.slug === slug
 		)
 		setOffer(foundPost)
 		setLoading2(false)
 	}, [slug])
+
+	const [isChecked, setIsChecked] = useState<boolean>(true)
+
+	const handleChange = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setIsChecked(event.target.checked)
+	}
 
 	return (
 		<Container>
@@ -49,14 +71,12 @@ const OfferPage = ({
 				) : (
 					<>
 						<HeaderContainer>
-							{/* @ts-ignore */}
 							<HeaderInner tech={offer.tech}>
 								<Link to='/'>
 									<HeaderActionIcon arrow>
 										<ArrowBack />
 									</HeaderActionIcon>
 								</Link>
-								{/* @ts-ignore */}
 								<HeaderActionIcon>
 									<Share />
 								</HeaderActionIcon>
@@ -67,11 +87,12 @@ const OfferPage = ({
 									</ImgBackground>
 									<MainInfoContainer>
 										<Typography
-											color='white'
+											color={textColors.white}
 											align='flex-start'
 											margin='0.25em 0'
-											// @ts-ignore
-											fWeight='400'
+											fWeight={
+												theme.fontWeight[400]
+											}
 										>
 											{formatThous(
 												offer.salaryFrom
@@ -83,20 +104,22 @@ const OfferPage = ({
 											PLN
 										</Typography>
 										<Typography
-											color='white'
+											color={textColors.white}
 											align='flex-start'
-											// @ts-ignore
-											fontSize='1.2rem'
+											fontSize={
+												theme.fontSize.xl
+											}
 											margin='0.25em 0'
 										>
 											{offer.offerTitle}
 										</Typography>
 										<Typography
-											color='white'
+											color={textColors.white}
 											align='flex-start'
 											margin='0.25em 0'
-											// @ts-ignore
-											fWeight='400'
+											fWeight={
+												theme.fontWeight[400]
+											}
 										>
 											{offer.street},{' '}
 											{offer.city}
@@ -117,10 +140,9 @@ const OfferPage = ({
 						</HeaderContainer>
 						<TechStackContainer>
 							<Typography
-								color='title'
-								// @ts-ignore
-								fWeight='500'
-								fontSize='1.2rem'
+								color={textColors.title}
+								fWeight={theme.fontWeight[500]}
+								fontSize={theme.fontSize.xl}
 								align='flex-start'
 								margin='0.625em 1.25em'
 							>
@@ -140,10 +162,9 @@ const OfferPage = ({
 						</TechStackContainer>
 						<DescriptionContainer>
 							<Typography
-								color='title'
-								// @ts-ignore
-								fWeight='500'
-								fontSize='1.2rem'
+								color={textColors.title}
+								fWeight={theme.fontWeight[500]}
+								fontSize={theme.fontSize.xl}
 								align='flex-start'
 								margin='0.625em 1.25em'
 							>
@@ -159,10 +180,9 @@ const OfferPage = ({
 						</DescriptionContainer>
 						<ApplyContainer>
 							<Typography
-								color='title'
-								// @ts-ignore
-								fWeight='500'
-								fontSize='1.2rem'
+								color={textColors.title}
+								fWeight={theme.fontWeight[500]}
+								fontSize={theme.fontSize.xl}
 								align='flex-start'
 								margin='0.625em 1.25em'
 							>
@@ -170,13 +190,108 @@ const OfferPage = ({
 							</Typography>
 
 							<Wrapper>
-								<form>
-									{/* First & last name - input */}
-									{/* Email - input */}
-									{/* Introduce yourself (linkedin/github links) - input */}
-									{/* Upload CV (.pdf) - file loader */}
-									{/* Processing data in future recruitment - check button */}
-								</form>
+								<Form>
+									<FormGrid>
+										{/* First & last name - input */}
+										<TextField
+											error
+											id='firstAndLastName'
+											label='First & Last Name'
+											helperText='First & last name is a required field'
+											variant='outlined'
+											InputProps={{
+												startAdornment: (
+													<InputIcon
+														Icon={
+															PersonOutline
+														}
+													/>
+												),
+											}}
+										/>
+										{/* Email - input */}
+										<TextField
+											error
+											id='email'
+											label='Email'
+											helperText='Email is a required field'
+											variant='outlined'
+											InputProps={{
+												startAdornment: (
+													<InputIcon
+														Icon={Email}
+													/>
+												),
+											}}
+										/>
+										{/* Introduce yourself (linkedin/github links) - input */}
+										<TextField
+											id='introduction'
+											label='Introduce yourself (linkedin/github links)'
+											variant='outlined'
+											InputProps={{
+												startAdornment: (
+													<InputIcon
+														Icon={Create}
+													/>
+												),
+											}}
+										/>
+										{/* Upload CV (.pdf) - file loader */}
+										<div>
+											<input
+												accept='application/pdf'
+												type='file'
+												autoComplete='off'
+												name='cv'
+												tabIndex={-1}
+											/>
+											<div>
+												<div>
+													<UploadCv />
+												</div>
+												<label htmlFor='cv'>
+													<Typography>
+														Upload CV
+														(.pdf)
+													</Typography>
+												</label>
+											</div>
+										</div>
+										{/* Processing data in future recruitment - check button */}
+									</FormGrid>
+									<div>
+										<Checkbox
+											checked={isChecked}
+											onChange={handleChange}
+											inputProps={{
+												'aria-label':
+													'primary checkbox',
+											}}
+										/>
+										<Typography
+											color={textColors.text}
+										>
+											Processing data in future
+											recruitment
+										</Typography>
+									</div>
+									<div>
+										<CustomButton
+											pink
+											display='flex'
+										>
+											Apply
+											<Typography
+												color={
+													textColors.pink
+												}
+											>
+												<SendIcon />
+											</Typography>
+										</CustomButton>
+									</div>
+								</Form>
 							</Wrapper>
 						</ApplyContainer>
 					</>
@@ -228,7 +343,7 @@ export const HeaderWrapper = styled.div`
 	justify-content: center;
 `
 export const ImgBackground = styled.div`
-	background-color: rgb(255, 255, 255);
+	background-color: ${({ theme }) => theme.colors.white};
 	width: 107px;
 	height: 107px;
 	display: flex;
@@ -257,6 +372,7 @@ export const ImgBackground = styled.div`
 export const Img = styled.img`
 	max-width: 70px;
 	max-height: 45px;
+	z-index: 1;
 `
 export const MainInfoContainer = styled.div`
 	flex: 1;
@@ -344,6 +460,25 @@ export const HeaderActionIcon = styled.button<{ arrow?: boolean }>`
 	&:hover {
 		background: rgba(0, 0, 0, 0.35);
 	}
+`
+export const Form = styled.form`
+	width: 100%;
+`
+
+export const FormGrid = styled.div`
+	display: grid;
+	grid-template-columns: repeat(2, auto);
+`
+
+export const SendIcon = styled(Send)`
+	background: linear-gradient(
+		110deg,
+		rgb(178, 44, 90) 30%,
+		rgb(255, 255, 255) 32%
+	);
+	// width: 100%;
+	height: 100%;
+	padding: 8px 8px 8px 24px;
 `
 
 const mapStateToProps = ({ params, offers }: InitialStoreState) => ({

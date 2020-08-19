@@ -1,33 +1,31 @@
 import React from 'react'
-import { OfferType } from '../../store/reducer'
 import styled from 'styled-components'
 import formatThous from '../../helpers/formatThous'
+import OfferType from '../../types/OfferType'
 
-const Tooltip = ({ offer }: { offer: OfferType }) => {
-	return (
-		<Container>
-			<Wrapper>
-				<ImageWrapper>
-					<CompanyImage
-						src={offer.image}
-						alt={offer.companyName}
-					/>
-				</ImageWrapper>
-				<InfoWrapper>
-					<Description>{offer.offerTitle}</Description>
-					<Salary>
-						{formatThous(offer.salaryFrom)} -{' '}
-						{formatThous(offer.salaryTo)} PLN
-					</Salary>
-					<Description>{offer.companyName}</Description>
-				</InfoWrapper>
-			</Wrapper>
-			<TipWrapper>
-				<Tip />
-			</TipWrapper>
-		</Container>
-	)
-}
+const Tooltip = ({ offer }: { offer: OfferType }) => (
+	<Container>
+		<Wrapper>
+			<ImageWrapper>
+				<CompanyImage
+					src={offer.image}
+					alt={offer.companyName}
+				/>
+			</ImageWrapper>
+			<InfoWrapper>
+				<Description>{offer.offerTitle}</Description>
+				<Salary>
+					{formatThous(offer.salaryFrom)} -{' '}
+					{formatThous(offer.salaryTo)} PLN
+				</Salary>
+				<Description>{offer.companyName}</Description>
+			</InfoWrapper>
+		</Wrapper>
+		<TipWrapper>
+			<Tip />
+		</TipWrapper>
+	</Container>
+)
 
 export const Container = styled.div`
 	width: 225px;

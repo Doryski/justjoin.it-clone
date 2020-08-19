@@ -5,11 +5,30 @@ import { IconButton } from '@material-ui/core'
 import Drawer from '@material-ui/core/Drawer'
 import SideBar from '../shared/SideBar'
 import AddOffer from '../shared/AddOfferModal/AddOffer'
-import Typography from '../../helpers/Typography'
+import Typography from '../shared/Typography'
 import CustomButton from '../shared/CustomButton'
 import JustjoinLogo from '../shared/JustjoinLogo'
 import Navigation from './Navigation'
 import { Link } from 'react-router-dom'
+import theme, { textColors } from '../../theme'
+import StyledIcon from '../shared/StyledIcon'
+
+type HandleCloseFunction = (
+	event: {},
+	reason: 'backdropClick' | 'escapeKeyDown'
+) => void
+
+const DrawerComponent = ({
+	handleClose,
+	isOpen,
+}: {
+	handleClose?: HandleCloseFunction
+	isOpen: boolean
+}) => (
+	<Drawer anchor='right' open={isOpen} onClose={handleClose}>
+		<SideBar />
+	</Drawer>
+)
 
 const Header = () => {
 	const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false)
@@ -18,16 +37,6 @@ const Header = () => {
 		setIsSideBarOpen(!isSideBarOpen)
 	}
 
-	const DrawerComponent = () => (
-		<Drawer
-			anchor='right'
-			open={isSideBarOpen}
-			onClose={handleMenuIconClick}
-		>
-			<SideBar />
-		</Drawer>
-	)
-
 	return (
 		<Container>
 			<Link to='/'>
@@ -35,15 +44,17 @@ const Header = () => {
 					<JustjoinLogo />
 				</LogoWrapper>
 			</Link>
-			{/* @ts-ignore */}
-			<Typography color='span' fWeight='400'>
+			<Typography
+				color={textColors.span}
+				fWeight={theme.fontWeight[400]}
+			>
 				#1 Job Board for IT industry in Poland
 			</Typography>
 			<Navigation />
 			<Wrapper>
 				<AddOffer />
 				<CustomButton
-					fWeight='400'
+					fWeight={theme.fontWeight[400]}
 					icon
 					pink
 					padding='0.375em 0.625em 0.375em 1.125em'
@@ -52,10 +63,13 @@ const Header = () => {
 					Sign in
 				</CustomButton>
 				<IconButton onClick={handleMenuIconClick}>
-					<MyMenuIcon />
+					<StyledIcon Icon={MenuIcon} />
 				</IconButton>
 			</Wrapper>
-			<DrawerComponent />
+			<DrawerComponent
+				handleClose={handleMenuIconClick}
+				isOpen={isSideBarOpen}
+			/>
 		</Container>
 	)
 }
@@ -80,10 +94,6 @@ export const Wrapper = styled.div`
 	height: 38px;
 	margin-right: 0.75em;
 	align-items: center;
-`
-
-export const MyMenuIcon = styled(MenuIcon)`
-	color: ${({ theme }) => theme.colors.span};
 `
 
 export default Header

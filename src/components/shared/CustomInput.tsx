@@ -39,7 +39,6 @@ const InputComponent = ({
 						: false,
 				})}
 			/>
-			{/* @ts-ignore */}
 			{errors[name] && errors[name].required && (
 				<Info>{errors[name].message}</Info>
 			)}

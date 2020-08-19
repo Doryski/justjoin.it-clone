@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import TechSvg from '../shared/TechSvg'
 import latlngOptions from '../../helpers/latLngOptions'
 import stringFormat from '../../helpers/stringFormat'
-import isDefined from '../../helpers/isDefined'
 import mapTilerProvider from './mapTilerProvider'
 import Tooltip from './Tooltip'
 import InitialStoreState from '../../types/InitialStoreState'
@@ -33,16 +32,13 @@ const MapWrapper = ({
 	const history = useHistory()
 
 	useEffect(() => {
-		const coordinates = isDefined(params.location)
+		const coordinates = !!params.location
 			? // @ts-ignore
 			  latlngOptions[params.location]
 			: latlngOptions.poland
 
 		const zoom =
-			!isDefined(params.location) ||
-			params.location === 'poland'
-				? 6
-				: 10
+			!params.location || params.location === 'poland' ? 6 : 10
 		setMap({ coordinates, zoom })
 	}, [params.location])
 
@@ -91,8 +87,8 @@ const MapWrapper = ({
 								setMap({
 									...map,
 									coordinates:
+										// @ts-ignore
 										latlngOptions[
-											// @ts-ignore
 											stringFormat(offer.city)
 										],
 								})

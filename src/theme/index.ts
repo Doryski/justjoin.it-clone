@@ -59,9 +59,21 @@ const theme = {
 		sm: '500px',
 		md: '800px',
 	},
-	fontSize: {},
-	fontWeight: {},
-	distance: {},
+	fontSize: {
+		xl: '1.2rem',
+		large: '1rem',
+		md: '.875rem',
+		sm: '.75rem',
+		small: '.7rem',
+		xs: '.6875rem',
+	},
+	fontWeight: {
+		700: '700',
+		600: '600',
+		500: '500',
+		400: '400',
+		300: '300',
+	},
 }
 const lightModeTheme = {
 	colors: {
@@ -71,6 +83,7 @@ const lightModeTheme = {
 		secondary: 'rgb(243, 246, 248)',
 		divider: 'rgb(229, 234, 243)',
 		pink: 'rgb(255, 64, 129)',
+		lightPink: 'rgb(244, 143, 177)',
 		opacityPink: 'rgb(204, 0, 102)',
 		buttonBackground: 'rgb(255, 255, 255)',
 		buttonBackgroundHover: 'rgb(245, 245, 245)',
@@ -92,6 +105,7 @@ const darkModeTheme = {
 		secondary: 'rgb(33, 33, 33)',
 		divider: 'rgba(0, 0, 0, 0.12)',
 		pink: 'rgb(255, 103, 156)',
+		lightPink: 'rgb(244, 143, 177)',
 		opacityPink: 'rgba(240, 98, 146, 0.05)',
 		buttonBackground: 'rgb(57, 57, 57)',
 		buttonBackgroundHover: 'rgba(0, 0, 0, 0.04)',
@@ -104,6 +118,18 @@ const darkModeTheme = {
 	},
 }
 
+export const textColors = {
+	primary: 'primary',
+	text: 'text',
+	pink: 'pink',
+	lightPink: 'lightPink',
+	title: 'title',
+	salary: 'salary',
+	span: 'span',
+	white: 'white',
+}
+
 export const darkMode = { ...theme, ...darkModeTheme }
 export const lightMode = { ...theme, ...lightModeTheme }
 export type ThemeType = typeof darkMode
+export default theme

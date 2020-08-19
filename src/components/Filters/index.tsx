@@ -2,21 +2,20 @@ import React from 'react'
 import styled from 'styled-components'
 import LocationFilters from '../shared/LocationFiltersModal/LocationFilters'
 import MoreFilters from '../shared/MoreFiltersModal/MoreFilters'
-import TechFilters from '../shared/TechFilters'
+import TechFilters from '../shared/TechFilters/TechFilters'
 import InputFilter from '../shared/InputFilter'
 
-const Filters = () => {
-	return (
-		<Container>
-			<InputFilter />
-			<Wrapper>
-				<LocationFilters />
-				<TechFilters />
-			</Wrapper>
-			<MoreFilters />
-		</Container>
-	)
-}
+const Filters = () => (
+	<Container>
+		<InputFilter />
+		<Wrapper>
+			<LocationFilters />
+			<TechFilters />
+		</Wrapper>
+		<MoreFilters />
+	</Container>
+)
+
 export const Container = styled.div`
 	min-height: 68px;
 	max-width: 100%;

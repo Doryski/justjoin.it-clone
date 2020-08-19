@@ -20,9 +20,7 @@ const SmallLabel = ({
 	isNew?: boolean
 }) => {
 	return (
-		// @ts-ignore
 		<Container isNew={isNew} margin={margin}>
-			{/* @ts-ignore */}
 			<Typography isNew={isNew} isSpan={isSpan}>
 				{children}
 			</Typography>
@@ -41,7 +39,7 @@ export const Container = styled.div<ContainerProps>`
 	justify-content: center;
 `
 export const Typography = styled.span<ContainerProps>`
-	font-size: 0.6875rem;
+	font-size: ${({ theme }) => theme.fontSize.xs};
 	color: ${({ theme, isSpan, isNew }) =>
 		isNew
 			? 'rgb(66, 86, 239)'

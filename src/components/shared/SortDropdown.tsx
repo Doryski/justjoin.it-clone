@@ -3,12 +3,14 @@ import { Link as RouteLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { setParams } from '../../store/actions'
-import { InitialStoreState, ParamsType } from '../../store/reducer'
-import Typography from '../../helpers/Typography'
+import Typography from './Typography'
 import sortOptions from '../../helpers/sortOptions'
 import createUrl from '../../helpers/createUrl'
-import { MyExpandMoreIcon } from './CustomButton'
+import { StyledExpandMoreIcon } from './CustomButton'
 import { DropdownList, DropdownListItem } from './DropdownList'
+import ParamsType from '../../types/ParamsType'
+import InitialStoreState from '../../types/InitialStoreState'
+import { textColors } from '../../theme'
 
 const SortDropdown = ({
 	params,
@@ -48,13 +50,14 @@ const SortDropdown = ({
 
 	return (
 		<ButtonWrapper onClick={handleList.toggle}>
-			{/* @ts-ignore */}
-			<Typography color='span'>Sort by:</Typography>
-			{/* @ts-ignore */}
-			<Typography color='text' margin='0 .25em 0 .5em'>
+			<Typography color={textColors.span}>Sort by:</Typography>
+			<Typography
+				color={textColors.span}
+				margin='0 .25em 0 .5em'
+			>
 				{getCurrentSortOption.name}
 			</Typography>
-			<MyExpandMoreIcon isOpen={isListOpen} />
+			<StyledExpandMoreIcon isOpen={isListOpen} />
 
 			<DropdownList
 				width='126px'
@@ -69,9 +72,8 @@ const SortDropdown = ({
 					}}
 				>
 					<DropdownListItem>
-						{/* @ts-ignore */}
 						<Typography
-							color='text'
+							color={textColors.text}
 							align='left'
 							padding='0.5em 0.7em'
 						>
@@ -87,9 +89,8 @@ const SortDropdown = ({
 					}}
 				>
 					<DropdownListItem>
-						{/* @ts-ignore */}
 						<Typography
-							color='text'
+							color={textColors.text}
 							align='left'
 							padding='0.5em 0.7em'
 						>
@@ -105,9 +106,8 @@ const SortDropdown = ({
 					}}
 				>
 					<DropdownListItem>
-						{/* @ts-ignore */}
 						<Typography
-							color='text'
+							color={textColors.text}
 							align='left'
 							padding='0.5em 0.7em'
 						>

@@ -1,7 +1,8 @@
 import sortOptions from './sortOptions'
 import moment from 'moment'
 import DATE_FORMAT from './dateFormat'
-import { OfferType, ParamsType } from '../store/reducer'
+import OfferType from '../types/OfferType'
+import ParamsType from '../types/ParamsType'
 
 export default function sortOffers(
 	offers: OfferType[],

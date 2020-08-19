@@ -1,6 +1,6 @@
-import { OfferType, ParamsType } from '../store/reducer'
-import isDefined from './isDefined'
 import stringFormat from './stringFormat'
+import OfferType from '../types/OfferType'
+import ParamsType from '../types/ParamsType'
 
 export const f = (
 	param: string | number | null | undefined,
@@ -13,9 +13,8 @@ export default function filterOffers(
 	params: ParamsType
 ) {
 	const { location, tech, from, to, expLvl, search } = params
-	const searchParams = isDefined(search) && stringFormat(search)
+	const searchParams = !!search ? stringFormat(search) : ''
 	const includesSearch = (text: string) =>
-		// @ts-ignore
 		stringFormat(text).includes(searchParams)
 	return offers.filter(offer => {
 		const searchFilter =
@@ -31,10 +30,8 @@ export default function filterOffers(
 
 		const locationFilter = location === stringFormat(offer.city)
 		const techFilter = tech === offer.tech
-		// @ts-ignore
-		const fromFilter = from <= offer.salaryFrom
-		// @ts-ignore
-		const toFilter = to >= offer.salaryTo
+		const fromFilter = !!from ? from <= offer.salaryFrom : true
+		const toFilter = !!to ? to >= offer.salaryTo : true
 		const expLvlFilter = expLvl === stringFormat(offer.expLvl)
 
 		const combinedFilters = f(

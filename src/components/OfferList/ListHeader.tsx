@@ -3,18 +3,16 @@ import styled from 'styled-components'
 import Label from '../shared/Label'
 import SortFilter from '../shared/SortDropdown'
 
-const ListHeader = () => {
-	return (
-		<FiltersWrapper>
-			<SalaryFiltersWrapper>
-				<Label active>all offers</Label>
-			</SalaryFiltersWrapper>
-			<SortFiltersWrapper>
-				<SortFilter />
-			</SortFiltersWrapper>
-		</FiltersWrapper>
-	)
-}
+const ListHeader = () => (
+	<FiltersWrapper>
+		<SalaryFiltersWrapper>
+			<Label active>all offers</Label>
+		</SalaryFiltersWrapper>
+		<SortFiltersWrapper>
+			<SortFilter />
+		</SortFiltersWrapper>
+	</FiltersWrapper>
+)
 
 export const FiltersWrapper = styled.div`
 	background: ${({ theme }) => theme.colors.primary};

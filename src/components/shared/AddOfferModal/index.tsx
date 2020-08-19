@@ -13,13 +13,8 @@ import { Wrapper } from './StyledComponents'
 import CustomButton from '../CustomButton'
 import { setOffers } from '../../../store/actions'
 import moment from 'moment'
-import isDefined from '../../../helpers/isDefined'
 import DATE_FORMAT from '../../../helpers/dateFormat'
-
-interface HandleDialog {
-	open: () => void
-	close: () => void
-}
+import HandleDialogType from '../../../types/HandleDialogType'
 
 interface FormDataType {
 	tech: string
@@ -37,11 +32,11 @@ interface FormDataType {
 }
 
 const AddOfferModal = ({
-	dialogOpen,
+	isDialogOpen,
 	handleDialog,
 }: {
-	dialogOpen: boolean
-	handleDialog: HandleDialog
+	isDialogOpen: boolean
+	handleDialog: HandleDialogType
 }) => {
 	const { handleSubmit, getValues, errors } = useForm<
 		FormDataType
@@ -101,7 +96,7 @@ const AddOfferModal = ({
 	return (
 		<Dialog
 			maxWidth='md'
-			open={dialogOpen}
+			open={isDialogOpen}
 			onClose={handleDialog.close}
 			fullWidth={true}
 			fullScreen={fullScreen}

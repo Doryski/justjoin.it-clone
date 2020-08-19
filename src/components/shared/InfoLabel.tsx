@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Typography from '../../helpers/Typography'
+import Typography from './Typography'
 import {
 	Business,
 	People,
@@ -8,21 +8,22 @@ import {
 	ShowChart,
 	Timelapse,
 } from '@material-ui/icons'
+import theme, { textColors } from '../../theme'
 
-export const MyBusinessIcon = styled(Business)`
+export const BusinessIcon = styled(Business)`
 	color: rgb(255, 82, 82);
 `
-export const MyShowChartIcon = styled(ShowChart)`
+export const ShowChartIcon = styled(ShowChart)`
 	color: rgb(102, 187, 106);
 `
-export const MyPeopleIcon = styled(People)`
+export const PeopleIcon = styled(People)`
 	color: rgb(251, 140, 0);
 `
-export const MyNoteIcon = styled(Note)`
+export const NoteIcon = styled(Note)`
 	color: rgb(171, 71, 188);
 	transform: rotate(-90deg);
 `
-export const MyTimelapseIcon = styled(Timelapse)`
+export const TimelapseIcon = styled(Timelapse)`
 	color: rgb(68, 138, 255);
 `
 
@@ -38,27 +39,27 @@ const InfoLabel = ({
 		switch (icon) {
 			case 1:
 				return {
-					icon: <MyBusinessIcon fontSize={ICON_SIZE} />,
+					icon: <BusinessIcon fontSize={ICON_SIZE} />,
 					title: 'Company name',
 				}
 			case 2:
 				return {
-					icon: <MyPeopleIcon fontSize={ICON_SIZE} />,
+					icon: <PeopleIcon fontSize={ICON_SIZE} />,
 					title: 'Company size',
 				}
 			case 3:
 				return {
-					icon: <MyNoteIcon fontSize={ICON_SIZE} />,
+					icon: <NoteIcon fontSize={ICON_SIZE} />,
 					title: 'EMP. type',
 				}
 			case 4:
 				return {
-					icon: <MyShowChartIcon fontSize={ICON_SIZE} />,
+					icon: <ShowChartIcon fontSize={ICON_SIZE} />,
 					title: 'EXP. lvl',
 				}
 			case 5:
 				return {
-					icon: <MyTimelapseIcon fontSize={ICON_SIZE} />,
+					icon: <TimelapseIcon fontSize={ICON_SIZE} />,
 					title: 'Added',
 				}
 		}
@@ -67,15 +68,16 @@ const InfoLabel = ({
 	return (
 		<Container>
 			<IconWrapper>{switchIcons()?.icon}</IconWrapper>
-			{/* @ts-ignore */}
-			<Typography color='title' fWeight='400'>
+			<Typography
+				color={textColors.title}
+				fWeight={theme.fontWeight[400]}
+			>
 				{title}
 			</Typography>
 			<Typography
-				color='span'
-				// @ts-ignore
-				fontSize='0.7rem'
-				fWeight='400'
+				color={textColors.span}
+				fontSize={theme.fontSize.small}
+				fWeight={theme.fontWeight[400]}
 				margin='0.1875em 0'
 			>
 				{switchIcons()?.title}

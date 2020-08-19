@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import CloseButton from './CloseButton'
-import Typography from '../../helpers/Typography'
+import Typography from './Typography'
+import theme, { textColors } from '../../theme'
 
 const DialogHeader = ({
 	children,
@@ -12,8 +13,11 @@ const DialogHeader = ({
 }) => {
 	return (
 		<HeaderWrapper>
-			{/* @ts-ignore */}
-			<Typography color='text' fWeight='400' fontSize='1.2rem'>
+			<Typography
+				color={textColors.text}
+				fWeight={theme.fontWeight[400]}
+				fontSize={theme.fontSize.xl}
+			>
 				{children}
 			</Typography>
 			{close && <CloseButton onclick={close} />}

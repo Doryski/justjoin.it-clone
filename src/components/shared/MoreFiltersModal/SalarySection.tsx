@@ -1,10 +1,11 @@
 import React from 'react'
-import Typography from '../../../helpers/Typography'
+import Typography from '../Typography'
 import Slider from '@material-ui/core/Slider'
 import formatThous from '../../../helpers/formatThous'
 import MAX_SLIDER_VALUE from '../../../helpers/maxSliderValue'
 import { Wrapper } from './StyledComponents'
 import styled from 'styled-components'
+import theme, { textColors } from '../../../theme'
 
 const SalarySection = ({
 	value,
@@ -22,9 +23,8 @@ const SalarySection = ({
 	return (
 		<>
 			<Typography
-				color='text'
-				// @ts-ignore
-				fWeight='700'
+				color={textColors.text}
+				fWeight={theme.fontWeight[700]}
 				align='flex-start'
 				margin='0 0 1em 0'
 			>
@@ -43,47 +43,42 @@ const SalarySection = ({
 				<AmountContainer>
 					<AmountWrapper>
 						<Typography
-							color='text'
-							// @ts-ignore
-							fWeight='600'
-							fontSize='0.75rem'
+							color={textColors.text}
+							fWeight={theme.fontWeight[600]}
+							fontSize={theme.fontSize.sm}
 							align='flex-start'
 						>
 							Min. amount
 						</Typography>
 
 						<Typography
-							color='text'
-							// @ts-ignore
-							fWeight='400'
+							color={textColors.text}
+							fWeight={theme.fontWeight[400]}
 							align='flex-start'
 						>
 							{`${formatThous(val0)} PLN`}
 						</Typography>
 					</AmountWrapper>
-					{/* @ts-ignore */}
 					<Typography
 						as='div'
-						color='text'
+						color={textColors.text}
 						padding='0 0.375em'
 					>
 						—
 					</Typography>
 					<AmountWrapper>
 						<Typography
-							color='text'
-							// @ts-ignore
-							fWeight='600'
-							fontSize='0.75rem'
+							color={textColors.text}
+							fWeight={theme.fontWeight[600]}
+							fontSize={theme.fontSize.sm}
 							align='flex-start'
 						>
 							Max. amount
 						</Typography>
 
 						<Typography
-							color='text'
-							// @ts-ignore
-							fWeight='400'
+							color={textColors.text}
+							fWeight={theme.fontWeight[400]}
 							align='flex-start'
 						>
 							{val1 === MAX_SLIDER_VALUE
@@ -124,7 +119,7 @@ export const AmountWrapper = styled.div`
 	border-radius: 50px;
 	border-width: 1px;
 	border-style: solid;
-	border-color: rgb(228, 232, 240);
+	border-color: ${({ theme }) => theme.colors.buttonBorder};
 	@media only screen and (max-width: ${({ theme }) =>
 			theme.breakpoints.sm}) {
 		padding: 0.3125em 0.625em;

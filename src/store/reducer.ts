@@ -10,7 +10,9 @@ import InitialStoreState from '../types/InitialStoreState'
 
 export const initialState: InitialStoreState = {
 	darkMode: JSON.parse(localStorage.darkMode || false),
-	offers: JSON.parse(localStorage.offers || null) || offerListDemo,
+	offers: !!localStorage.offers
+		? JSON.parse(localStorage.offers)
+		: offerListDemo,
 	map: {
 		coordinates: latLngOptions.poland,
 		zoom: 6,
@@ -42,6 +44,7 @@ const reducer = (state = initialState, action: any) => {
 				'offers',
 				JSON.stringify(action.payload)
 			)
+			console.log(localStorage.offers)
 			return {
 				...state,
 				offers: action.payload,

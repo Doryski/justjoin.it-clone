@@ -1,5 +1,5 @@
 import React from 'react'
-import Typography from '../../helpers/Typography'
+import Typography from '../shared/Typography'
 import styled from 'styled-components'
 import SmallLabel from '../shared/SmallLabel'
 import CustomLabel from '../shared/CustomLabel'
@@ -8,12 +8,11 @@ import { Link } from 'react-router-dom'
 import formatThous from '../../helpers/formatThous'
 import { setParams } from '../../store/actions'
 import stringFormat from '../../helpers/stringFormat'
-import {
-	ParamsType,
-	InitialStoreState,
-	OfferType,
-} from '../../store/reducer'
 import { connect } from 'react-redux'
+import ParamsType from '../../types/ParamsType'
+import OfferType from '../../types/OfferType'
+import InitialStoreState from '../../types/InitialStoreState'
+import theme, { textColors } from '../../theme'
 
 const OfferCard = ({
 	params,
@@ -22,19 +21,17 @@ const OfferCard = ({
 	params: ParamsType
 	offer: OfferType
 }) => {
+	const handleItemClick = () => {
+		setParams({
+			...params,
+			location: stringFormat(offer.city),
+			tech: offer.tech,
+		})
+	}
+
 	return (
-		<Link
-			to={`/offers/${offer.slug}`}
-			onClick={() => {
-				setParams({
-					...params,
-					location: stringFormat(offer.city),
-					tech: offer.tech,
-				})
-			}}
-		>
+		<Link to={`/offers/${offer.slug}`} onClick={handleItemClick}>
 			<Container>
-				{/* @ts-ignore */}
 				<TechColor tech={offer.tech} />
 				<ImgWrapper>
 					<Img src={offer.image} />
@@ -43,10 +40,9 @@ const OfferCard = ({
 					<TopWrapper>
 						<TitleWrapper>
 							<Typography
-								color='title'
+								color={textColors.title}
 								align='flex-start'
-								// @ts-ignore
-								fontSize='1rem'
+								fontSize={theme.fontSize.large}
 								hide
 							>
 								{offer.offerTitle}
@@ -54,11 +50,10 @@ const OfferCard = ({
 						</TitleWrapper>
 						<SalaryWrapper>
 							<Typography
-								color='salary'
+								color={textColors.salary}
 								align='flex-start'
-								// @ts-ignore
-								fWeight='400'
-								fontSize='1rem'
+								fWeight={theme.fontWeight[400]}
+								fontSize={theme.fontSize.large}
 								margin='0 .1em 0 0'
 							>
 								{formatThous(offer.salaryFrom)} -{' '}

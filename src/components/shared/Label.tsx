@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import Typography from '../../helpers/Typography'
+import Typography from './Typography'
+import { textColors } from '../../theme'
 
 const Label = ({
 	children,
@@ -11,8 +12,9 @@ const Label = ({
 }) => {
 	return (
 		<Container active={active}>
-			{/* @ts-ignore */}
-			<Typography color='text'>{children}</Typography>
+			<Typography color={textColors.text}>
+				{children}
+			</Typography>
 		</Container>
 	)
 }
