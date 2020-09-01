@@ -1,6 +1,6 @@
 import sortOptions from './sortOptions'
 import moment from 'moment'
-import DATE_FORMAT from './dateFormat'
+import { DATE_FORMAT } from './utils'
 import OfferType from '../types/OfferType'
 import ParamsType from '../types/ParamsType'
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, lazy } from 'react'
 import styled from 'styled-components'
 import Map from 'pigeon-maps'
 import Overlay from 'pigeon-overlay'
@@ -8,24 +8,29 @@ import TechSvg from '../shared/TechSvg'
 import latlngOptions from '../../helpers/latLngOptions'
 import stringFormat from '../../helpers/stringFormat'
 import mapTilerProvider from './mapTilerProvider'
-import Tooltip from './Tooltip'
 import InitialStoreState from '../../types/InitialStoreState'
-import ParamsType from '../../types/ParamsType'
 import { setMap } from '../../store/actions'
+const Tooltip = lazy(() => import('./Tooltip'))
+
+interface MouseOverType {
+	slug: string | null
+	state: boolean
+}
+
+interface MapWrapperProps {
+	params: InitialStoreState['params']
+	offers: InitialStoreState['offers']
+	map: InitialStoreState['map']
+	setMap(map: InitialStoreState['map']): void
+}
 
 const MapWrapper = ({
 	params,
 	offers,
 	map,
-}: {
-	params: ParamsType
-	offers: InitialStoreState['offers']
-	map: InitialStoreState['map']
-}) => {
-	const [mouseOver, setMouseOver] = useState<{
-		slug: string | null
-		state: boolean
-	}>({
+	setMap,
+}: MapWrapperProps) => {
+	const [mouseOver, setMouseOver] = useState<MouseOverType>({
 		slug: null,
 		state: false,
 	})
@@ -33,8 +38,7 @@ const MapWrapper = ({
 
 	useEffect(() => {
 		const coordinates = !!params.location
-			? // @ts-ignore
-			  latlngOptions[params.location]
+			? latlngOptions[params.location]
 			: latlngOptions.poland
 
 		const zoom =
@@ -54,7 +58,6 @@ const MapWrapper = ({
 					<Overlay
 						key={offer.slug}
 						anchor={
-							// @ts-ignore
 							latlngOptions[stringFormat(offer.city)]
 						}
 						offset={
@@ -87,7 +90,6 @@ const MapWrapper = ({
 								setMap({
 									...map,
 									coordinates:
-										// @ts-ignore
 										latlngOptions[
 											stringFormat(offer.city)
 										],
@@ -121,4 +123,4 @@ const mapStateToProps = ({
 	map,
 })
 
-export default connect(mapStateToProps)(MapWrapper)
+export default connect(mapStateToProps, { setMap })(MapWrapper)

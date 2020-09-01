@@ -14,7 +14,7 @@ const InputFilter = ({
 	setParams,
 }: {
 	params: ParamsType
-	setParams: Function
+	setParams(params: ParamsType): void
 }) => {
 	const history = useHistory()
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

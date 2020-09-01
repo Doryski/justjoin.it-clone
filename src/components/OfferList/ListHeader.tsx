@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Label from '../shared/Label'
-import SortFilter from '../shared/SortDropdown'
+import SortDropdown from '../shared/SortDropdown'
 
 const ListHeader = () => (
 	<FiltersWrapper>
@@ -9,7 +9,7 @@ const ListHeader = () => (
 			<Label active>all offers</Label>
 		</SalaryFiltersWrapper>
 		<SortFiltersWrapper>
-			<SortFilter />
+			<SortDropdown />
 		</SortFiltersWrapper>
 	</FiltersWrapper>
 )

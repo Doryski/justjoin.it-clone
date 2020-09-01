@@ -1,41 +1,23 @@
-import React, { useState } from 'react'
+import React, { lazy, useRef } from 'react'
 import styled from 'styled-components'
 import MenuIcon from '@material-ui/icons/Menu'
 import { IconButton } from '@material-ui/core'
-import Drawer from '@material-ui/core/Drawer'
-import SideBar from '../shared/SideBar'
-import AddOffer from '../shared/AddOfferModal/AddOffer'
+import AddOffer from '../AddOfferModal/AddOffer'
 import Typography from '../shared/Typography'
 import CustomButton from '../shared/CustomButton'
 import JustjoinLogo from '../shared/JustjoinLogo'
 import Navigation from './Navigation'
 import { Link } from 'react-router-dom'
 import theme, { textColors } from '../../theme'
-import StyledIcon from '../shared/StyledIcon'
-
-type HandleCloseFunction = (
-	event: {},
-	reason: 'backdropClick' | 'escapeKeyDown'
-) => void
-
-const DrawerComponent = ({
-	handleClose,
-	isOpen,
-}: {
-	handleClose?: HandleCloseFunction
-	isOpen: boolean
-}) => (
-	<Drawer anchor='right' open={isOpen} onClose={handleClose}>
-		<SideBar />
-	</Drawer>
-)
+import useDialogHandler from '../../helpers/useDialogHandler'
+import DrawerComponent from './DrawerComponent'
 
 const Header = () => {
-	const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false)
-
-	const handleMenuIconClick = () => {
-		setIsSideBarOpen(!isSideBarOpen)
-	}
+	const {
+		isDialogOpen: isSideBarOpen,
+		close: closeSideBar,
+		toggle: toggleSideBar,
+	} = useDialogHandler(false)
 
 	return (
 		<Container>
@@ -62,14 +44,16 @@ const Header = () => {
 				>
 					Sign in
 				</CustomButton>
-				<IconButton onClick={handleMenuIconClick}>
-					<StyledIcon Icon={MenuIcon} />
+				<IconButton onClick={toggleSideBar}>
+					<StyledMenuIcon />
 				</IconButton>
 			</Wrapper>
-			<DrawerComponent
-				handleClose={handleMenuIconClick}
-				isOpen={isSideBarOpen}
-			/>
+			{isSideBarOpen && (
+				<DrawerComponent
+					handleClose={closeSideBar}
+					isOpen={isSideBarOpen}
+				/>
+			)}
 		</Container>
 	)
 }
@@ -84,7 +68,6 @@ export const Container = styled.header`
 `
 
 export const LogoWrapper = styled.div`
-	display: inline-block;
 	width: 120px;
 	float: left;
 	margin: 7px 15px 0px 25px;
@@ -94,6 +77,9 @@ export const Wrapper = styled.div`
 	height: 38px;
 	margin-right: 0.75em;
 	align-items: center;
+`
+const StyledMenuIcon = styled(MenuIcon)`
+	color: ${({ theme }) => theme.colors.span};
 `
 
 export default Header

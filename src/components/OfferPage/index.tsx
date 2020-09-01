@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, lazy } from 'react'
 import styled from 'styled-components'
 import { useParams, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -13,18 +13,13 @@ import {
 } from '@material-ui/icons'
 import InitialStoreState from '../../types/InitialStoreState'
 import OfferType from '../../types/OfferType'
-import ParamsType from '../../types/ParamsType'
 import { setParams } from '../../store/actions'
 import InfoLabel from '../shared/InfoLabel'
 import TechRange from '../shared/TechRange'
 import Typography from '../shared/Typography'
 import formatThous from '../../helpers/formatThous'
 import infoLabels from '../../helpers/infoLabels'
-import {
-	TextField,
-	CircularProgress,
-	Checkbox,
-} from '@material-ui/core'
+import { TextField, Checkbox } from '@material-ui/core'
 import CustomButton from '../shared/CustomButton'
 import UploadCv from '../shared/UploadCv'
 import InputIcon from './InputIcon'
@@ -57,18 +52,12 @@ const OfferPage = ({ offers }: { offers: OfferType[] }) => {
 
 	const handleChange = (
 		event: React.ChangeEvent<HTMLInputElement>
-	) => {
-		setIsChecked(event.target.checked)
-	}
+	) => setIsChecked(event.target.checked)
 
 	return (
 		<Container>
 			<ContainerScroll>
-				{loading2 ? (
-					<ProgressWrapper>
-						<CircularProgress size='30px' />
-					</ProgressWrapper>
-				) : (
+				{!loading2 && (
 					<>
 						<HeaderContainer>
 							<HeaderInner tech={offer.tech}>
@@ -128,14 +117,22 @@ const OfferPage = ({ offers }: { offers: OfferType[] }) => {
 								</HeaderWrapper>
 							</HeaderInner>
 							<InfoLabelsContainer>
-								{infoLabels.map(label => (
-									<InfoLabel
-										key={label.id}
-										icon={label.id}
-										// @ts-ignore
-										title={offer[label.title]}
-									/>
-								))}
+								{infoLabels.map(
+									({
+										id,
+										title,
+									}: {
+										id: number
+										title: string
+									}) => (
+										<InfoLabel
+											key={id}
+											id={id}
+											// @ts-ignore
+											title={offer[title]}
+										/>
+									)
+								)}
 							</InfoLabelsContainer>
 						</HeaderContainer>
 						<TechStackContainer>

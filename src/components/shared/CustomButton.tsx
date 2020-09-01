@@ -1,16 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
 import Typography from './Typography'
-import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { ICON_SIZE } from './InfoLabel'
 import { textColors } from '../../theme'
+import { ExpandLess, ExpandMore } from '@material-ui/icons'
 
 type CustomButtonProps = {
-	children: any
+	children: React.ReactNode
 	active?: boolean
 	fontSize?: string
 	icon?: boolean
-	onclick?: VoidFunction
+	handleClick?: VoidFunction
 	padding?: string
 	margin?: string
 	pink?: boolean
@@ -35,7 +35,7 @@ const CustomButton = ({
 	active,
 	fontSize,
 	icon = false,
-	onclick,
+	handleClick,
 	padding,
 	margin,
 	pink = false,
@@ -44,44 +44,43 @@ const CustomButton = ({
 	isOpen,
 	display,
 	type,
-}: CustomButtonProps) => {
-	return (
-		<Button
-			active={active}
-			onClick={onclick}
-			padding={padding}
-			margin={margin}
-			pink={pink}
-			icon={icon}
-			minWidth={minWidth}
-			type={type}
+}: CustomButtonProps) => (
+	<Button
+		active={active}
+		onClick={handleClick}
+		padding={padding}
+		margin={margin}
+		pink={pink}
+		icon={icon}
+		minWidth={minWidth}
+		type={type}
+	>
+		<Typography
+			color={
+				active
+					? textColors.pink
+					: pink
+					? textColors.white
+					: textColors.text
+			}
+			fontSize={fontSize}
+			fWeight={fWeight}
+			display={display}
 		>
-			<Typography
-				color={
-					active
-						? textColors.pink
-						: pink
-						? textColors.white
-						: textColors.text
-				}
-				fontSize={fontSize}
-				fWeight={fWeight}
-				display={display}
-			>
-				{children}
-			</Typography>
-			{icon && (
-				<IconWrapper>
-					<StyledExpandMoreIcon
-						pink={pink}
-						active={active}
-						isOpen={isOpen}
-					/>
-				</IconWrapper>
-			)}
-		</Button>
-	)
-}
+			{children}
+		</Typography>
+		{icon && (
+			<IconWrapper>
+				<StyledExpandMoreIcon
+					pink={pink}
+					active={active}
+					isOpen={isOpen}
+				/>
+			</IconWrapper>
+		)}
+	</Button>
+)
+
 export const Button = styled.button<StyledButtonProps>`
 	border: 1px solid
 		${({ theme, active, pink }) =>

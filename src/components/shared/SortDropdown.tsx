@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Link as RouteLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -11,20 +11,23 @@ import { DropdownList, DropdownListItem } from './DropdownList'
 import ParamsType from '../../types/ParamsType'
 import InitialStoreState from '../../types/InitialStoreState'
 import { textColors } from '../../theme'
+import useDialogHandler from '../../helpers/useDialogHandler'
+import useDetectOutsideClick from '../../helpers/useDetectOutsideClick'
 
 const SortDropdown = ({
 	params,
 	setParams,
 }: {
 	params: ParamsType
-	setParams: Function
+	setParams(params: ParamsType): void
 }) => {
-	const [isListOpen, setIsListOpen] = useState(false)
-	const handleList = {
-		open: () => setIsListOpen(true),
-		close: () => setIsListOpen(false),
-		toggle: () => setIsListOpen(!isListOpen),
-	}
+	const listRef = useRef<HTMLUListElement>(null)
+	const {
+		close,
+		toggle,
+		isDialogOpen: isListOpen,
+	} = useDialogHandler(false)
+	useDetectOutsideClick(listRef, close)
 
 	const getCurrentSortOption =
 		params.sort === sortOptions.salaryUp.id
@@ -49,7 +52,7 @@ const SortDropdown = ({
 	}
 
 	return (
-		<ButtonWrapper onClick={handleList.toggle}>
+		<ButtonWrapper onClick={toggle}>
 			<Typography color={textColors.span}>Sort by:</Typography>
 			<Typography
 				color={textColors.span}
@@ -60,14 +63,14 @@ const SortDropdown = ({
 			<StyledExpandMoreIcon isOpen={isListOpen} />
 
 			<DropdownList
+				ref={listRef}
 				width='126px'
 				isOpen={isListOpen}
-				onMouseLeave={handleList.close}
 			>
 				<RouteLink
 					to={createUrl(newParams.dateLatest)}
 					onClick={() => {
-						handleList.close()
+						close()
 						setParams(newParams.dateLatest)
 					}}
 				>
@@ -84,7 +87,7 @@ const SortDropdown = ({
 				<RouteLink
 					to={createUrl(newParams.salaryDown)}
 					onClick={() => {
-						handleList.close()
+						close()
 						setParams(newParams.salaryDown)
 					}}
 				>
@@ -101,7 +104,7 @@ const SortDropdown = ({
 				<RouteLink
 					to={createUrl(newParams.salaryUp)}
 					onClick={() => {
-						handleList.close()
+						close()
 						setParams(newParams.salaryUp)
 					}}
 				>

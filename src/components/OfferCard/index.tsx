@@ -9,7 +9,6 @@ import formatThous from '../../helpers/formatThous'
 import { setParams } from '../../store/actions'
 import stringFormat from '../../helpers/stringFormat'
 import { connect } from 'react-redux'
-import ParamsType from '../../types/ParamsType'
 import OfferType from '../../types/OfferType'
 import InitialStoreState from '../../types/InitialStoreState'
 import theme, { textColors } from '../../theme'
@@ -18,23 +17,35 @@ const OfferCard = ({
 	params,
 	offer,
 }: {
-	params: ParamsType
+	params: InitialStoreState['params']
 	offer: OfferType
 }) => {
+	const {
+		slug,
+		tech,
+		image,
+		offerTitle,
+		salaryFrom,
+		salaryTo,
+		dateAdd,
+		companyName,
+		city,
+		technology,
+	} = offer
+
 	const handleItemClick = () => {
 		setParams({
 			...params,
-			location: stringFormat(offer.city),
-			tech: offer.tech,
+			location: stringFormat(city),
+			tech,
 		})
 	}
-
 	return (
-		<Link to={`/offers/${offer.slug}`} onClick={handleItemClick}>
+		<Link to={`/offers/${slug}`} onClick={handleItemClick}>
 			<Container>
-				<TechColor tech={offer.tech} />
+				<TechColor tech={tech} />
 				<ImgWrapper>
-					<Img src={offer.image} />
+					<Img src={image} />
 				</ImgWrapper>
 				<InfoContainer>
 					<TopWrapper>
@@ -45,7 +56,7 @@ const OfferCard = ({
 								fontSize={theme.fontSize.large}
 								hide
 							>
-								{offer.offerTitle}
+								{offerTitle}
 							</Typography>
 						</TitleWrapper>
 						<SalaryWrapper>
@@ -56,19 +67,17 @@ const OfferCard = ({
 								fontSize={theme.fontSize.large}
 								margin='0 .1em 0 0'
 							>
-								{formatThous(offer.salaryFrom)} -{' '}
-								{formatThous(offer.salaryTo)} PLN
+								{formatThous(salaryFrom)} -{' '}
+								{formatThous(salaryTo)} PLN
 							</Typography>
 							<SmallLabel
-								isNew={
-									dateDiffFromNow(offer.dateAdd) < 1
-								}
+								isNew={dateDiffFromNow(dateAdd) < 1}
 								margin='0 0.3125em 0 0.625em'
 							>
-								{dateDiffFromNow(offer.dateAdd) < 1
+								{dateDiffFromNow(dateAdd) < 1
 									? 'New'
 									: `${dateDiffFromNow(
-											offer.dateAdd
+											dateAdd
 									  )}d ago`}
 							</SmallLabel>
 						</SalaryWrapper>
@@ -77,15 +86,15 @@ const OfferCard = ({
 						<InfoWrapper>
 							<CustomLabel
 								type='business'
-								label={offer.companyName}
+								label={companyName}
 							/>
 							<CustomLabel
 								type='location'
-								label={offer.city}
+								label={city}
 							/>
 						</InfoWrapper>
 						<RequirementsWrapper>
-							{offer.technology
+							{technology
 								.slice(0, 3)
 								.map(({ tech }) => (
 									<SmallLabel isSpan key={tech}>

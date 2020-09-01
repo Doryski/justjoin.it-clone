@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import styled from 'styled-components'
-import CloseButton from './CloseButton'
 import Typography from './Typography'
 import theme, { textColors } from '../../theme'
+import CloseButton from './CloseButton'
 
 const DialogHeader = ({
 	children,
 	close,
 }: {
-	children: any
+	children: React.ReactNode
 	close?: VoidFunction
 }) => {
 	return (
@@ -20,7 +20,7 @@ const DialogHeader = ({
 			>
 				{children}
 			</Typography>
-			{close && <CloseButton onclick={close} />}
+			{close && <CloseButton handleClick={close} />}
 		</HeaderWrapper>
 	)
 }

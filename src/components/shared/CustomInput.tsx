@@ -5,6 +5,7 @@ import {
 	StyledInput,
 	Info,
 } from '../shared/StyledInputs'
+import { FIELD_REQUIRED_ERR } from '../../helpers/utils'
 
 type InputComponentProps = {
 	name: string
@@ -34,9 +35,7 @@ const InputComponent = ({
 				type={type}
 				name={name}
 				ref={register({
-					required: required
-						? 'This field is required.'
-						: false,
+					required: required ? FIELD_REQUIRED_ERR : false,
 				})}
 			/>
 			{errors[name] && errors[name].required && (

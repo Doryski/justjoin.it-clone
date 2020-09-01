@@ -1,11 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 
-type ContainerProps = {
-	theme?: any
+interface SmallLabelProps {
+	children: React.ReactNode
 	isSpan?: boolean
 	margin?: string
 	isNew?: boolean
+}
+interface ContainerProps extends SmallLabelProps {
+	theme?: any
 }
 
 const SmallLabel = ({
@@ -13,20 +16,14 @@ const SmallLabel = ({
 	isSpan,
 	margin,
 	isNew,
-}: {
-	children: any
-	isSpan?: boolean
-	margin?: string
-	isNew?: boolean
-}) => {
-	return (
-		<Container isNew={isNew} margin={margin}>
-			<Typography isNew={isNew} isSpan={isSpan}>
-				{children}
-			</Typography>
-		</Container>
-	)
-}
+}: SmallLabelProps) => (
+	<Container isNew={isNew} margin={margin}>
+		<Typography isNew={isNew} isSpan={isSpan}>
+			{children}
+		</Typography>
+	</Container>
+)
+
 export const Container = styled.div<ContainerProps>`
 	padding: 0.1875em 0.4375em;
 	margin: ${({ margin }) => margin || '0 0.125em'};

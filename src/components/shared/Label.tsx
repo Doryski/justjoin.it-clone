@@ -7,17 +7,14 @@ const Label = ({
 	children,
 	active,
 }: {
-	children: any
+	children: React.ReactNode
 	active: boolean
-}) => {
-	return (
-		<Container active={active}>
-			<Typography color={textColors.text}>
-				{children}
-			</Typography>
-		</Container>
-	)
-}
+}) => (
+	<Container active={active}>
+		<Typography color={textColors.text}>{children}</Typography>
+	</Container>
+)
+
 export const Container = styled.div<{ active?: boolean }>`
 	padding: 0.625em 2.1875em;
 	background: ${({ theme, active }) =>

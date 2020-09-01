@@ -10,7 +10,7 @@ import stringFormat from '../../helpers/stringFormat'
 import ParamsType from '../../types/ParamsType'
 import InitialStoreState from '../../types/InitialStoreState'
 import theme from '../../theme'
-import { Value } from './MoreFiltersModal/DialogComponent'
+import { Value } from '../MoreFiltersModal/DialogComponent'
 
 type DialogFooterProps = {
 	params: ParamsType
@@ -22,7 +22,7 @@ type DialogFooterProps = {
 	>
 	value?: Value
 	filterType: 'expLvl' | 'location'
-	setParams: (params: ParamsType) => void
+	setParams(params: ParamsType): void
 }
 
 const DialogFooter = ({

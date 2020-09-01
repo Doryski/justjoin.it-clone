@@ -5,25 +5,22 @@ import { connect } from 'react-redux'
 import InitialStoreState from '../../types/InitialStoreState'
 import ParamsType from '../../types/ParamsType'
 
-const TechIcon = ({
-	tech,
-	params,
-	handleClick,
-}: {
+interface TechIconProps {
 	tech: string
 	params: ParamsType
 	handleClick?: VoidFunction
-}) => {
-	return (
-		<Container
-			tech={tech}
-			focus={params.tech === tech || !params.tech}
-			onClick={handleClick}
-		>
-			<TechSvg tech={tech} />
-		</Container>
-	)
 }
+
+const TechIcon = ({ tech, params, handleClick }: TechIconProps) => (
+	<Container
+		tech={tech}
+		focus={params.tech === tech || !params.tech}
+		onClick={handleClick}
+	>
+		<TechSvg tech={tech} />
+	</Container>
+)
+
 export const Container = styled.div<{
 	tech: string
 	focus: boolean

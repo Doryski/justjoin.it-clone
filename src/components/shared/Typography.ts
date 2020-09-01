@@ -27,7 +27,7 @@ export const Wrapper = styled.h4<WrapperProps>`
 		${minWidth && `min-width: ${minWidth}`};
 	`}
 `
-export const Typography = styled(Wrapper).attrs(
+const Typography = styled(Wrapper).attrs(
 	({ as }: { as: string }) => ({
 		as: !!as ? as : 'span',
 	})

@@ -1,19 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
 import CloseIcon from '@material-ui/icons/Close'
-import StyledIcon from './StyledIcon'
 
 const CloseButton = ({
 	handleClick,
 }: {
 	handleClick: VoidFunction
 }) => (
-	<Container onClick={handleClick}>
-		<StyledIcon Icon={CloseIcon} />
-	</Container>
+	<Wrapper onClick={handleClick}>
+		<CloseIcon />
+	</Wrapper>
 )
 
-export const Container = styled.div`
+export const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -23,6 +22,7 @@ export const Container = styled.div`
 	border-radius: 50%;
 	cursor: pointer;
 	transition: all 0.3s;
+	color: ${({ theme }) => theme.colors.span};
 	&:hover {
 		background: ${({ theme }) =>
 			theme.colors.buttonBackgroundHover};

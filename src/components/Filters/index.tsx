@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import LocationFilters from '../shared/LocationFiltersModal/LocationFilters'
-import MoreFilters from '../shared/MoreFiltersModal/MoreFilters'
-import TechFilters from '../shared/TechFilters/TechFilters'
+import LocationFilters from '../LocationFiltersModal'
+import MoreFilters from '../MoreFiltersModal/MoreFilters'
+import TechFilters from '../TechFilters'
 import InputFilter from '../shared/InputFilter'
 
 const Filters = () => (

@@ -5,16 +5,14 @@ import { connect } from 'react-redux'
 import ListHeader from './ListHeader'
 import filterOffers from '../../helpers/filterOffers'
 import sortOffers from '../../helpers/sortOffers'
-import ParamsType from '../../types/ParamsType'
-import OfferType from '../../types/OfferType'
 import InitialStoreState from '../../types/InitialStoreState'
 
 const OfferList = ({
 	params,
 	offers,
 }: {
-	params: ParamsType
-	offers: OfferType[]
+	params: InitialStoreState['params']
+	offers: InitialStoreState['offers']
 }) => {
 	const filteredOffers = filterOffers(offers, params)
 	const sortedOffers = sortOffers(filteredOffers, params)
@@ -30,7 +28,7 @@ const OfferList = ({
 						// 		<CircularProgress size='30px' />
 						// 	</ProgressWrapper>
 						// ) : (
-						sortedOffers.map((offer: OfferType) => (
+						sortedOffers.map(offer => (
 							<OfferCard
 								key={offer.slug}
 								offer={offer}

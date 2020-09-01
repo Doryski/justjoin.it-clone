@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import styled from 'styled-components'
 import Typography from './Typography'
 import BusinessIcon from '@material-ui/icons/Business'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
-import { People } from '@material-ui/icons'
 import theme, { textColors } from '../../theme'
+import PeopleIcon from '@material-ui/icons/People'
 
 const CustomLabel = ({
 	label,
@@ -21,7 +21,7 @@ const CustomLabel = ({
 				) : type === 'location' ? (
 					<LocationOnIcon />
 				) : (
-					<People />
+					<PeopleIcon />
 				)}
 			</IconWrapper>
 			<Typography

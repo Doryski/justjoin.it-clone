@@ -1,5 +1,5 @@
 import moment from 'moment'
-import DATE_FORMAT from './dateFormat'
+import {DATE_FORMAT} from './utils'
 
 export default (
 	date: string,

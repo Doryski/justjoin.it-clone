@@ -4,22 +4,13 @@ import Typography from './Typography'
 import techLvlOptions from '../../helpers/techLvlOptions'
 import theme, { textColors } from '../../theme'
 
-const TechRange = ({ range, tech }: { range: number; tech: any }) => {
-	const switchRange = () => {
-		switch (range) {
-			case 1:
-				return 'nice to have'
-			case 2:
-				return 'junior'
-			case 3:
-				return 'regular'
-			case 4:
-				return 'advanced'
-			case 5:
-				return 'expert'
-		}
-	}
-
+const TechRange = ({
+	range,
+	tech,
+}: {
+	range: number
+	tech: string
+}) => {
 	return (
 		<Container>
 			<RangeContainer>
@@ -46,7 +37,7 @@ const TechRange = ({ range, tech }: { range: number; tech: any }) => {
 				align='flex-start'
 				margin='0'
 			>
-				{switchRange()}
+				{techLvlOptions[range - 1].toLowerCase()}
 			</Typography>
 		</Container>
 	)

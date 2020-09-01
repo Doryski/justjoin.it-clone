@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import styled from 'styled-components'
 import Header from './Header'
 import Filters from './Filters'
-import OfferList from './OfferList'
 import Map from './Map'
-import OfferPage from './OfferPage'
 import { Switch, Route } from 'react-router-dom'
+import Center from './shared/Center'
+import { CircularProgress } from '@material-ui/core'
+const OfferPage = lazy(() => import('./OfferPage'))
+const OfferList = lazy(() => import('./OfferList'))
 
 const MainPage = () => (
 	<MainContainer>
@@ -14,16 +16,24 @@ const MainPage = () => (
 		<SubContainer>
 			<OfferContainer>
 				<OfferContainerScroll>
-					<Switch>
-						<Route
-							path='/offers/:slug?'
-							component={OfferPage}
-						/>
-						<Route
-							path='/:location?/:tech?/:expLvl?/:from?/:to?'
-							component={OfferList}
-						/>
-					</Switch>
+					<React.Suspense
+						fallback={
+							<Center>
+								<CircularProgress />
+							</Center>
+						}
+					>
+						<Switch>
+							<Route
+								path='/offers/:slug?'
+								component={OfferPage}
+							/>
+							<Route
+								path='/:location?/:tech?/:expLvl?/:from?/:to?'
+								component={OfferList}
+							/>
+						</Switch>
+					</React.Suspense>
 				</OfferContainerScroll>
 			</OfferContainer>
 			<Map />

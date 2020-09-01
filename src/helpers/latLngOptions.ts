@@ -1,4 +1,4 @@
-export default {
+const latLngOptions: { [key: string]: [number, number] } = {
 	bialystok: [53.132315, 23.16435],
 	bielskobiala: [49.82214, 19.056564],
 	bydgoszcz: [53.122543, 18.007561],
@@ -20,3 +20,4 @@ export default {
 	wroclaw: [51.1086, 17.038333],
 	zielonagora: [51.936619, 15.50869],
 }
+export default latLngOptions
