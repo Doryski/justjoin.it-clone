@@ -1,6 +1,7 @@
 import ParamsType from './ParamsType'
 
-export default interface GetParamsType {
+type GetParamsType = {
 	all: ParamsType
 	tech: (tech: string | null | undefined) => ParamsType
 }
+export default GetParamsType

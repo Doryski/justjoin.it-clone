@@ -1,2 +1,1 @@
-const MAX_SLIDER_VALUE = 50000
-export default MAX_SLIDER_VALUE
+

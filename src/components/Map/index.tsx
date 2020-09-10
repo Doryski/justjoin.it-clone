@@ -10,14 +10,14 @@ import stringFormat from '../../helpers/stringFormat'
 import mapTilerProvider from './mapTilerProvider'
 import InitialStoreState from '../../types/InitialStoreState'
 import { setMap } from '../../store/actions'
-const Tooltip = lazy(() => import('./Tooltip'))
+import Tooltip from './Tooltip'
 
-interface MouseOverType {
+type MouseOverType = {
 	slug: string | null
 	state: boolean
 }
 
-interface MapWrapperProps {
+type MapWrapperProps = {
 	params: InitialStoreState['params']
 	offers: InitialStoreState['offers']
 	map: InitialStoreState['map']

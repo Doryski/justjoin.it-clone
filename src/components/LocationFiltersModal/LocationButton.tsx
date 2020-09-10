@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import InitialStoreState from '../../types/InitialStoreState'
 import ParamsType from '../../types/ParamsType'
 
-interface LocationButtonProps {
+type LocationButtonProps = {
 	loc: string
 	params: ParamsType
 	setLocation: React.Dispatch<

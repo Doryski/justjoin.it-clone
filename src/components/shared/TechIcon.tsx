@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import InitialStoreState from '../../types/InitialStoreState'
 import ParamsType from '../../types/ParamsType'
 
-interface TechIconProps {
+type TechIconProps = {
 	tech: string
 	params: ParamsType
 	handleClick?: VoidFunction

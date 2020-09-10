@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { textColors } from '../../theme'
 
-interface TypographyProps {
+type TypographyProps = {
 	fWeight?: string
 	family?: string
 	fontSize?: string
@@ -10,7 +10,7 @@ interface TypographyProps {
 	hoverColor?: string
 }
 
-interface WrapperProps {
+type WrapperProps = {
 	display?: string
 	margin?: string
 	align?: string
@@ -21,6 +21,7 @@ interface WrapperProps {
 export const Wrapper = styled.h4<WrapperProps>`
 	${({ display, margin, align, padding, minWidth }) => css`
 		display: ${display || 'block'};
+		align-items: ${display === 'flex' ? 'center' : 'initial'};
 		margin: ${margin || '0'};
 		text-align: ${align || 'center'};
 		padding: ${padding || '0'};
@@ -40,42 +41,41 @@ const Typography = styled(Wrapper).attrs(
 		color,
 		hoverColor,
 	}: TypographyProps) => css`
-		font-weight: ${({ theme }) => fWeight || theme.fontWeight[600]};
+		font-weight: ${({ theme }) =>
+			fWeight || theme.fontWeight[600]};
 		font-family: ${family || "'Open Sans', sans-serif"};
 		font-size: ${({ theme }) => fontSize || theme.fontSize.md};
-		${
-			hide &&
-			`
+		${hide &&
+		`
         overflow: hidden;
 		text-overflow: ellipsis;
-		`
+		`}
+		color: ${({ theme }) => {
+			switch (color) {
+				case 'primary':
+					return theme.colors.primary
+				case 'text':
+					return theme.colors.text
+				case 'pink':
+					return theme.colors.pink
+				case 'title':
+					return theme.colors.title
+				case 'salary':
+					return theme.colors.salary
+				case 'span':
+					return theme.colors.span
+				case 'white':
+					return theme.colors.white
+				default:
+					return theme.colors.title
+			}
+		}};
+		&:hover {
+			color: ${({ theme }) =>
+				hoverColor === textColors.lightPink
+					? theme.colors.lightPink
+					: hoverColor};
 		}
-	color: ${({ theme }) => {
-		switch (color) {
-			case 'primary':
-				return theme.colors.primary
-			case 'text':
-				return theme.colors.text
-			case 'pink':
-				return theme.colors.pink
-			case 'title':
-				return theme.colors.title
-			case 'salary':
-				return theme.colors.salary
-			case 'span':
-				return theme.colors.span
-			case 'white':
-				return theme.colors.white
-			default:
-				return theme.colors.title
-		}
-	}};
-	&:hover {
-		color: ${({ theme }) =>
-			hoverColor === textColors.lightPink
-				? theme.colors.lightPink
-				: hoverColor};
-	}
 	`}
 `
 

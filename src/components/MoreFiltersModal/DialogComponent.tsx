@@ -38,7 +38,7 @@ const DialogComponent = ({
 			maxWidth='sm'
 			open={isDialogOpen}
 			onClose={close}
-			fullWidth={true}
+			fullWidth
 			fullScreen={fullScreen}
 		>
 			<Container>

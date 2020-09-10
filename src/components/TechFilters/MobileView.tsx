@@ -10,7 +10,7 @@ import Center from '../shared/Center'
 import { CircularProgress } from '@material-ui/core'
 import Dialog from '@material-ui/core/Dialog'
 
-interface MobileViewProps {
+type MobileViewProps = {
 	isDialogOpen: boolean
 	open: VoidFunction
 	close: VoidFunction

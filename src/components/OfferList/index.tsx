@@ -1,42 +1,24 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import styled from 'styled-components'
-import OfferCard from '../OfferCard'
-import { connect } from 'react-redux'
 import ListHeader from './ListHeader'
-import filterOffers from '../../helpers/filterOffers'
-import sortOffers from '../../helpers/sortOffers'
-import InitialStoreState from '../../types/InitialStoreState'
+import { CircularProgress } from '@material-ui/core'
+import Center from '../shared/Center'
+const List = lazy(() => import('./List'))
 
-const OfferList = ({
-	params,
-	offers,
-}: {
-	params: InitialStoreState['params']
-	offers: InitialStoreState['offers']
-}) => {
-	const filteredOffers = filterOffers(offers, params)
-	const sortedOffers = sortOffers(filteredOffers, params)
-
+const OfferList = () => {
 	return (
 		<Container>
 			<ListHeader />
 			<ContainerScroll>
-				<ListContainer>
-					{
-						// loading ? (
-						// 	<ProgressWrapper>
-						// 		<CircularProgress size='30px' />
-						// 	</ProgressWrapper>
-						// ) : (
-						sortedOffers.map(offer => (
-							<OfferCard
-								key={offer.slug}
-								offer={offer}
-							/>
-						))
-						// )
+				<React.Suspense
+					fallback={
+						<Center>
+							<CircularProgress />
+						</Center>
 					}
-				</ListContainer>
+				>
+					<List />
+				</React.Suspense>
 			</ContainerScroll>
 		</Container>
 	)
@@ -54,33 +36,10 @@ export const ContainerScroll = styled.div`
 	flex: 1 1 0%;
 `
 
-export const ListContainer = styled.div`
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	bottom: 0px;
-	left: 0px;
-	overflow: auto;
-
-	@media only screen and (max-width: ${({ theme }) =>
-			theme.breakpoints.md}) {
-		padding: 0;
-	}
-`
 export const InfoSpan = styled.span`
 	display: block;
 	color: ${({ theme }) => theme.colors.title};
 	font-size: 1.2rem;
 `
-export const ProgressWrapper = styled.div`
-	display: flex;
-	justify-content: center;
-	padding-top: 2.5em;
-`
 
-const mapStateToProps = ({ params, offers }: InitialStoreState) => ({
-	params,
-	offers,
-})
-
-export default connect(mapStateToProps)(OfferList)
+export default OfferList
