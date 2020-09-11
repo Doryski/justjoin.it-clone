@@ -28,13 +28,8 @@ const OfferApplySection = () => {
         handleFileDelete,
     } = useFileUpload(uploadRef)
     const { register, handleSubmit, errors } = useForm()
-    useEffect(() => {
-        console.log(errors)
-    }, [errors])
 
-    const onSubmit = handleSubmit((data, e) => {
-        console.log(data)
-        console.log(e)
+    const onSubmit = handleSubmit(data => {
         let formData: {
             [x: string]: any
         } = { ...data, processInFuture: isChecked }
@@ -52,7 +47,8 @@ const OfferApplySection = () => {
                 fWeight={theme.fontWeight[500]}
                 fontSize={theme.fontSize.xl}
                 align='flex-start'
-                margin='0.625em 1.25em'>
+                margin='0.625em 1.25em'
+            >
                 Apply for this job
             </Typography>
 
@@ -139,7 +135,8 @@ const OfferApplySection = () => {
                             {!!fileName ? (
                                 <>
                                     <div
-                                        style={{ maxWidth: '210px' }}>
+                                        style={{ maxWidth: '210px' }}
+                                    >
                                         <Typography
                                             color={textColors.pink}
                                             fWeight={
@@ -147,17 +144,20 @@ const OfferApplySection = () => {
                                             }
                                             fontSize={
                                                 theme.fontSize.md
-                                            }>
+                                            }
+                                        >
                                             {fileName}
                                         </Typography>
                                     </div>
                                     <DeleteFileBtn
-                                        onClick={handleFileDelete}>
+                                        onClick={handleFileDelete}
+                                    >
                                         <Typography
                                             color={textColors.span}
                                             fWeight={
                                                 theme.fontWeight[700]
-                                            }>
+                                            }
+                                        >
                                             Delete
                                         </Typography>
                                         <DeleteOutline />
@@ -170,7 +170,8 @@ const OfferApplySection = () => {
                                     </UploadIconWrapper>
                                     <label
                                         htmlFor='cv'
-                                        style={{ cursor: 'pointer' }}>
+                                        style={{ cursor: 'pointer' }}
+                                    >
                                         <Typography
                                             color={textColors.span}
                                             fWeight={
@@ -179,7 +180,8 @@ const OfferApplySection = () => {
                                             fontSize={
                                                 theme.fontSize.large
                                             }
-                                            margin='0 0 0 .5em'>
+                                            margin='0 0 0 .5em'
+                                        >
                                             Upload CV (.pdf)
                                         </Typography>
                                     </label>
@@ -197,7 +199,8 @@ const OfferApplySection = () => {
                         />
                         <Typography
                             color={textColors.span}
-                            fWeight={theme.fontWeight[400]}>
+                            fWeight={theme.fontWeight[400]}
+                        >
                             Processing data in future recruitment
                         </Typography>
                     </CheckboxWrapper>
@@ -207,12 +210,14 @@ const OfferApplySection = () => {
                             display='flex'
                             minWidth='142px'
                             padding='.5em 0 .5em 2em'
-                            type='submit'>
+                            type='submit'
+                        >
                             Apply
                             <Typography
                                 display='block'
                                 color={textColors.white}
-                                padding='0.5em 0.5em 0.5em 1.5em'>
+                                padding='0.5em 0.5em 0.5em 1.5em'
+                            >
                                 <Send />
                             </Typography>
                         </CustomButton>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import _ from 'lodash'
 import { Dialog } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -11,22 +10,8 @@ import EditorSection from './EditorSection'
 import styled from 'styled-components'
 import { Wrapper } from './StyledComponents'
 import CustomButton from '../shared/CustomButton'
-import { FIELD_REQUIRED_ERR } from '../../helpers/utils'
-
-type FormDataType = {
-    tech: string
-    offerTitle: string
-    companyName: string
-    city: string
-    street: string
-    companySize: number
-    salaryFrom: number
-    salaryTo: number
-    empType: string
-    expLvl: string
-    technology: string
-    techLvl: number
-}
+import { FIELD_REQUIRED_ERR, DATE_FORMAT } from '../../helpers/utils'
+import moment from 'moment'
 
 const AddOfferModal = ({
     isDialogOpen,
@@ -35,62 +20,46 @@ const AddOfferModal = ({
     isDialogOpen: boolean
     close: VoidFunction
 }) => {
-    const { handleSubmit, getValues, errors } = useForm<
-        FormDataType
-    >()
+    const { handleSubmit, register, errors } = useForm()
     const [description, setDescription] = useState('')
     const [descriptionError, setDescriptionError] = useState('')
     const [loading, setLoading] = useState(false)
     const fullScreen = useMediaQuery('(max-width:800px)')
-
     const [techSize, setTechSize] = useState(1)
     const handleTechSize = {
         add: () => setTechSize(techSize + 1),
         remove: () => setTechSize(techSize - 1),
     }
 
-    const onSubmit = handleSubmit((data, e) => {
-        // setDescriptionError('')
-        // console.log(description)
-        console.log(errors)
-        if (!description)
-            return setDescriptionError(FIELD_REQUIRED_ERR)
-        if (!data.companyName) return alert("there's no data")
-
+    const onSubmit = handleSubmit(data => {
         setLoading(true)
-
-        // const finalData = {
-        // 	...data,
-        // 	dateAdd: moment().format(DATE_FORMAT),
-        // 	image: 'https://source.unsplash.com/700x400/?logo',
-        // 	description,
-        // 	placeId: `${street}-${location}`,
-        // }
-        // console.log(finalData)
-        // setOffers(finalData)
-        // // let formData = new FormData()
-
-        // // _.forEach(finalData, (value: string, key: string) => {
-        // // 	formData.append(key, value)
-        // // })
-
-        // // try {
-        // // 	await axios.post('/posts/', formData, {
-        // // 		headers: {
-        // // 			'content-type': 'multipart/form-data',
-        // // 		},
-        // // 	})
-        // // 	setDialogOpen(false)
-        // // 	alert('Success. You added offer.')
-        // // } catch (error) {
-        // // 	alert(error.message)
-        // // }
+        if (!description) {
+            setDescriptionError(FIELD_REQUIRED_ERR)
+            return setLoading(false)
+        }
+        let technology = []
+        for (let i = 0; i < data.technology.length; i++) {
+            technology.push({
+                tech: data.technology[i],
+                techLvl: data.techLvl[i],
+            })
+        }
+        let formData: { [x: string]: any } = {
+            ...data,
+            slug: `${data.offerTitle}_${data.companyName}_${data.city}`,
+            dateAdd: moment().format(DATE_FORMAT),
+            image: 'https://source.unsplash.com/700x400/?logo',
+            placeId: `${data.street}-${data.city}`,
+            description,
+            technology,
+        }
+        delete formData.techLvl
 
         setLoading(false)
+
         alert('Offer was added successfully!')
 
-        console.log(data, e)
-        return close()
+        close()
     })
 
     return (
@@ -99,17 +68,23 @@ const AddOfferModal = ({
             open={isDialogOpen}
             onClose={close}
             fullWidth={true}
-            fullScreen={fullScreen}>
+            fullScreen={fullScreen}
+        >
             <form onSubmit={onSubmit}>
                 <Container>
                     <DialogHeader close={close}>
                         Add offer
                     </DialogHeader>
-                    <InfoSection />
+                    <InfoSection
+                        register={register}
+                        errors={errors}
+                    />
                     <DialogHeader>Technology</DialogHeader>
                     <TechnologySection
                         techSize={techSize}
                         handleTechSize={handleTechSize}
+                        register={register}
+                        errors={errors}
                     />
                     <DialogHeader>Description</DialogHeader>
                     <EditorSection
@@ -120,7 +95,8 @@ const AddOfferModal = ({
                         <CustomButton
                             type='submit'
                             padding='0.5em 1.125em'
-                            pink>
+                            pink
+                        >
                             {loading ? (
                                 <StyledCircularProgress
                                     size='10px'

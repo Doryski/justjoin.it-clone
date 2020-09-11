@@ -4,36 +4,36 @@ import SelectComponent from '../shared/CustomSelect'
 import InputComponent from '../shared/CustomInput'
 import styled from 'styled-components'
 import { Wrapper, InputsContainer } from './StyledComponents'
-import { useForm } from 'react-hook-form'
 import RemoveIcon from '@material-ui/icons/Remove'
 import AddIcon from '@material-ui/icons/Add'
 
 const TechnologySection = ({
     techSize,
     handleTechSize,
+    register,
+    errors,
 }: {
     techSize: number
     handleTechSize: { add: VoidFunction; remove: VoidFunction }
+    register: Function
+    errors: Record<string, any>
 }) => {
-    const { register, errors } = useForm()
-
     return (
         <InputsContainer>
             {[...Array(techSize)].map((v, index) => (
                 <Wrapper key={index}>
                     <InputComponent
                         max={35}
-                        type="text"
+                        type='text'
                         name={`technology[${index}]`}
-                        label="Technology"
+                        label='Technology'
                         register={register}
                         required
                         errors={errors}
                     />
-
                     <SelectComponent
                         name={`techLvl[${index}]`}
-                        label="Tech level"
+                        label='Tech level'
                         register={register}
                         required
                         errors={errors}
@@ -80,7 +80,8 @@ export const IconWrapper = styled.div`
     cursor: pointer;
     color: ${({ theme }) => theme.colors.span};
     &:hover {
-        background: ${({ theme }) => theme.colors.buttonBackgroundHover};
+        background: ${({ theme }) =>
+            theme.colors.buttonBackgroundHover};
     }
 `
 
