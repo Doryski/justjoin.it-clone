@@ -75,11 +75,11 @@ export const SORT_OPTIONS = {
 }
 
 export const TECH_LVL_OPTIONS = [
-    'Nice to have',
-    'Junior',
-    'Regular',
-    'Advanced',
-    'Expert',
+    { id: 1, title: 'Nice to have' },
+    { id: 2, title: 'Junior' },
+    { id: 3, title: 'Regular' },
+    { id: 4, title: 'Advanced' },
+    { id: 5, title: 'Expert' },
 ]
 
 export const TECHNOLOGIES = [

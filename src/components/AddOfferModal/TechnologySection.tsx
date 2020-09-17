@@ -1,23 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { TECH_LVL_OPTIONS } from '../../helpers/utils'
-import SelectComponent from '../shared/CustomSelect'
-import InputComponent from '../shared/CustomInput'
+import SelectComponent from './CustomSelect'
+import InputComponent from './CustomInput'
 import styled from 'styled-components'
 import { Wrapper, InputsContainer } from './StyledComponents'
 import RemoveIcon from '@material-ui/icons/Remove'
 import AddIcon from '@material-ui/icons/Add'
+import { AddOfferContext } from './AddOfferContext'
 
 const TechnologySection = ({
     techSize,
     handleTechSize,
-    register,
-    errors,
 }: {
     techSize: number
     handleTechSize: { add: VoidFunction; remove: VoidFunction }
-    register: Function
-    errors: Record<string, any>
 }) => {
+    const { register, errors } = useContext(AddOfferContext)
     return (
         <InputsContainer>
             {[...Array(techSize)].map((v, index) => (
@@ -37,7 +35,11 @@ const TechnologySection = ({
                         register={register}
                         required
                         errors={errors}
-                        options={TECH_LVL_OPTIONS}
+                        options={{
+                            array: TECH_LVL_OPTIONS,
+                            value: 'id',
+                            label: 'title',
+                        }}
                     />
                 </Wrapper>
             ))}

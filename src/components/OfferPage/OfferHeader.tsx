@@ -8,6 +8,7 @@ import formatThous from '../../helpers/formatThous'
 import { INFO_LABELS } from '../../helpers/utils'
 import theme, { textColors } from '../../theme'
 import OfferType from '../../types/OfferType'
+import stringFormat from '../../helpers/stringFormat'
 
 const OfferHeader = ({ offer }: { offer: OfferType }) => {
     const {
@@ -22,7 +23,7 @@ const OfferHeader = ({ offer }: { offer: OfferType }) => {
 
     return (
         <HeaderContainer>
-            <HeaderInner tech={tech}>
+            <HeaderInner tech={stringFormat(tech)}>
                 <Link to='/'>
                     <HeaderActionIcon arrow>
                         <ArrowBack />
@@ -41,7 +42,8 @@ const OfferHeader = ({ offer }: { offer: OfferType }) => {
                             color={textColors.white}
                             align='flex-start'
                             margin='0.25em 0'
-                            fWeight={theme.fontWeight[400]}>
+                            fWeight={theme.fontWeight[400]}
+                        >
                             {formatThous(salaryFrom)} -{' '}
                             {formatThous(salaryTo)} PLN
                         </Typography>
@@ -49,14 +51,16 @@ const OfferHeader = ({ offer }: { offer: OfferType }) => {
                             color={textColors.white}
                             align='flex-start'
                             fontSize={theme.fontSize.xl}
-                            margin='0.25em 0'>
+                            margin='0.25em 0'
+                        >
                             {offerTitle}
                         </Typography>
                         <Typography
                             color={textColors.white}
                             align='flex-start'
                             margin='0.25em 0'
-                            fWeight={theme.fontWeight[400]}>
+                            fWeight={theme.fontWeight[400]}
+                        >
                             {street}, {city}
                         </Typography>
                     </MainInfoContainer>

@@ -4,7 +4,13 @@ import Typography from './Typography'
 import { TECH_LVL_OPTIONS } from '../../helpers/utils'
 import theme, { textColors } from '../../theme'
 
-const TechRange = ({ range, tech }: { range: number; tech: string }) => {
+const TechRange = ({
+    range,
+    tech,
+}: {
+    range: number
+    tech: string
+}) => {
     return (
         <Container>
             <RangeContainer>
@@ -18,9 +24,9 @@ const TechRange = ({ range, tech }: { range: number; tech: string }) => {
             <Typography
                 color={textColors.title}
                 fWeight={theme.fontWeight[600]}
-                fontSize="1.1rem"
-                align="flex-start"
-                margin="0.3125em 0 0"
+                fontSize='1.1rem'
+                align='flex-start'
+                margin='0.3125em 0 0'
                 hide
             >
                 {tech}
@@ -28,10 +34,10 @@ const TechRange = ({ range, tech }: { range: number; tech: string }) => {
             <Typography
                 color={textColors.span}
                 fWeight={theme.fontWeight[400]}
-                align="flex-start"
-                margin="0"
+                align='flex-start'
+                margin='0'
             >
-                {TECH_LVL_OPTIONS[range - 1].toLowerCase()}
+                {TECH_LVL_OPTIONS[range - 1].title.toLowerCase()}
             </Typography>
         </Container>
     )
@@ -43,7 +49,8 @@ export const Container = styled.div`
     max-width: 20%;
     flex: 0 0 20%;
     margin: 0 0 2em;
-    @media only screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    @media only screen and (max-width: ${({ theme }) =>
+            theme.breakpoints.md}) {
         max-width: 50%;
         flex: 1 0 50%;
     }

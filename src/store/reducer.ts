@@ -3,16 +3,14 @@ import {
     SET_OFFERS,
     SET_PARAMS,
     SET_MAP,
+    SET_CURRENT_OFFER,
 } from './types'
 import latLngOptions from '../helpers/latLngOptions'
-import offerListDemo from '../helpers/offerListDemo'
 import InitialStoreState from '../types/InitialStoreState'
 
 export const initialState: InitialStoreState = {
     darkMode: JSON.parse(localStorage.darkMode || false),
-    offers: !!localStorage.offers
-        ? JSON.parse(localStorage.offers)
-        : offerListDemo,
+    offers: [],
     map: {
         coordinates: latLngOptions.poland,
         zoom: 6,
@@ -26,6 +24,7 @@ export const initialState: InitialStoreState = {
         sort: null,
         search: null,
     },
+    currentOffer: null,
 }
 
 const reducer = (state = initialState, action: any) => {
@@ -47,6 +46,8 @@ const reducer = (state = initialState, action: any) => {
             }
         case SET_MAP:
             return { ...state, map: action.payload }
+        case SET_CURRENT_OFFER:
+            return { ...state, currentOffer: action.payload }
         default:
             return state
     }

@@ -1,55 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
-import _ from 'lodash'
-import { Send } from '@material-ui/icons'
 import InitialStoreState from '../../types/InitialStoreState'
-import OfferType from '../../types/OfferType'
-import { setParams } from '../../store/actions'
-import Center from '../shared/Center'
-import { CircularProgress } from '@material-ui/core'
 import OfferHeader from './OfferHeader'
 import OfferTechStack from './OfferTechStack'
 import OfferDescription from './OfferDescription'
 import OfferApplySection from './OfferApplySection'
+import Center from '../shared/Center'
 
-const OfferPage = ({ offers }: { offers: OfferType[] }) => {
-    const { slug } = useParams()
-    const [offer, setOffer] = useState<OfferType>(offers[0])
-    const [loading, setLoading] = useState(false)
-
-    useEffect(() => {
-        setLoading(true)
-        const getPost = () => {
-            const posts = !!localStorage.offers
-                ? JSON.parse(localStorage.offers)
-                : offers
-            const foundPost = posts.find(
-                (post: OfferType) => post.slug === slug
-            )
-            setOffer(foundPost)
-        }
-
-        getPost()
-        setLoading(false)
-    }, [])
-
+const OfferPage = ({
+    currentOffer,
+}: {
+    currentOffer: InitialStoreState['currentOffer']
+}) => {
     return (
         <Container>
             <ContainerScroll>
-                {loading ? (
-                    <Center>
-                        <CircularProgress />
-                    </Center>
+                {!currentOffer ? (
+                    <Center>Error loading offer</Center>
                 ) : (
                     <>
-                        <OfferHeader offer={offer} />
+                        <OfferHeader offer={currentOffer} />
                         <OfferTechStack
-                            technology={offer.technology}
+                            technology={currentOffer.technology}
                         />
                         <OfferDescription
-                            description={offer.description}
+                            description={currentOffer.description}
                         />
                         <OfferApplySection />
                     </>
@@ -87,9 +63,8 @@ export const ProgressWrapper = styled.div`
     padding-top: 2.5em;
 `
 
-const mapStateToProps = ({ params, offers }: InitialStoreState) => ({
-    params,
-    offers,
+const mapStateToProps = ({ currentOffer }: InitialStoreState) => ({
+    currentOffer,
 })
 
-export default connect(mapStateToProps, { setParams })(OfferPage)
+export default connect(mapStateToProps)(OfferPage)
