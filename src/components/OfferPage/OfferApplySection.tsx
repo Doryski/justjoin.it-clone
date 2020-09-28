@@ -209,14 +209,14 @@ const OfferApplySection = () => {
                             pink
                             display='flex'
                             minWidth='142px'
-                            padding='.5em 0 .5em 2em'
+                            padding='.3em 0 .3em 2em'
                             type='submit'
                         >
                             Apply
                             <Typography
                                 display='block'
                                 color={textColors.white}
-                                padding='0.5em 0.5em 0.5em 1.5em'
+                                padding='0 0.5em 0 1.5em'
                             >
                                 <Send />
                             </Typography>
