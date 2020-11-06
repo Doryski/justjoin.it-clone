@@ -15,6 +15,7 @@ import theme, { textColors } from '../../theme'
 import LocationButton from './LocationButton'
 import useDialogHandler from '../../helpers/useDialogHandler'
 import Dialog from '@material-ui/core/Dialog'
+import useDeviceDetect from '../../helpers/useDeviceDetect'
 
 const LocationFilters = ({ params }: { params: ParamsType }) => {
     const [location, setLocation] = useState<ParamsType['location']>(
@@ -24,22 +25,26 @@ const LocationFilters = ({ params }: { params: ParamsType }) => {
     const { isDialogOpen, open, close } = useDialogHandler(false)
 
     const TOP_LOCATIONS_NUM = 6
-
+    const isMobile = useDeviceDetect(1025)
     return (
         <>
             <CustomButton
                 handleClick={open}
-                margin='0.375em 1.25em 0 0.3125em'
+                margin={
+                    isMobile
+                        ? '-0.625em 1.25em 0 0.3125em'
+                        : '0.375em 1.25em 0 0.3125em'
+                }
                 active={!!params.location}
                 icon
                 minWidth='148px'
                 isOpen={isDialogOpen}
-                padding='0.425em 0.75em 0.425em 1em'>
+                padding='0.425em 0.75em 0.425em 1em'
+            >
                 {params.location === null
                     ? 'Location'
                     : LOCATIONS.filter(
-                          (loc) =>
-                              stringFormat(loc) === params.location
+                          loc => stringFormat(loc) === params.location
                       )}
             </CustomButton>
             {isDialogOpen && (
@@ -47,8 +52,9 @@ const LocationFilters = ({ params }: { params: ParamsType }) => {
                     maxWidth='sm'
                     open={isDialogOpen}
                     onClose={close}
-                    fullWidth={true}
-                    fullScreen={fullScreen}>
+                    fullWidth
+                    fullScreen={fullScreen}
+                >
                     <Container>
                         <DialogHeader close={close}>
                             Location
@@ -59,14 +65,15 @@ const LocationFilters = ({ params }: { params: ParamsType }) => {
                             color={textColors.text}
                             fWeight={theme.fontWeight[700]}
                             fontSize={theme.fontSize.large}
-                            padding='1.25em 1.25em 0 1.25em'>
+                            padding='1.25em 1.25em 0 1.25em'
+                        >
                             Top locations
                         </Typography>
                         <Wrapper>
                             {LOCATIONS.slice(
                                 0,
                                 TOP_LOCATIONS_NUM
-                            ).map((loc) => (
+                            ).map(loc => (
                                 <LocationButton
                                     key={loc}
                                     loc={loc}
@@ -80,12 +87,13 @@ const LocationFilters = ({ params }: { params: ParamsType }) => {
                             color={textColors.text}
                             fWeight={theme.fontWeight[700]}
                             fontSize={theme.fontSize.large}
-                            padding='0 1.25em'>
+                            padding='0 1.25em'
+                        >
                             Other locations
                         </Typography>
                         <Wrapper>
                             {LOCATIONS.slice(TOP_LOCATIONS_NUM).map(
-                                (loc) => (
+                                loc => (
                                     <LocationButton
                                         key={loc}
                                         loc={loc}

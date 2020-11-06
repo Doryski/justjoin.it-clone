@@ -55,7 +55,7 @@ const OfferApplySection = () => {
             <Wrapper>
                 <Form onSubmit={onSubmit}>
                     <FormGrid>
-                        <TextField
+                        <MyTextField
                             style={{ fontFamily: 'inherit' }}
                             error={!!errors.firstAndLastName}
                             id='firstAndLastName'
@@ -82,7 +82,7 @@ const OfferApplySection = () => {
                                     'First & last name is a required field',
                             })}
                         />
-                        <TextField
+                        <MyTextField
                             error={!!errors.email}
                             id='email'
                             name='email'
@@ -108,7 +108,7 @@ const OfferApplySection = () => {
                                 },
                             })}
                         />
-                        <TextField
+                        <MyTextField
                             id='introduction'
                             name='introduction'
                             label='Introduce yourself (linkedin/github links)'
@@ -274,6 +274,9 @@ export const UploadWrapper = styled.div`
     transition: border-color 300ms ease 0s;
     cursor: pointer;
     min-height: 100px;
+    &:hover {
+        border-color: ${({ theme }) => theme.colors.pink};
+    }
 `
 export const UploadIconWrapper = styled.div`
     > svg {
@@ -305,6 +308,15 @@ export const DeleteFileBtn = styled.button`
     &:hover {
         background: ${({ theme }) =>
             theme.colors.buttonBackgroundHover};
+    }
+`
+export const MyTextField = styled(TextField)`
+    div > fieldset {
+        border-color: rgb(224, 224, 224);
+        transition: border-color 300ms ease 0s;
+    }
+    div:hover > fieldset {
+        border-color: ${({ theme }) => theme.colors.pink} !important;
     }
 `
 

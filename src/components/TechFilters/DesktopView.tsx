@@ -4,7 +4,10 @@ import TechIcon from '../shared/TechIcon'
 import createUrl from '../../helpers/createUrl'
 import { TECHNOLOGIES } from '../../helpers/utils'
 import { Link as RouteLink } from 'react-router-dom'
-import { DropdownList, DropdownListItem } from '../shared/DropdownList'
+import {
+    DropdownList,
+    DropdownListItem,
+} from '../shared/DropdownList'
 import Typography from '../shared/Typography'
 import stringFormat from '../../helpers/stringFormat'
 import ParamsType from '../../types/ParamsType'
@@ -37,7 +40,7 @@ const DesktopView = ({
     isListOpen,
     setParams,
 }: DesktopViewProps) => {
-    const listRef = useRef<HTMLUListElement>(null)
+    const listRef = useRef<HTMLDivElement>(null)
     useDetectOutsideClick(listRef, close)
     return (
         <Container>
@@ -50,33 +53,45 @@ const DesktopView = ({
                 </AllIconContainer>
                 <TechName all>{ALL_TECH_NAME}</TechName>
             </Link>
-            <TechList cutTechArray={14} getParams={getParams} close={close} />
-            <IconWrapper>
+            <TechList
+                cutTechArray={14}
+                getParams={getParams}
+                close={close}
+            />
+            <IconWrapper ref={listRef}>
                 <StyledMoreHorizIcon onClick={toggle} />
                 <DropdownList isOpen={isListOpen} ref={listRef}>
-                    {TECHNOLOGIES.slice(cutTechArray).map((tech: string) => {
-                        const newParams = getParams.tech(stringFormat(tech))
-                        return (
-                            <RouteLink
-                                to={createUrl(newParams)}
-                                key={tech}
-                                onClick={() => {
-                                    setParams(newParams)
-                                    close()
-                                }}
-                            >
-                                <DropdownListItem>
-                                    <TechIcon tech={stringFormat(tech)} />
-                                    <Typography
-                                        fWeight={theme.fontWeight[400]}
-                                        margin="1em 0 0 0.3em"
-                                    >
-                                        {tech}
-                                    </Typography>
-                                </DropdownListItem>
-                            </RouteLink>
-                        )
-                    })}
+                    {TECHNOLOGIES.slice(cutTechArray).map(
+                        (tech: string) => {
+                            const newParams = getParams.tech(
+                                stringFormat(tech)
+                            )
+                            return (
+                                <RouteLink
+                                    to={createUrl(newParams)}
+                                    key={tech}
+                                    onClick={() => {
+                                        setParams(newParams)
+                                        close()
+                                    }}
+                                >
+                                    <DropdownListItem>
+                                        <TechIcon
+                                            tech={stringFormat(tech)}
+                                        />
+                                        <Typography
+                                            fWeight={
+                                                theme.fontWeight[400]
+                                            }
+                                            margin='1em 0 0 0.3em'
+                                        >
+                                            {tech}
+                                        </Typography>
+                                    </DropdownListItem>
+                                </RouteLink>
+                            )
+                        }
+                    )}
                 </DropdownList>
             </IconWrapper>
         </Container>
@@ -132,7 +147,8 @@ export const StyledMoreHorizIcon = styled(MoreHoriz)`
     padding: 0.125em;
     transition: background 0.3s !important;
     &:hover {
-        background: ${({ theme }) => theme.colors.buttonBackgroundHover};
+        background: ${({ theme }) =>
+            theme.colors.buttonBackgroundHover};
     }
 `
 

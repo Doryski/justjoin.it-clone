@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, RefObject } from 'react'
 import { Link as RouteLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -21,8 +21,12 @@ const SortDropdown = ({
     params: ParamsType
     setParams(params: ParamsType): void
 }) => {
-    const listRef = useRef<HTMLUListElement>(null)
-    const { close, toggle, isDialogOpen: isListOpen } = useDialogHandler(false)
+    const listRef = useRef<HTMLDivElement>(null)
+    const {
+        close,
+        toggle,
+        isDialogOpen: isListOpen,
+    } = useDialogHandler(false)
     useDetectOutsideClick(listRef, close)
 
     const getCurrentSortOption =
@@ -48,14 +52,21 @@ const SortDropdown = ({
     }
 
     return (
-        <ButtonWrapper onClick={toggle}>
+        <ButtonWrapper ref={listRef} onClick={toggle}>
             <Typography color={textColors.span}>Sort by:</Typography>
-            <Typography color={textColors.span} margin="0 .25em 0 .5em">
+            <Typography
+                color={textColors.span}
+                margin='0 .25em 0 .5em'
+            >
                 {getCurrentSortOption.name}
             </Typography>
             <StyledExpandMoreIcon isOpen={isListOpen} />
 
-            <DropdownList ref={listRef} width="126px" isOpen={isListOpen}>
+            <DropdownList
+                ref={listRef}
+                width='126px'
+                isOpen={isListOpen}
+            >
                 <RouteLink
                     to={createUrl(newParams.dateLatest)}
                     onClick={() => {
@@ -66,8 +77,8 @@ const SortDropdown = ({
                     <DropdownListItem>
                         <Typography
                             color={textColors.text}
-                            align="left"
-                            padding="0.5em 0.7em"
+                            align='left'
+                            padding='0.5em 0.7em'
                         >
                             {SORT_OPTIONS.dateLatest.name}
                         </Typography>
@@ -83,8 +94,8 @@ const SortDropdown = ({
                     <DropdownListItem>
                         <Typography
                             color={textColors.text}
-                            align="left"
-                            padding="0.5em 0.7em"
+                            align='left'
+                            padding='0.5em 0.7em'
                         >
                             {SORT_OPTIONS.salaryDown.name}
                         </Typography>
@@ -100,8 +111,8 @@ const SortDropdown = ({
                     <DropdownListItem>
                         <Typography
                             color={textColors.text}
-                            align="left"
-                            padding="0.5em 0.7em"
+                            align='left'
+                            padding='0.5em 0.7em'
                         >
                             {SORT_OPTIONS.salaryUp.name}
                         </Typography>
