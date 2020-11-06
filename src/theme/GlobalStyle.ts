@@ -14,18 +14,6 @@ const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   html {
     height: 100%;
     max-height: 100%;
-    @media only screen and (max-width: ${({ theme }) =>
-		theme.breakpoints.md}) {
-      font-size: 80.5%;
-    }
-    @media only screen and (max-width: ${({ theme }) =>
-		theme.breakpoints.sm}) {
-      font-size: 66.5%;
-    }
-    @media only screen and (max-width: ${({ theme }) =>
-		theme.breakpoints.xs}) {
-      font-size: 60.5%;
-    }
   }
   
   body {
