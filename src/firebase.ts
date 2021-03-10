@@ -1,13 +1,13 @@
 import * as firebase from 'firebase'
 
 const FIREBASE_CONFIG = {
-    apiKey: 'AIzaSyDH68eCZgE89EUIk1UU8VF8NB9CRCay0Sw',
-    authDomain: 'justjoinitclone.firebaseapp.com',
-    databaseURL: 'https://justjoinitclone.firebaseio.com',
-    projectId: 'justjoinitclone',
-    storageBucket: 'justjoinitclone.appspot.com',
-    messagingSenderId: '492983205269',
-    appId: '1:492983205269:web:5549cadd8ffdc9a9418a9c',
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.FIREBASE_DB_URL,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
 }
 
 firebase.initializeApp(FIREBASE_CONFIG)
