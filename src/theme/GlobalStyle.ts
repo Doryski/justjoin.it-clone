@@ -1,7 +1,14 @@
 import { createGlobalStyle } from 'styled-components'
 import { ThemeType } from '.'
+// @ts-ignore
+import OpenSans from '../fonts/Open_Sans/OpenSans-Regular.ttf'
 
 const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
+ @font-face {
+        font-family: 'Open Sans';
+        font-display: swap;
+        src: url(${OpenSans});
+    }
   *,
   &:before,
   &:after {
